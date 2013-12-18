@@ -1,7 +1,8 @@
 <?php
 
+namespace DevHub;
 
-add_action( 'wp_enqueue_scripts', 'theme_scripts_styles' );
+add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\theme_scripts_styles' );
 function theme_scripts_styles() {
 	wp_enqueue_style( 'wp-doc-style', get_stylesheet_uri() );
 	wp_enqueue_style( 'droid-sans-mono', '//fonts.googleapis.com/css?family=Droid+Sans+Mono' );
@@ -48,3 +49,17 @@ function wp_doc_comment( $comment, $args, $depth ) {
 	<?php
 }
 
+/**
+ * Get current (latest) since version
+ *
+ * @return object
+ */
+function get_current_version() {
+
+	$version = get_terms( 'wpapi-since', array(
+		'number' => '1',
+		'order'  => 'DESC',
+	) );
+
+	return $version[0];
+}
