@@ -2,7 +2,26 @@
 
 namespace DevHub;
 
-add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\theme_scripts_styles' );
+add_action( 'init', __NAMESPACE__ . '\\init' );
+
+
+function init() {
+
+	add_action( 'pre_get_posts', __NAMESPACE__ . '\\pre_get_posts' );
+	add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\theme_scripts_styles' );
+}
+
+/**
+ * @param \WP_Query $query
+ */
+function pre_get_posts( $query ) {
+
+	if ( $query->is_main_query() && $query->is_post_type_archive() ) {
+		$query->set( 'orderby', 'title' );
+		$query->set( 'order', 'ASC' );
+	}
+}
+
 function theme_scripts_styles() {
 	wp_enqueue_style( 'wp-doc-style', get_stylesheet_uri() );
 	wp_enqueue_style( 'droid-sans-mono', '//fonts.googleapis.com/css?family=Droid+Sans+Mono' );
