@@ -10,7 +10,7 @@ Version:        1.0-beta
 p.bbcrumb {
 	margin: 1em 12px;
 }
-
+/*
 article.wpapi-function {
 	clear: both;
 	padding: 0 12px;
@@ -78,7 +78,7 @@ article.wpapi-function #comments .comment {
 	padding-bottom: 5px;
 	margin-bottom: 10px;
 }
-
+*/
 #comments label {
 	display: block;
 }
