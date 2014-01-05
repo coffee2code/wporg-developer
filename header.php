@@ -1,7 +1,7 @@
 <?php
 global $pagetitle;
 $pagetitle = wp_title( '&laquo;', false, 'right' ) . ' ' . get_bloginfo( 'name' );
-wp_enqueue_style( 'wporg-developer', get_bloginfo( 'stylesheet_url' ), array(), 1, 'screen' );
+
 require WPORGPATH . 'header.php';
 ?>
 <div class="devhub-wrap">
