@@ -55,3 +55,31 @@ function get_current_version() {
 
 	return $version[0];
 }
+
+/**
+ * Retrieve URL to since version archive
+ *
+ * @param string $name
+ *
+ * @return string
+ */
+function get_since_link( $name = null ) {
+
+	$since_object = get_term_by( 'name', empty( $name ) ? get_since() : $name, 'wpapi-since' );
+
+	return empty( $since_object ) ? '' : esc_url( get_term_link( $since_object ) );
+}
+
+/**
+ * Retrieve name of since version
+ *
+ * @param int $post_id
+ *
+ * @return string
+ */
+function get_since( $post_id = null ) {
+
+	$since_object = wp_get_post_terms( empty( $post_id ) ? get_the_ID() : $post_id, 'wpapi-since', array( 'fields' => 'names' ) );
+
+	return empty( $since_object ) ? '' : esc_html( $since_object[0] );
+}

@@ -15,13 +15,25 @@
 
 				<h1><?php the_title(); ?></h1>
 
-				<section class="content">
+				<section class="description">
+					<?php the_excerpt(); ?>
+				</section>
+
+				<section class="long-description">
 					<?php the_content(); ?>
 				</section>
 
 				<section class="return"><strong>Return:</strong> TODO</section>
 
-				<section class="since"><strong>Since:</strong> WordPress TODO</section>
+				<?php
+				$since = get_since();
+				if ( ! empty( $since ) ) :
+					?>
+					<section class="since">
+						<strong>Since:</strong> WordPress
+						<a href="<?php echo get_since_link( $since ); ?>"><?php echo $since; ?></a>
+					</section>
+				<?php endif; ?>
 
 				<section class="meta">Used by TODO | Uses TODO | TODO Examples</section>
 
