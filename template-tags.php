@@ -1,5 +1,7 @@
 <?php
 
+namespace DevHub;
+
 function wp_doc_comment( $comment, $args, $depth ) {
 	?>
 <li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>">
