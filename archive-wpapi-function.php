@@ -1,3 +1,4 @@
+<?php namespace DevHub; ?>
 <?php get_header(); ?>
 
 <div class="<?php body_class( 'pagebody' ) ?>">
