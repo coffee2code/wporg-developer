@@ -8,6 +8,10 @@ if ( ! function_exists( 'loop_pagination' ) ) {
 	require __DIR__ . '/php/loop-pagination.php';
 }
 
+if ( ! function_exists( 'breadcrumb_trail' ) ) {
+	require __DIR__ . '/php/breadcrumb-trail.php';
+}
+
 
 add_action( 'init', __NAMESPACE__ . '\\init' );
 

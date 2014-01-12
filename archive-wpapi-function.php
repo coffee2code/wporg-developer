@@ -3,8 +3,8 @@
 
 <div class="<?php body_class( 'pagebody' ) ?>">
 	<div class="wrapper">
-		TODO Breadcrumb
-		<?php // get_template_part( 'breadcrumbs' ); ?>
+
+		<?php breadcrumb_trail(); ?>
 
 		<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
