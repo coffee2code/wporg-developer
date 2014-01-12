@@ -8,7 +8,7 @@
 
 		<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
-			<?php if ( $wp_query->current_post ) : ?>
+			<?php /** @var \WP_Query $wp_query */ if ( $wp_query->current_post ) : ?>
 				<hr />
 			<?php endif; ?>
 
