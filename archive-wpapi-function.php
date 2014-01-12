@@ -24,7 +24,7 @@
 					<?php the_content(); ?>
 				</section>
 
-				<section class="return"><strong>Return:</strong> TODO</section>
+				<section class="return"><strong>Return:</strong> <?php echo get_return(); ?></section>
 
 				<?php
 				$since = get_since();

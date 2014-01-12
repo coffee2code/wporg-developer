@@ -59,6 +59,34 @@ function get_current_version() {
 }
 
 /**
+ * Retrieve return type and description if available
+ *
+* @param int $post_id
+ *
+ * @return string
+ */
+function get_return( $post_id = null ) {
+
+	if ( empty( $post_id ) ) {
+		$post_id = get_the_ID();
+	}
+
+	$tags   = get_post_meta( $post_id, '_wpapi_tags', true );
+	$return = wp_filter_object_list( $tags, array( 'name' => 'return' ) );
+
+	if ( empty( $return ) ) {
+		$description = '';
+		$type        = 'void';
+	} else {
+		$return      = array_shift( $return );
+		$description = empty( $return['content'] ) ? '' : esc_html( $return['content'] );
+		$type        = empty( $return['types'] ) ? '' : esc_html( implode( '|', $return['types'] ) );
+	}
+
+	return "<span class='return-type'>{$type}</span> $description";
+}
+
+/**
  * Retrieve URL to since version archive
  *
  * @param string $name
