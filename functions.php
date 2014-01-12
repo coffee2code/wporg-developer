@@ -4,6 +4,11 @@ namespace DevHub;
 
 require __DIR__ . '/template-tags.php';
 
+if ( ! function_exists( 'loop_pagination' ) ) {
+	require __DIR__ . '/php/loop-pagination.php';
+}
+
+
 add_action( 'init', __NAMESPACE__ . '\\init' );
 
 

@@ -47,7 +47,7 @@
 
 		<?php endif; ?>
 
-		TODO pagination
+		<?php loop_pagination(); ?>
 
 	</div>
 	<!-- /wrapper -->
