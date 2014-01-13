@@ -88,7 +88,7 @@ function get_signature( $post_id = null ) {
 
 		if ( array_key_exists( 'default', $arg ) ) {
 
-			if ( null === $arg['default'] ) {
+			if ( is_null( $arg['default'] ) ) {
 				$arg['default'] = 'null';
 			}
 
