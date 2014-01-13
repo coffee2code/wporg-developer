@@ -59,6 +59,52 @@ function get_current_version() {
 }
 
 /**
+ * Retrieve function name and arguments as signature string
+ *
+ * @param int $post_id
+ *
+ * @return string
+ */
+function get_signature( $post_id = null ) {
+
+	if ( empty( $post_id ) ) {
+		$post_id = get_the_ID();
+	}
+
+	$signature    = get_the_title( $post_id ) . '(';
+	$args         = get_post_meta( $post_id, '_wpapi_args', true );
+	$args_strings = array();
+
+	foreach ( $args as $arg ) {
+
+		$arg_string = '';
+		if ( ! empty ( $arg['type'] ) ) {
+			$arg_string .= $arg['type'];
+		}
+
+		if ( ! empty ( $arg['name'] ) ) {
+			$arg_string .= ' ' . $arg['name'] . ' ';
+		}
+
+		if ( array_key_exists( 'default', $arg ) ) {
+
+			if ( null === $arg['default'] ) {
+				$arg['default'] = 'null';
+			}
+
+			$arg_string .= '= ' . $arg['default'];
+		}
+
+		$args_strings[] = $arg_string;
+	}
+
+
+	$signature .= implode( ', ', $args_strings ) . ' )';
+
+	return esc_html( $signature );
+}
+
+/**
  * Retrieve return type and description if available
  *
 * @param int $post_id
