@@ -6,8 +6,7 @@
  *
  * @package wporg-developer
  */
-get_template_part( 'org', 'header' );
-wp_head();
+require WPORGPATH . 'header.php';
 ?>
 
 <div id="page" class="hfeed site devhub-wrap">

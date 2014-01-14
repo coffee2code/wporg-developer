@@ -12,9 +12,6 @@
 
 </div><!-- #page -->
 
-<?php wp_footer(); ?>
 <?php
-#require WPORGPATH . 'footer.php';
-get_template_part( 'org', 'footer' );
 
-?>
+require WPORGPATH . 'footer.php';

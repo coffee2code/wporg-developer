@@ -1,9 +1,34 @@
 <?php
+
+namespace DevHub;
+
 /**
- * wporg-developer functions and definitions
- *
- * @package wporg-developer
+ * Custom template tags for this theme.
  */
+require __DIR__ . '/inc/template-tags.php';
+
+/**
+ * Custom functions that act independently of the theme templates.
+ */
+require __DIR__ . '/inc/extras.php';
+
+/**
+ * Customizer additions.
+ */
+require __DIR__ . '/inc/customizer.php';
+
+/**
+ * Load Jetpack compatibility file.
+ */
+require __DIR__ . '/inc/jetpack.php';
+
+if ( ! function_exists( 'loop_pagination' ) ) {
+	require __DIR__ . '/php/loop-pagination.php';
+}
+
+if ( ! function_exists( 'breadcrumb_trail' ) ) {
+	require __DIR__ . '/php/breadcrumb-trail.php';
+}
 
 /**
  * Set the content width based on the theme's design and stylesheet.
@@ -12,45 +37,30 @@ if ( ! isset( $content_width ) ) {
 	$content_width = 640; /* pixels */
 }
 
-if ( ! function_exists( 'wporg_developer_setup' ) ) :
-/**
- * Sets up theme defaults and registers support for various WordPress features.
- *
- * Note that this function is hooked into the after_setup_theme hook, which
- * runs before the init hook. The init hook is too late for some features, such
- * as indicating support for post thumbnails.
- */
-function wporg_developer_setup() {
 
-	/*
-	 * Make theme available for translation.
-	 * Translations can be filed in the /languages/ directory.
-	 * If you're building a theme based on wporg-developer, use a find and replace
-	 * to change 'wporg-developer' to the name of your theme in all the template files
-	 */
-	load_theme_textdomain( 'wporg-developer', get_template_directory() . '/languages' );
+add_action( 'init', __NAMESPACE__ . '\\init' );
 
-	// Add default posts and comments RSS feed links to head.
+
+function init() {
+
+	register_post_types();
+	register_taxonomies();
+	add_action( 'widgets_init', __NAMESPACE__ . '\\widgets_init' );
+	add_action( 'pre_get_posts', __NAMESPACE__ . '\\pre_get_posts' );
+	add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\theme_scripts_styles' );
+	add_filter( 'post_type_link', __NAMESPACE__ . '\\method_permalink', 10, 2 );
 	add_theme_support( 'automatic-feed-links' );
-
-	/*
-	 * Enable support for Post Thumbnails on posts and pages.
-	 *
-	 * @link http://codex.wordpress.org/Function_Reference/add_theme_support#Post_Thumbnails
-	 */
 	add_theme_support( 'post-thumbnails' );
-
-	// Enable support for Post Formats.
-	add_theme_support( 'post-formats', array( 'aside', 'image', 'video', 'quote', 'link' ) );
-
 }
-endif; // wporg_developer_setup
-add_action( 'after_setup_theme', 'wporg_developer_setup' );
+
 
 /**
- * Register widgetized area and update sidebar with default widgets.
+ * widgets_init function.
+ *
+ * @access public
+ * @return void
  */
-function wporg_developer_widgets_init() {
+function widgets_init() {
 	register_sidebar( array(
 		'name'          => __( 'Sidebar', 'wporg-developer' ),
 		'id'            => 'sidebar-1',
@@ -60,46 +70,125 @@ function wporg_developer_widgets_init() {
 		'after_title'   => '</h1><div class="widget-content">',
 	) );
 }
-add_action( 'widgets_init', 'wporg_developer_widgets_init' );
 
 /**
- * Enqueue scripts and styles.
+ * @param \WP_Query $query
  */
-function wporg_developer_scripts() {
+function pre_get_posts( $query ) {
+
+	if ( $query->is_main_query() && $query->is_post_type_archive() ) {
+		$query->set( 'orderby', 'title' );
+		$query->set( 'order', 'ASC' );
+	}
+}
+
+/**
+ * Register the function and class post types
+ */
+function register_post_types() {
+	$supports = array(
+		'comments',
+		'custom-fields',
+		'editor',
+		'excerpt',
+		'revisions',
+		'title',
+	);
+
+	// Functions
+	register_post_type( 'wpapi-function', array(
+		'has_archive' => 'functions',
+		'label' => __( 'Functions', 'wporg' ),
+		'public' => true,
+		'rewrite' => array(
+			'feeds' => false,
+			'slug' => 'reference/function',
+			'with_front' => false,
+		),
+		'supports' => $supports,
+	) );
+
+	// Methods
+	add_rewrite_rule( 'method/([^/]+)/([^/]+)/?$', 'index.php?post_type=wpapi-function&name=$matches[1]-$matches[2]', 'top' );
+
+	// Classes
+	register_post_type( 'wpapi-class', array(
+		'has_archive' => 'classes',
+		'label' => __( 'Classes', 'wporg' ),
+		'public' => true,
+		'rewrite' => array(
+			'feeds' => false,
+			'slug' => 'reference/class',
+			'with_front' => false,
+		),
+		'supports' => $supports,
+	) );
+
+	// Hooks
+	register_post_type( 'wpapi-hook', array(
+		'has_archive' => 'hooks',
+		'label' => __( 'Hooks', 'wporg' ),
+		'public' => true,
+		'rewrite' => array(
+			'feeds' => false,
+			'slug' => 'reference/hook',
+			'with_front' => false,
+		),
+		'supports' => $supports,
+	) );
+}
+
+/**
+ * Register the file and @since taxonomies
+ */
+function register_taxonomies() {
+	// Files
+	register_taxonomy( 'wpapi-source-file', array( 'wpapi-class', 'wpapi-function', 'wpapi-hook' ), array(
+		'label'                 => __( 'Files', 'wporg' ),
+		'public'                => true,
+		'rewrite'               => array( 'slug' => 'reference/files' ),
+		'sort'                  => false,
+		'update_count_callback' => '_update_post_term_count',
+	) );
+
+	// Package
+	register_taxonomy( 'wpapi-package', array( 'wpapi-class', 'wpapi-function', 'wpapi-hook' ), array(
+		'hierarchical'          => true,
+		'label'                 => '@package',
+		'public'                => true,
+		'rewrite'               => array( 'slug' => 'reference/package' ),
+		'sort'                  => false,
+		'update_count_callback' => '_update_post_term_count',
+	) );
+
+	// @since
+	register_taxonomy( 'wpapi-since', array( 'wpapi-class', 'wpapi-function', 'wpapi-hook' ), array(
+		'hierarchical'          => true,
+		'label'                 => __( '@since', 'wporg' ),
+		'public'                => true,
+		'rewrite'               => array( 'slug' => 'reference/since' ),
+		'sort'                  => false,
+		'update_count_callback' => '_update_post_term_count',
+	) );
+}
+
+function method_permalink( $link, $post ) {
+	if ( $post->post_type !== 'wpapi-function' || $post->post_parent == 0 )
+		return $link;
+
+	list( $class, $method ) = explode( '-', $post->post_name );
+	$link = home_url( user_trailingslashit( "method/$class/$method" ) );
+	return $link;
+}
+
+function theme_scripts_styles() {
 	wp_enqueue_style( 'dashicons' );
-
 	wp_enqueue_style( 'open-sans', '//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,400,300,600' );
-
 	wp_enqueue_style( 'wporg-developer-style', get_stylesheet_uri() );
-
 	wp_enqueue_style( 'wp-dev-sass-compiled', get_template_directory_uri() . '/main.css', array( 'wporg-developer-style' ) );
-
 	wp_enqueue_script( 'wporg-developer-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );
-
 	wp_enqueue_script( 'wporg-developer-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20130115', true );
-
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
 }
-add_action( 'wp_enqueue_scripts', 'wporg_developer_scripts' );
-
-/**
- * Custom template tags for this theme.
- */
-require get_template_directory() . '/inc/template-tags.php';
-
-/**
- * Custom functions that act independently of the theme templates.
- */
-require get_template_directory() . '/inc/extras.php';
-
-/**
- * Customizer additions.
- */
-require get_template_directory() . '/inc/customizer.php';
-
-/**
- * Load Jetpack compatibility file.
- */
-require get_template_directory() . '/inc/jetpack.php';

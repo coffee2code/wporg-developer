@@ -39,6 +39,8 @@ get_header(); ?>
 
 		<?php endif; ?>
 
+		<?php loop_pagination(); ?>
+
 		</main><!-- #main -->
 		<?php get_sidebar(); ?>
 	</div><!-- #primary -->
