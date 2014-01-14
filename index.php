@@ -1,30 +1,47 @@
-<?php get_header(); ?>
+<?php
+/**
+ * The main template file.
+ *
+ * This is the most generic template file in a WordPress theme
+ * and one of the two required files for a theme (the other being style.css).
+ * It is used to display a page when nothing more specific matches a query.
+ * E.g., it puts together the home page when no home.php file exists.
+ * Learn more: http://codex.wordpress.org/Template_Hierarchy
+ *
+ * @package wporg-developer
+ */
 
-<div class="<?php body_class( 'pagebody' ) ?>">
-	<div class="wrapper">
+get_header(); ?>
 
-		<?php breadcrumb_trail(); ?>
+	<div id="primary" class="content-area has-sidebar">
+		<main id="main" class="site-main" role="main">
 
-		<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+		<?php if ( have_posts() ) : ?>
 
-			<?php /** @var \WP_Query $wp_query */ if ( $wp_query->current_post ) : ?>
-				<hr />
-			<?php endif; ?>
+			<?php /* Start the Loop */ ?>
+			<?php while ( have_posts() ) : the_post(); ?>
 
-			<?php get_template_part( 'content', get_post_type() ); ?>
+				<?php
+					/* Include the Post-Format-specific template for the content.
+					 * If you want to override this in a child theme, then include a file
+					 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
+					 */
+					get_template_part( 'content', get_post_format() );
+				?>
 
-		<?php endwhile; ?>
+			<?php endwhile; ?>
+
+			<?php wporg_developer_paging_nav(); ?>
 
 		<?php else : ?>
 
-			<h1><?php _e( 'Not Found', 'wporg' ); ?></h1>
+			<?php get_template_part( 'content', 'none' ); ?>
 
 		<?php endif; ?>
 
 		<?php loop_pagination(); ?>
 
-	</div>
-	<!-- /wrapper -->
-</div><!-- /pagebody -->
-
+		</main><!-- #main -->
+		<?php get_sidebar(); ?>
+	</div><!-- #primary -->
 <?php get_footer(); ?>

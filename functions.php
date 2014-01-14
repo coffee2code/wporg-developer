@@ -2,7 +2,25 @@
 
 namespace DevHub;
 
-require __DIR__ . '/template-tags.php';
+/**
+ * Custom template tags for this theme.
+ */
+require __DIR__ . '/inc/template-tags.php';
+
+/**
+ * Custom functions that act independently of the theme templates.
+ */
+require __DIR__ . '/inc/extras.php';
+
+/**
+ * Customizer additions.
+ */
+require __DIR__ . '/inc/customizer.php';
+
+/**
+ * Load Jetpack compatibility file.
+ */
+require __DIR__ . '/inc/jetpack.php';
 
 if ( ! function_exists( 'loop_pagination' ) ) {
 	require __DIR__ . '/php/loop-pagination.php';
@@ -10,6 +28,13 @@ if ( ! function_exists( 'loop_pagination' ) ) {
 
 if ( ! function_exists( 'breadcrumb_trail' ) ) {
 	require __DIR__ . '/php/breadcrumb-trail.php';
+}
+
+/**
+ * Set the content width based on the theme's design and stylesheet.
+ */
+if ( ! isset( $content_width ) ) {
+	$content_width = 640; /* pixels */
 }
 
 
@@ -20,10 +45,30 @@ function init() {
 
 	register_post_types();
 	register_taxonomies();
-
+	add_action( 'widgets_init', __NAMESPACE__ . '\\widgets_init' );
 	add_action( 'pre_get_posts', __NAMESPACE__ . '\\pre_get_posts' );
 	add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\theme_scripts_styles' );
 	add_filter( 'post_type_link', __NAMESPACE__ . '\\method_permalink', 10, 2 );
+	add_theme_support( 'automatic-feed-links' );
+	add_theme_support( 'post-thumbnails' );
+}
+
+
+/**
+ * widgets_init function.
+ *
+ * @access public
+ * @return void
+ */
+function widgets_init() {
+	register_sidebar( array(
+		'name'          => __( 'Sidebar', 'wporg-developer' ),
+		'id'            => 'sidebar-1',
+		'before_widget' => '<aside id="%1$s" class="box gray widget %2$s">',
+		'after_widget'  => '</div></aside>',
+		'before_title'  => '<h1 class="widget-title">',
+		'after_title'   => '</h1><div class="widget-content">',
+	) );
 }
 
 /**
@@ -137,8 +182,13 @@ function method_permalink( $link, $post ) {
 }
 
 function theme_scripts_styles() {
-	wp_enqueue_style( 'wp-doc-style', get_stylesheet_uri() );
-	wp_enqueue_style( 'droid-sans-mono', '//fonts.googleapis.com/css?family=Droid+Sans+Mono' );
-
-	## wp_enqueue_script( 'ace-editor', 'http://rawgithub.com/ajaxorg/ace-builds/master/src-noconflict/ace.js' );
+	wp_enqueue_style( 'dashicons' );
+	wp_enqueue_style( 'open-sans', '//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,400,300,600' );
+	wp_enqueue_style( 'wporg-developer-style', get_stylesheet_uri() );
+	wp_enqueue_style( 'wp-dev-sass-compiled', get_template_directory_uri() . '/main.css', array( 'wporg-developer-style' ) );
+	wp_enqueue_script( 'wporg-developer-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );
+	wp_enqueue_script( 'wporg-developer-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20130115', true );
+	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+		wp_enqueue_script( 'comment-reply' );
+	}
 }

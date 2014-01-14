@@ -1,21 +1,30 @@
 <?php
-global $pagetitle;
-$pagetitle = wp_title( '&laquo;', false, 'right' ) . ' ' . get_bloginfo( 'name' );
-
+/**
+ * The Header for our theme.
+ *
+ * Displays all of the <head> section and everything up till <div id="content">
+ *
+ * @package wporg-developer
+ */
 require WPORGPATH . 'header.php';
 ?>
-<div class="devhub-wrap">
 
-<div id="headline">
-        <div class="wrapper">
-					<?php if ( is_post_type_archive() ) : ?>
-						<h2><a href="<?php $post_type = get_queried_object();
-							echo get_post_type_archive_link( $post_type->name ); ?>"><?php echo esc_html( $post_type->labels->name ); ?></a>
-						</h2>
-					<?php else : ?>
-						<h2><a href="<?php echo home_url( '/' ); ?>"><?php bloginfo( 'name' ); ?></a></h2>
-					<?php endif; ?>
-        </div>
-</div>
-
-<div id="wrapper">
+<div id="page" class="hfeed site devhub-wrap">
+	<?php do_action( 'before' ); ?>
+	<header id="masthead" class="site-header" role="banner">
+		<div class="inner-wrap">
+			<div class="site-branding">
+				<?php if ( ! is_front_page() ) : ?>
+					<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+				<?php else : ?>
+					<h1 class="home-site-title site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+				<?php endif; ?>
+			</div>
+		</div><!-- .inner-wrap -->
+	</header><!-- #masthead -->
+	<?php if ( ! is_front_page() ) : ?>
+			<div class="wp-logo">
+				<div class="dashicons dashicons-wordpress-alt"></div>
+			</div>
+	<?php endif; ?>
+	<div id="content" class="site-content">
