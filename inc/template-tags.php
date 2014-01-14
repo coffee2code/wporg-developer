@@ -1,191 +1,367 @@
 <?php
-/**
- * Custom template tags for this theme.
- *
- * Eventually, some of the functionality here could be replaced by core features.
- *
- * @package wporg-developer
- */
 
-if ( ! function_exists( 'wporg_developer_paging_nav' ) ) :
-/**
- * Display navigation to next/previous set of posts when applicable.
- *
- * @return void
- */
-function wporg_developer_paging_nav() {
-	// Don't print empty markup if there's only one page.
-	if ( $GLOBALS['wp_query']->max_num_pages < 2 ) {
-		return;
-	}
-	?>
-	<nav class="navigation paging-navigation" role="navigation">
-		<h1 class="screen-reader-text"><?php _e( 'Posts navigation', 'wporg-developer' ); ?></h1>
-		<div class="nav-links">
+namespace {
 
-			<?php if ( get_next_posts_link() ) : ?>
-			<div class="nav-previous"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Older posts', 'wporg-developer' ) ); ?></div>
-			<?php endif; ?>
+	/**
+	 * Custom template tags for this theme.
+	 *
+	 * Eventually, some of the functionality here could be replaced by core features.
+	 *
+	 * @package wporg-developer
+	 */
 
-			<?php if ( get_previous_posts_link() ) : ?>
-			<div class="nav-next"><?php previous_posts_link( __( 'Newer posts <span class="meta-nav">&rarr;</span>', 'wporg-developer' ) ); ?></div>
-			<?php endif; ?>
+	if ( ! function_exists( 'wporg_developer_paging_nav' ) ) :
+		/**
+		 * Display navigation to next/previous set of posts when applicable.
+		 *
+		 * @return void
+		 */
+		function wporg_developer_paging_nav() {
+			// Don't print empty markup if there's only one page.
+			if ( $GLOBALS['wp_query']->max_num_pages < 2 ) {
+				return;
+			}
+			?>
+			<nav class="navigation paging-navigation" role="navigation">
+				<h1 class="screen-reader-text"><?php _e( 'Posts navigation', 'wporg-developer' ); ?></h1>
 
-		</div><!-- .nav-links -->
-	</nav><!-- .navigation -->
-	<?php
-}
-endif;
+				<div class="nav-links">
 
-if ( ! function_exists( 'wporg_developer_post_nav' ) ) :
-/**
- * Display navigation to next/previous post when applicable.
- *
- * @return void
- */
-function wporg_developer_post_nav() {
-	// Don't print empty markup if there's nowhere to navigate.
-	$previous = ( is_attachment() ) ? get_post( get_post()->post_parent ) : get_adjacent_post( false, '', true );
-	$next     = get_adjacent_post( false, '', false );
+					<?php if ( get_next_posts_link() ) : ?>
+						<div class="nav-previous"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Older posts', 'wporg-developer' ) ); ?></div>
+					<?php endif; ?>
 
-	if ( ! $next && ! $previous ) {
-		return;
-	}
-	?>
-	<nav class="navigation post-navigation" role="navigation">
-		<h1 class="screen-reader-text"><?php _e( 'Post navigation', 'wporg-developer' ); ?></h1>
-		<div class="nav-links">
+					<?php if ( get_previous_posts_link() ) : ?>
+						<div class="nav-next"><?php previous_posts_link( __( 'Newer posts <span class="meta-nav">&rarr;</span>', 'wporg-developer' ) ); ?></div>
+					<?php endif; ?>
 
-			<?php previous_post_link( '%link', _x( '<span class="meta-nav">&larr;</span> %title', 'Previous post link', 'wporg-developer' ) ); ?>
-			<?php next_post_link(     '%link', _x( '%title <span class="meta-nav">&rarr;</span>', 'Next post link',     'wporg-developer' ) ); ?>
+				</div>
+				<!-- .nav-links -->
+			</nav><!-- .navigation -->
+		<?php
+		}
+	endif;
 
-		</div><!-- .nav-links -->
-	</nav><!-- .navigation -->
-	<?php
-}
-endif;
+	if ( ! function_exists( 'wporg_developer_post_nav' ) ) :
+		/**
+		 * Display navigation to next/previous post when applicable.
+		 *
+		 * @return void
+		 */
+		function wporg_developer_post_nav() {
+			// Don't print empty markup if there's nowhere to navigate.
+			$previous = ( is_attachment() ) ? get_post( get_post()->post_parent ) : get_adjacent_post( false, '', true );
+			$next     = get_adjacent_post( false, '', false );
 
-if ( ! function_exists( 'wporg_developer_comment' ) ) :
-/**
- * Template for comments and pingbacks.
- *
- * Used as a callback by wp_list_comments() for displaying the comments.
- */
-function wporg_developer_comment( $comment, $args, $depth ) {
-	$GLOBALS['comment'] = $comment;
+			if ( ! $next && ! $previous ) {
+				return;
+			}
+			?>
+			<nav class="navigation post-navigation" role="navigation">
+				<h1 class="screen-reader-text"><?php _e( 'Post navigation', 'wporg-developer' ); ?></h1>
 
-	if ( 'pingback' == $comment->comment_type || 'trackback' == $comment->comment_type ) : ?>
+				<div class="nav-links">
 
-	<li id="comment-<?php comment_ID(); ?>" <?php comment_class(); ?>>
-		<div class="comment-body">
-			<?php _e( 'Pingback:', 'wporg-developer' ); ?> <?php comment_author_link(); ?> <?php edit_comment_link( __( 'Edit', 'wporg-developer' ), '<span class="edit-link">', '</span>' ); ?>
-		</div>
+					<?php previous_post_link( '%link', _x( '<span class="meta-nav">&larr;</span> %title', 'Previous post link', 'wporg-developer' ) ); ?>
+					<?php next_post_link( '%link', _x( '%title <span class="meta-nav">&rarr;</span>', 'Next post link', 'wporg-developer' ) ); ?>
 
-	<?php else : ?>
+				</div>
+				<!-- .nav-links -->
+			</nav><!-- .navigation -->
+		<?php
+		}
+	endif;
 
-	<li id="comment-<?php comment_ID(); ?>" <?php comment_class( empty( $args['has_children'] ) ? '' : 'parent' ); ?>>
-		<article id="div-comment-<?php comment_ID(); ?>" class="comment-body">
-			<footer class="comment-meta">
-				<div class="comment-author vcard">
-					<?php if ( 0 != $args['avatar_size'] ) { echo get_avatar( $comment, $args['avatar_size'] ); } ?>
-					<?php printf( __( '%s <span class="says">says:</span>', 'wporg-developer' ), sprintf( '<cite class="fn">%s</cite>', get_comment_author_link() ) ); ?>
-				</div><!-- .comment-author -->
+	if ( ! function_exists( 'wporg_developer_comment' ) ) :
+		/**
+		 * Template for comments and pingbacks.
+		 *
+		 * Used as a callback by wp_list_comments() for displaying the comments.
+		 */
+		function wporg_developer_comment( $comment, $args, $depth ) {
+			$GLOBALS['comment'] = $comment;
 
-				<div class="comment-metadata">
-					<a href="<?php echo esc_url( get_comment_link( $comment->comment_ID ) ); ?>">
-						<time datetime="<?php comment_time( 'c' ); ?>">
-							<?php printf( _x( '%1$s at %2$s', '1: date, 2: time', 'wporg-developer' ), get_comment_date(), get_comment_time() ); ?>
-						</time>
-					</a>
-					<?php edit_comment_link( __( 'Edit', 'wporg-developer' ), '<span class="edit-link">', '</span>' ); ?>
-				</div><!-- .comment-metadata -->
+			if ( 'pingback' == $comment->comment_type || 'trackback' == $comment->comment_type ) : ?>
 
-				<?php if ( '0' == $comment->comment_approved ) : ?>
-				<p class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.', 'wporg-developer' ); ?></p>
-				<?php endif; ?>
-			</footer><!-- .comment-meta -->
+				<li id="comment-<?php comment_ID(); ?>" <?php comment_class(); ?>>
+				<div class="comment-body">
+					<?php _e( 'Pingback:', 'wporg-developer' ); ?> <?php comment_author_link(); ?> <?php edit_comment_link( __( 'Edit', 'wporg-developer' ), '<span class="edit-link">', '</span>' ); ?>
+				</div>
 
-			<div class="comment-content">
-				<?php comment_text(); ?>
-			</div><!-- .comment-content -->
+			<?php else : ?>
+
+				<li id="comment-<?php comment_ID(); ?>" <?php comment_class( empty( $args['has_children'] ) ? '' : 'parent' ); ?>>
+				<article id="div-comment-<?php comment_ID(); ?>" class="comment-body">
+					<footer class="comment-meta">
+						<div class="comment-author vcard">
+							<?php if ( 0 != $args['avatar_size'] ) {
+								echo get_avatar( $comment, $args['avatar_size'] );
+							} ?>
+							<?php printf( __( '%s <span class="says">says:</span>', 'wporg-developer' ), sprintf( '<cite class="fn">%s</cite>', get_comment_author_link() ) ); ?>
+						</div>
+						<!-- .comment-author -->
+
+						<div class="comment-metadata">
+							<a href="<?php echo esc_url( get_comment_link( $comment->comment_ID ) ); ?>">
+								<time datetime="<?php comment_time( 'c' ); ?>">
+									<?php printf( _x( '%1$s at %2$s', '1: date, 2: time', 'wporg-developer' ), get_comment_date(), get_comment_time() ); ?>
+								</time>
+							</a>
+							<?php edit_comment_link( __( 'Edit', 'wporg-developer' ), '<span class="edit-link">', '</span>' ); ?>
+						</div>
+						<!-- .comment-metadata -->
+
+						<?php if ( '0' == $comment->comment_approved ) : ?>
+							<p class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.', 'wporg-developer' ); ?></p>
+						<?php endif; ?>
+					</footer>
+					<!-- .comment-meta -->
+
+					<div class="comment-content">
+						<?php comment_text(); ?>
+					</div>
+					<!-- .comment-content -->
+
+					<?php
+					comment_reply_link( array_merge( $args, array(
+						'add_below' => 'div-comment',
+						'depth'     => $depth,
+						'max_depth' => $args['max_depth'],
+						'before'    => '<div class="reply">',
+						'after'     => '</div>',
+					) ) );
+					?>
+				</article><!-- .comment-body -->
 
 			<?php
-				comment_reply_link( array_merge( $args, array(
-					'add_below' => 'div-comment',
-					'depth'     => $depth,
-					'max_depth' => $args['max_depth'],
-					'before'    => '<div class="reply">',
-					'after'     => '</div>',
-				) ) );
-			?>
-		</article><!-- .comment-body -->
+			endif;
+		}
+	endif; // ends check for wporg_developer_comment()
+
+	if ( ! function_exists( 'wporg_developer_posted_on' ) ) :
+		/**
+		 * Prints HTML with meta information for the current post-date/time and author.
+		 */
+		function wporg_developer_posted_on() {
+			$time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time>';
+			if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
+				$time_string .= '<time class="updated" datetime="%3$s">%4$s</time>';
+			}
+
+			$time_string = sprintf( $time_string,
+				esc_attr( get_the_date( 'c' ) ),
+				esc_html( get_the_date() ),
+				esc_attr( get_the_modified_date( 'c' ) ),
+				esc_html( get_the_modified_date() )
+			);
+
+			printf( __( '<span class="posted-on">Posted on %1$s</span><span class="byline"> by %2$s</span>', 'wporg-developer' ),
+				sprintf( '<a href="%1$s" rel="bookmark">%2$s</a>',
+					esc_url( get_permalink() ),
+					$time_string
+				),
+				sprintf( '<span class="author vcard"><a class="url fn n" href="%1$s">%2$s</a></span>',
+					esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
+					esc_html( get_the_author() )
+				)
+			);
+		}
+	endif;
+
+	/**
+	 * Returns true if a blog has more than 1 category.
+	 */
+	function wporg_developer_categorized_blog() {
+		if ( false === ( $all_the_cool_cats = get_transient( 'all_the_cool_cats' ) ) ) {
+			// Create an array of all the categories that are attached to posts.
+			$all_the_cool_cats = get_categories( array(
+				'hide_empty' => 1,
+			) );
+
+			// Count the number of categories that are attached to the posts.
+			$all_the_cool_cats = count( $all_the_cool_cats );
+
+			set_transient( 'all_the_cool_cats', $all_the_cool_cats );
+		}
+
+		if ( '1' != $all_the_cool_cats ) {
+			// This blog has more than 1 category so wporg_developer_categorized_blog should return true.
+			return true;
+		} else {
+			// This blog has only 1 category so wporg_developer_categorized_blog should return false.
+			return false;
+		}
+	}
+
+	/**
+	 * Flush out the transients used in wporg_developer_categorized_blog.
+	 */
+	function wporg_developer_category_transient_flusher() {
+		// Like, beat it. Dig?
+		delete_transient( 'all_the_cool_cats' );
+	}
+
+	add_action( 'edit_category', 'wporg_developer_category_transient_flusher' );
+	add_action( 'save_post', 'wporg_developer_category_transient_flusher' );
+}
+
+namespace DevHub {
+
+	function wp_doc_comment( $comment, $args, $depth ) {
+		?>
+	<li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>">
+		<article id="comment-<?php comment_ID(); ?>" class="comment">
+
+			<?php if ( $comment->comment_approved == '0' ) : ?>
+				<em class="comment-awaiting-moderation"><?php _e( 'Your example is awaiting moderation.', 'wporg' ); ?></em>
+				<br />
+			<?php endif; ?>
+
+			<pre class="example-content"><?php echo htmlentities( get_comment_text() ); ?></pre>
+
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<?php
+					echo get_avatar( $comment );
+
+					/* translators: 1: comment author, 2: date and time */
+					printf( __( 'Contributed by %1$s on %2$s', 'wporg' ),
+						sprintf( '<span class="fn">%s</span>', get_comment_author_link() ),
+						sprintf( '<a href="%1$s"><time datetime="%2$s">%3$s</time></a>',
+							esc_url( get_comment_link( $comment->comment_ID ) ),
+							get_comment_time( 'c' ),
+							/* translators: 1: date, 2: time */
+							sprintf( __( '%1$s at %2$s', 'wporg' ), get_comment_date(), get_comment_time() )
+						)
+					);
+					?>
+
+					<?php edit_comment_link( __( 'Edit', 'wporg' ), '<span class="edit-link">', '</span>' ); ?>
+				</div>
+				<!-- .comment-author .vcard -->
+
+			</footer>
+
+		</article>
+		<!-- #comment-## -->
 
 	<?php
-	endif;
-}
-endif; // ends check for wporg_developer_comment()
-
-if ( ! function_exists( 'wporg_developer_posted_on' ) ) :
-/**
- * Prints HTML with meta information for the current post-date/time and author.
- */
-function wporg_developer_posted_on() {
-	$time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time>';
-	if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
-		$time_string .= '<time class="updated" datetime="%3$s">%4$s</time>';
 	}
 
-	$time_string = sprintf( $time_string,
-		esc_attr( get_the_date( 'c' ) ),
-		esc_html( get_the_date() ),
-		esc_attr( get_the_modified_date( 'c' ) ),
-		esc_html( get_the_modified_date() )
-	);
+	/**
+	 * Get current (latest) since version
+	 *
+	 * @return object
+	 */
+	function get_current_version() {
 
-	printf( __( '<span class="posted-on">Posted on %1$s</span><span class="byline"> by %2$s</span>', 'wporg-developer' ),
-		sprintf( '<a href="%1$s" rel="bookmark">%2$s</a>',
-			esc_url( get_permalink() ),
-			$time_string
-		),
-		sprintf( '<span class="author vcard"><a class="url fn n" href="%1$s">%2$s</a></span>',
-			esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
-			esc_html( get_the_author() )
-		)
-	);
-}
-endif;
-
-/**
- * Returns true if a blog has more than 1 category.
- */
-function wporg_developer_categorized_blog() {
-	if ( false === ( $all_the_cool_cats = get_transient( 'all_the_cool_cats' ) ) ) {
-		// Create an array of all the categories that are attached to posts.
-		$all_the_cool_cats = get_categories( array(
-			'hide_empty' => 1,
+		$version = get_terms( 'wpapi-since', array(
+			'number' => '1',
+			'order'  => 'DESC',
 		) );
 
-		// Count the number of categories that are attached to the posts.
-		$all_the_cool_cats = count( $all_the_cool_cats );
-
-		set_transient( 'all_the_cool_cats', $all_the_cool_cats );
+		return $version[0];
 	}
 
-	if ( '1' != $all_the_cool_cats ) {
-		// This blog has more than 1 category so wporg_developer_categorized_blog should return true.
-		return true;
-	} else {
-		// This blog has only 1 category so wporg_developer_categorized_blog should return false.
-		return false;
+	/**
+	 * Retrieve function name and arguments as signature string
+	 *
+	 * @param int $post_id
+	 *
+	 * @return string
+	 */
+	function get_signature( $post_id = null ) {
+
+		if ( empty( $post_id ) ) {
+			$post_id = get_the_ID();
+		}
+
+		$signature    = get_the_title( $post_id ) . '(';
+		$args         = get_post_meta( $post_id, '_wpapi_args', true );
+		$args_strings = array();
+
+		foreach ( $args as $arg ) {
+
+			$arg_string = '';
+			if ( ! empty ( $arg['type'] ) ) {
+				$arg_string .= $arg['type'];
+			}
+
+			if ( ! empty ( $arg['name'] ) ) {
+				$arg_string .= ' ' . $arg['name'] . ' ';
+			}
+
+			if ( array_key_exists( 'default', $arg ) ) {
+
+				if ( is_null( $arg['default'] ) ) {
+					$arg['default'] = 'null';
+				}
+
+				$arg_string .= '= ' . $arg['default'];
+			}
+
+			$args_strings[] = $arg_string;
+		}
+
+
+		$signature .= implode( ', ', $args_strings ) . ' )';
+
+		return esc_html( $signature );
+	}
+
+	/**
+	 * Retrieve return type and description if available
+	 *
+	 * @param int $post_id
+	 *
+	 * @return string
+	 */
+	function get_return( $post_id = null ) {
+
+		if ( empty( $post_id ) ) {
+			$post_id = get_the_ID();
+		}
+
+		$tags   = get_post_meta( $post_id, '_wpapi_tags', true );
+		$return = wp_filter_object_list( $tags, array( 'name' => 'return' ) );
+
+		if ( empty( $return ) ) {
+			$description = '';
+			$type        = 'void';
+		} else {
+			$return      = array_shift( $return );
+			$description = empty( $return['content'] ) ? '' : esc_html( $return['content'] );
+			$type        = empty( $return['types'] ) ? '' : esc_html( implode( '|', $return['types'] ) );
+		}
+
+		return "<span class='return-type'>{$type}</span> $description";
+	}
+
+	/**
+	 * Retrieve URL to since version archive
+	 *
+	 * @param string $name
+	 *
+	 * @return string
+	 */
+	function get_since_link( $name = null ) {
+
+		$since_object = get_term_by( 'name', empty( $name ) ? get_since() : $name, 'wpapi-since' );
+
+		return empty( $since_object ) ? '' : esc_url( get_term_link( $since_object ) );
+	}
+
+	/**
+	 * Retrieve name of since version
+	 *
+	 * @param int $post_id
+	 *
+	 * @return string
+	 */
+	function get_since( $post_id = null ) {
+
+		$since_object = wp_get_post_terms( empty( $post_id ) ? get_the_ID() : $post_id, 'wpapi-since', array( 'fields' => 'names' ) );
+
+		return empty( $since_object ) ? '' : esc_html( $since_object[0] );
 	}
 }
-
-/**
- * Flush out the transients used in wporg_developer_categorized_blog.
- */
-function wporg_developer_category_transient_flusher() {
-	// Like, beat it. Dig?
-	delete_transient( 'all_the_cool_cats' );
-}
-add_action( 'edit_category', 'wporg_developer_category_transient_flusher' );
-add_action( 'save_post',     'wporg_developer_category_transient_flusher' );
