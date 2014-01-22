@@ -27,20 +27,37 @@ get_header(); ?>
 				<div class="topic-guide section">
 					<h4><?php _e( 'Or browse through topics:', 'wporg' ); ?></h4>
 					<ul class="unordered-list horizontal-list no-bullets">
-						<li><a href="#">Some topic</a></li>
-						<li><a href="#">Some other topic</a></li>
-						<li><a href="#">Another new topic</a></li>
+						<li><a href="<?php echo get_post_type_archive_link( 'wpapi-function' ) ?>"><?php _e( 'Functions', 'wporg' ); ?></a></li>
+						<li><a href="<?php echo get_post_type_archive_link( 'wpapi-hook' ) ?>"><?php _e( 'Hooks', 'wporg' ); ?></a></li>
+						<li><a href="<?php echo get_post_type_archive_link( 'wpapi-class' ) ?>"><?php _e( 'Classes', 'wporg' ); ?></a></li>
 					</ul>
 				</div><!-- /topic-guide -->
 
 				<div class="new-in-guide section two-columns clear">
 					<div class="widget box gray">
-						<h3 class="widget-title"><?php _e( 'New in 3.5:', 'wporg' ); ?></h3>
+						<h3 class="widget-title"><?php $version = DevHub\get_current_version(); printf( __( 'New in %s:', 'wporg' ), $version->name ); ?></h3>
 						<div class="widget-content">
 							<ul class="unordered-list no-bullets">
-								<li><a href="#">Some function</a></li>
-								<li><a href="#">Some other function</a></li>
-								<li><a href="#">Another new function</a></li>
+								<?php
+
+								$list = new WP_Query( array(
+									'posts_per_page' => 10,
+									'post_type'      => array( 'wpapi-function', 'wpapi-hook', 'wpapi-class' ),
+									'orderby'        => 'title',
+									'order'          => 'ASC',
+									'tax_query'      => array( array(
+										'taxonomy' => 'wpapi-since',
+										'field'    => 'ids',
+										'terms'    => $version->term_id,
+									) ),
+								) );
+
+								while ( $list->have_posts() ) : $list->the_post();
+
+									echo '<li><a href="' . get_permalink() . '">' . get_the_title() . '</a></li>';
+
+								endwhile;
+								?>
 							</ul>
 						</div>
 					</div>
