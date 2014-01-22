@@ -36,7 +36,7 @@ get_header(); ?>
 							<p class="widget-description"><?php _e( 'Search the codebase for documentation', 'wporg' ); ?></p>
 						</div>
 						<div class="code-ref-right">
-							<a href="#" class="codex-go go button"><?php _e( 'Visit the Reference ', 'wporg' ); ?><span class="dashicons dashicons-arrow-right-alt2"></span></a>
+							<a href="<?php echo home_url( '/reference' ); ?>" class="codex-go go button"><?php _e( 'Visit the Reference ', 'wporg' ); ?><span class="dashicons dashicons-arrow-right-alt2"></span></a>
 						</div>
 					</div>
 				</div>
