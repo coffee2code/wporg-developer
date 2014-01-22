@@ -18,12 +18,12 @@ get_header(); ?>
 					<div class="widget box box-left transparent">
 						<h3 class="widget-title"><div class="dashicons dashicons-welcome-widgets-menus"></div><?php _e( 'Themes', 'wporg' ); ?></h3>
 						<p class="widget-description"><?php _e( 'Want to know all there is to know about theming and WordPress?', 'wporg' ); ?></p>
-						<a href="#" class="themes-go get-started go button"><?php _e( 'Get Started ', 'wporg' ); ?><span class="dashicons dashicons-arrow-right-alt2"></span></a>
+						<a href="#" class="themes-go get-started go button"><?php _e( 'Develop Themes ', 'wporg' ); ?><span class="dashicons dashicons-arrow-right-alt2"></span></a>
 					</div>
 					<div class="widget box box-right transparent">
 						<h3 class="widget-title"><div class="dashicons dashicons-admin-plugins"></div><?php _e( 'Plugins', 'wporg' ); ?></h3>
 						<p class="widget-description"><?php _e( 'Ready to dive deep into the world of plugin authoring?', 'wporg' ); ?></p>
-						<a href="#" class="plugins-go get-started go button"><?php _e( 'Get Started ', 'wporg' ); ?><span class="dashicons dashicons-arrow-right-alt2"></span></a>
+						<a href="#" class="plugins-go get-started go button"><?php _e( 'Develop Plugins ', 'wporg' ); ?><span class="dashicons dashicons-arrow-right-alt2"></span></a>
 					</div>
 				</div>
 			</div><!-- /topic-guide -->
@@ -33,10 +33,10 @@ get_header(); ?>
 					<div class="widget transparent">
 						<div class="code-ref-left">
 							<h3 class="widget-title"><div class="dashicons dashicons-editor-alignleft"></div><?php _e( ' Code Reference', 'wporg' ); ?></h3>
-							<p class="widget-description"><?php _e( 'Everything in one spot for finding things fast', 'wporg' ); ?></p>
+							<p class="widget-description"><?php _e( 'Search the codebase for documentation', 'wporg' ); ?></p>
 						</div>
 						<div class="code-ref-right">
-							<a href="#" class="codex-go go button"><?php _e( 'View The Codex ', 'wporg' ); ?><span class="dashicons dashicons-arrow-right-alt2"></span></a>
+							<a href="#" class="codex-go go button"><?php _e( 'Visit the Reference ', 'wporg' ); ?><span class="dashicons dashicons-arrow-right-alt2"></span></a>
 						</div>
 					</div>
 				</div>
