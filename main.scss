@@ -1,4 +1,5 @@
-
+$header-font: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,sans-serif;
+$body-font: "Helvetica Neue",Helvetica,Arial,sans-serif;
 
 /* =Reset
 -------------------------------------------------------------- */
@@ -82,7 +83,7 @@ input,
 select,
 textarea {
 	color: #404040;
-	font-family: sans-serif;
+	font-family: $body-font;
 	font-size: 16px;
 	font-size: 1.6rem;
 	line-height: 1.5;
@@ -101,7 +102,7 @@ textarea {
 *  =========== Devhub Custom ========== Devhub Custom ========== Devhub Custom =====
 */
 
-
+//Global Fonts
 .devhub-wrap {
 
 	/*
@@ -242,7 +243,7 @@ textarea {
 		cursor: pointer; /* Improves usability and consistency of cursor style between image-type 'input' and others */
 		font-size: 16px;
 		font-size: 1.6rem;
-		line-height: 1;
+		line-height: 1.1;
 		float: none;
 		height: auto;
 		padding: .6em 1.8em;
@@ -516,10 +517,6 @@ textarea {
 	}
 
 
-
-
-	font-family: 'Open Sans', sans-serif;
-
 	*,
 	*:before,
 	*:after {
@@ -545,14 +542,14 @@ textarea {
 		h5,
 		h6 {
 			color: #1e1e1e;
-			font-family: 'Open Sans', sans-serif;
+			font-family: $header-font;
 		}
 
 	}
 
 	h2.widget-title,
 	h3.widget-title {
-		font-family: 'Open Sans', sans-serif;
+		font-family: $header-font;
 	}
 
 	#headline h2 a {
@@ -561,7 +558,7 @@ textarea {
 		font-size: 28px;
 		line-height: 1em;
 		text-shadow: #fff 0px 1px 0px;
-		font-family: 'Open Sans', sans-serif;
+		font-family: $header-font;
 	}
 
 	h2 {
@@ -721,35 +718,12 @@ textarea {
 	 */
 
 	.site-header {
-		background: rgb( 248, 248, 248 );
-	}
-	.wp-logo {
-		border-top: 4px solid #d8d8d8;
-		background: #fff;
-		display: block;
-		text-align: center;
-		.dashicons-wordpress-alt {
-			position: relative;
-			color: #d8d8d8;
-			font-size: 60px;
-			font-size: 6rem;
-			line-height: 0;
-			width: 80px;
-			width: 6rem;
-			height: 60px;
-			height: 6rem;
-			background: #fff;
-			border-radius: 60px;
-		}
-		.dashicons-wordpress-alt:before {
-			background: #fff;
-			border-radius: 60px;
-		}
+	    background: none repeat scroll 0 0 #F7F7F7;
+    	border-bottom: 1px solid #DFDFDF;
+   		height: 62px;
 	}
 	.site-branding {
 		width: 100%;
-		padding: 50px 0;
-		padding: 5rem 0;
 		a {
 			text-decoration: none;
 			color: #606060;
@@ -764,14 +738,15 @@ textarea {
 
 		}
 
-		h1.home-site-title {
-			font-weight: 300;
-			font-size: 37px;
-			font-size: 3.7rem;
-			a {
-				text-decoration: none;
-				color: #606060;
-			}
+		h1.site-title {
+		    color: #555555;
+		    float: left;
+		    font-size: 28px;
+		    line-height: 1em;
+		    padding-left: 9px;
+		    padding-top: 18px;
+		    text-shadow: 0 1px 0 #FFFFFF;
+		    font-weight: 300;
 		}
 
 	}
@@ -810,16 +785,16 @@ textarea {
 	 */
 
 	.home-landing .section {
-		padding: 75px 0%;
-		padding: 7.5rem 0%;
+		padding: 30px 0%;
+		padding: 3rem 0%;
 	}
 	.color.section {
 		color: #fff;
 	}
 	.section.blue {
 		background: #0F3D57;
-		padding: 100px 0;
-		padding: 10rem 0;
+		padding: 30px 0;
+		padding: 3rem 0;
 
 		.box {
 			text-align: center;

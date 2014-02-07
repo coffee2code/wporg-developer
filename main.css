@@ -92,7 +92,7 @@ input,
 select,
 textarea {
   color: #404040;
-  font-family: sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
   font-size: 1.6rem;
   line-height: 1.5;
@@ -135,7 +135,6 @@ textarea {
   ----------------------------------------------- */
   /* Globally hidden elements when Infinite Scroll is supported and in use. */
   /* When Infinite Scroll has reached its end we need to re-display elements that were hidden (via .neverending) before */
-  font-family: 'Open Sans', sans-serif;
   /*
    * Header area
    */
@@ -279,7 +278,7 @@ textarea {
   /* Improves usability and consistency of cursor style between image-type 'input' and others */
   font-size: 16px;
   font-size: 1.6rem;
-  line-height: 1;
+  line-height: 1.1;
   float: none;
   height: auto;
   padding: .6em 1.8em;
@@ -534,11 +533,11 @@ textarea {
 .devhub-wrap .site-main h5,
 .devhub-wrap .site-main h6 {
   color: #1e1e1e;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .devhub-wrap h2.widget-title,
 .devhub-wrap h3.widget-title {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .devhub-wrap #headline h2 a {
   color: #555;
@@ -546,7 +545,7 @@ textarea {
   font-size: 28px;
   line-height: 1em;
   text-shadow: #fff 0px 1px 0px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .devhub-wrap h2 {
   font-size: 28px;
@@ -710,35 +709,12 @@ textarea {
   width: 98%;
 }
 .devhub-wrap .site-header {
-  background: #f8f8f8;
-}
-.devhub-wrap .wp-logo {
-  border-top: 4px solid #d8d8d8;
-  background: #fff;
-  display: block;
-  text-align: center;
-}
-.devhub-wrap .wp-logo .dashicons-wordpress-alt {
-  position: relative;
-  color: #d8d8d8;
-  font-size: 60px;
-  font-size: 6rem;
-  line-height: 0;
-  width: 80px;
-  width: 6rem;
-  height: 60px;
-  height: 6rem;
-  background: #fff;
-  border-radius: 60px;
-}
-.devhub-wrap .wp-logo .dashicons-wordpress-alt:before {
-  background: #fff;
-  border-radius: 60px;
+  background: none repeat scroll 0 0 #F7F7F7;
+  border-bottom: 1px solid #DFDFDF;
+  height: 62px;
 }
 .devhub-wrap .site-branding {
   width: 100%;
-  padding: 50px 0;
-  padding: 5rem 0;
 }
 .devhub-wrap .site-branding a {
   text-decoration: none;
@@ -751,14 +727,15 @@ textarea {
 .devhub-wrap .site-branding .breadcrumb .active {
   font-weight: 600;
 }
-.devhub-wrap .site-branding h1.home-site-title {
+.devhub-wrap .site-branding h1.site-title {
+  color: #555555;
+  float: left;
+  font-size: 28px;
+  line-height: 1em;
+  padding-left: 9px;
+  padding-top: 18px;
+  text-shadow: 0 1px 0 #FFFFFF;
   font-weight: 300;
-  font-size: 37px;
-  font-size: 3.7rem;
-}
-.devhub-wrap .site-branding h1.home-site-title a {
-  text-decoration: none;
-  color: #606060;
 }
 .devhub-wrap h1.entry-title,
 .devhub-wrap h1.page-title {
@@ -789,16 +766,16 @@ textarea {
   color: #606060;
 }
 .devhub-wrap .home-landing .section {
-  padding: 75px 0%;
-  padding: 7.5rem 0%;
+  padding: 30px 0%;
+  padding: 3rem 0%;
 }
 .devhub-wrap .color.section {
   color: #fff;
 }
 .devhub-wrap .section.blue {
   background: #0F3D57;
-  padding: 100px 0;
-  padding: 10rem 0;
+  padding: 30px 0;
+  padding: 3rem 0;
 }
 .devhub-wrap .section.blue .box {
   text-align: center;
