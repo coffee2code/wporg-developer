@@ -22,9 +22,4 @@ require WPORGPATH . 'header.php';
 			</div>
 		</div><!-- .inner-wrap -->
 	</header><!-- #masthead -->
-	<?php if ( ! is_front_page() ) : ?>
-			<div class="wp-logo">
-				<div class="dashicons dashicons-wordpress-alt"></div>
-			</div>
-	<?php endif; ?>
 	<div id="content" class="site-content">

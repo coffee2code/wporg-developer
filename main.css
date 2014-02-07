@@ -48,7 +48,7 @@ body, button, input, select, textarea { color: #404040; font-family: sans-serif;
 ----------------------------------------------- */ /* Make sure embeds and iframes fit their containers */ /* =Comments
 ----------------------------------------------- */ /* =Widgets
 ----------------------------------------------- */ /* Make sure select elements fit in widgets */ /* Search widget */ /* =Infinite Scroll
------------------------------------------------ */ /* Globally hidden elements when Infinite Scroll is supported and in use. */ /* When Infinite Scroll has reached its end we need to re-display elements that were hidden (via .neverending) before */ font-family: 'Open Sans', sans-serif; /* Header area */ /* section styles */ /* Comments */ }
+----------------------------------------------- */ /* Globally hidden elements when Infinite Scroll is supported and in use. */ /* When Infinite Scroll has reached its end we need to re-display elements that were hidden (via .neverending) before */ font-family: "HelveticaNeue-Light", ​ "...vetica Neue", ​sans-serif; /* Header area */ /* section styles */ /* Comments */ }
 .devhub-wrap h1, .devhub-wrap h2, .devhub-wrap h3, .devhub-wrap h4, .devhub-wrap h5, .devhub-wrap h6 { clear: both; }
 .devhub-wrap hr { background-color: #ccc; border: 0; height: 1px; margin-bottom: 1.5em; }
 .devhub-wrap p { margin-bottom: 1.5em; }
@@ -120,9 +120,9 @@ body, button, input, select, textarea { color: #404040; font-family: sans-serif;
 .devhub-wrap *, .devhub-wrap *:before, .devhub-wrap *:after { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 .devhub-wrap .site-main, .devhub-wrap .inner-wrap { margin: 0 auto; max-width: 60em; }
 .devhub-wrap a { color: #21759b; }
-.devhub-wrap .site-main h2, .devhub-wrap .site-main h3, .devhub-wrap .site-main h4, .devhub-wrap .site-main h5, .devhub-wrap .site-main h6 { color: #1e1e1e; font-family: 'Open Sans', sans-serif; }
-.devhub-wrap h2.widget-title, .devhub-wrap h3.widget-title { font-family: 'Open Sans', sans-serif; }
-.devhub-wrap #headline h2 a { color: #555; font-weight: 300; font-size: 28px; line-height: 1em; text-shadow: #fff 0px 1px 0px; font-family: 'Open Sans', sans-serif; }
+.devhub-wrap .site-main h2, .devhub-wrap .site-main h3, .devhub-wrap .site-main h4, .devhub-wrap .site-main h5, .devhub-wrap .site-main h6 { color: #1e1e1e; font-family: "HelveticaNeue-Light", ​ "...vetica Neue", ​sans-serif; }
+.devhub-wrap h2.widget-title, .devhub-wrap h3.widget-title { font-family: "HelveticaNeue-Light", ​ "...vetica Neue", ​sans-serif; }
+.devhub-wrap #headline h2 a { color: #555; font-weight: 300; font-size: 28px; line-height: 1em; text-shadow: #fff 0px 1px 0px; font-family: "HelveticaNeue-Light", ​ "...vetica Neue", ​sans-serif; }
 .devhub-wrap h2 { font-size: 28px; font-size: 2.8rem; line-height: 32px; line-height: 3.2rem; }
 .devhub-wrap h3 { font-size: 22px; font-size: 2.2rem; line-height: 26px; line-height: 2.6rem; }
 .devhub-wrap h4 { font-size: 18px; font-size: 1.8rem; line-height: 22px; line-height: 2.2rem; border-bottom: none; }
@@ -141,16 +141,12 @@ body, button, input, select, textarea { color: #404040; font-family: sans-serif;
 .devhub-wrap input[type="text"]:focus, .devhub-wrap input[type="email"]:focus, .devhub-wrap input[type="url"]:focus, .devhub-wrap input[type="password"]:focus, .devhub-wrap input[type="search"]:focus, .devhub-wrap textarea:focus { color: #111; }
 .devhub-wrap input[type="text"], .devhub-wrap input[type="email"], .devhub-wrap input[type="url"], .devhub-wrap input[type="password"], .devhub-wrap input[type="search"] { padding: 3px; }
 .devhub-wrap textarea { overflow: auto; /* Removes default vertical scrollbar in IE6/7/8/9 */ padding-left: 3px; vertical-align: top; /* Improves readability and alignment in all browsers */ width: 98%; }
-.devhub-wrap .site-header { background: #f8f8f8; }
-.devhub-wrap .wp-logo { border-top: 4px solid #d8d8d8; background: #fff; display: block; text-align: center; }
-.devhub-wrap .wp-logo .dashicons-wordpress-alt { position: relative; color: #d8d8d8; font-size: 60px; font-size: 6rem; line-height: 0; width: 80px; width: 6rem; height: 60px; height: 6rem; background: #fff; border-radius: 60px; }
-.devhub-wrap .wp-logo .dashicons-wordpress-alt:before { background: #fff; border-radius: 60px; }
-.devhub-wrap .site-branding { width: 100%; padding: 20px 0; padding: 2rem 0; }
+.devhub-wrap .site-header { background: none repeat scroll 0 0 #F7F7F7; border-bottom: 1px solid #DFDFDF; height: 62px; }
+.devhub-wrap .site-branding { width: 100%; }
 .devhub-wrap .site-branding a { text-decoration: none; color: #606060; }
 .devhub-wrap .site-branding .breadcrumb { font-size: 14px; font-size: 1.4rem; }
 .devhub-wrap .site-branding .breadcrumb .active { font-weight: 600; }
-.devhub-wrap .site-branding h1.home-site-title { font-weight: 300; font-size: 37px; font-size: 3.7rem; }
-.devhub-wrap .site-branding h1.home-site-title a { text-decoration: none; color: #606060; }
+.devhub-wrap .site-branding h1.site-title { color: #555555; float: left; font-size: 28px; line-height: 1em; padding-left: 9px; padding-top: 18px; text-shadow: 0 1px 0 #FFFFFF; font-weight: 300; }
 .devhub-wrap h1.entry-title, .devhub-wrap h1.page-title { font-weight: 300; font-size: 37px; font-size: 3.7rem; color: #606060; text-align: center; padding: 0 0 30px; padding: 0 0 3rem; }
 .devhub-wrap h1.entry-title a, .devhub-wrap h1.page-title a { text-decoration: none; color: #606060; }
 .devhub-wrap h1.single-entry-title, .devhub-wrap h2.entry-title { text-align: left; font-size: 30px; font-size: 3rem; padding: 0 0 24px; padding: 0 0 2.4rem; }
