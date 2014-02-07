@@ -26,7 +26,7 @@ a img { border: 0; }
 
 /* =Global
 ----------------------------------------------- */
-body, button, input, select, textarea { color: #404040; font-family: sans-serif; font-size: 16px; font-size: 1.6rem; line-height: 1.5; }
+body, button, input, select, textarea { color: #404040; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 16px; font-size: 1.6rem; line-height: 1.5; }
 
 /*
 *  =========== Devhub Custom ========== Devhub Custom ========== Devhub Custom =====
@@ -48,7 +48,7 @@ body, button, input, select, textarea { color: #404040; font-family: sans-serif;
 ----------------------------------------------- */ /* Make sure embeds and iframes fit their containers */ /* =Comments
 ----------------------------------------------- */ /* =Widgets
 ----------------------------------------------- */ /* Make sure select elements fit in widgets */ /* Search widget */ /* =Infinite Scroll
------------------------------------------------ */ /* Globally hidden elements when Infinite Scroll is supported and in use. */ /* When Infinite Scroll has reached its end we need to re-display elements that were hidden (via .neverending) before */ font-family: "HelveticaNeue-Light", ​ "...vetica Neue", ​sans-serif; /* Header area */ /* section styles */ /* Comments */ }
+----------------------------------------------- */ /* Globally hidden elements when Infinite Scroll is supported and in use. */ /* When Infinite Scroll has reached its end we need to re-display elements that were hidden (via .neverending) before */ /* Header area */ /* section styles */ /* Comments */ }
 .devhub-wrap h1, .devhub-wrap h2, .devhub-wrap h3, .devhub-wrap h4, .devhub-wrap h5, .devhub-wrap h6 { clear: both; }
 .devhub-wrap hr { background-color: #ccc; border: 0; height: 1px; margin-bottom: 1.5em; }
 .devhub-wrap p { margin-bottom: 1.5em; }
@@ -77,7 +77,7 @@ body, button, input, select, textarea { color: #404040; font-family: sans-serif;
 .devhub-wrap img { height: auto; /* Make sure images are scaled correctly. */ max-width: 100%; /* Adhere to container width. */ }
 .devhub-wrap button, .devhub-wrap input, .devhub-wrap select, .devhub-wrap textarea { font-size: 100%; /* Corrects font size not being inherited in all browsers */ margin: 0; /* Addresses margins set differently in IE6/7, F3/4, S5, Chrome */ vertical-align: baseline; /* Improves appearance and consistency in all browsers */ *vertical-align: middle; /* Improves appearance and consistency in all browsers */ }
 .devhub-wrap a.button, .devhub-wrap button, .devhub-wrap input { line-height: normal; /* Addresses FF3/4 setting line-height using !important in the UA stylesheet */ }
-.devhub-wrap a.button, .devhub-wrap button, .devhub-wrap input[type="button"], .devhub-wrap input[type="reset"], .devhub-wrap input[type="submit"] { border: 1px solid #ccc; border-color: #ccc #ccc #bbb #ccc; border-radius: 3px; background: #fff; color: rgba(0, 0, 0, 0.8); cursor: pointer; /* Improves usability and consistency of cursor style between image-type 'input' and others */ font-size: 16px; font-size: 1.6rem; line-height: 1; float: none; height: auto; padding: .6em 1.8em; }
+.devhub-wrap a.button, .devhub-wrap button, .devhub-wrap input[type="button"], .devhub-wrap input[type="reset"], .devhub-wrap input[type="submit"] { border: 1px solid #ccc; border-color: #ccc #ccc #bbb #ccc; border-radius: 3px; background: #fff; color: rgba(0, 0, 0, 0.8); cursor: pointer; /* Improves usability and consistency of cursor style between image-type 'input' and others */ font-size: 16px; font-size: 1.6rem; line-height: 1.1; float: none; height: auto; padding: .6em 1.8em; }
 .devhub-wrap button, .devhub-wrap input[type="button"], .devhub-wrap input[type="reset"], .devhub-wrap input[type="submit"] { -webkit-appearance: button; /* Corrects inability to style clickable 'input' types in iOS */ }
 .devhub-wrap a.button:hover, .devhub-wrap button:hover, .devhub-wrap input[type="button"]:hover, .devhub-wrap input[type="reset"]:hover, .devhub-wrap input[type="submit"]:hover { border-color: #ccc #bbb #aaa #bbb; background: #f0f0f0; }
 .devhub-wrap a.button:focus, .devhub-wrap button:focus, .devhub-wrap input[type="button"]:focus, .devhub-wrap input[type="reset"]:focus, .devhub-wrap input[type="submit"]:focus, .devhub-wrap button:active, .devhub-wrap input[type="button"]:active, .devhub-wrap input[type="reset"]:active, .devhub-wrap input[type="submit"]:active { border-color: #aaa #bbb #bbb #bbb; background: #f0f0f0; }
@@ -120,9 +120,9 @@ body, button, input, select, textarea { color: #404040; font-family: sans-serif;
 .devhub-wrap *, .devhub-wrap *:before, .devhub-wrap *:after { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 .devhub-wrap .site-main, .devhub-wrap .inner-wrap { margin: 0 auto; max-width: 60em; }
 .devhub-wrap a { color: #21759b; }
-.devhub-wrap .site-main h2, .devhub-wrap .site-main h3, .devhub-wrap .site-main h4, .devhub-wrap .site-main h5, .devhub-wrap .site-main h6 { color: #1e1e1e; font-family: "HelveticaNeue-Light", ​ "...vetica Neue", ​sans-serif; }
-.devhub-wrap h2.widget-title, .devhub-wrap h3.widget-title { font-family: "HelveticaNeue-Light", ​ "...vetica Neue", ​sans-serif; }
-.devhub-wrap #headline h2 a { color: #555; font-weight: 300; font-size: 28px; line-height: 1em; text-shadow: #fff 0px 1px 0px; font-family: "HelveticaNeue-Light", ​ "...vetica Neue", ​sans-serif; }
+.devhub-wrap .site-main h2, .devhub-wrap .site-main h3, .devhub-wrap .site-main h4, .devhub-wrap .site-main h5, .devhub-wrap .site-main h6 { color: #1e1e1e; font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.devhub-wrap h2.widget-title, .devhub-wrap h3.widget-title { font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.devhub-wrap #headline h2 a { color: #555; font-weight: 300; font-size: 28px; line-height: 1em; text-shadow: #fff 0px 1px 0px; font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 .devhub-wrap h2 { font-size: 28px; font-size: 2.8rem; line-height: 32px; line-height: 3.2rem; }
 .devhub-wrap h3 { font-size: 22px; font-size: 2.2rem; line-height: 26px; line-height: 2.6rem; }
 .devhub-wrap h4 { font-size: 18px; font-size: 1.8rem; line-height: 22px; line-height: 2.2rem; border-bottom: none; }
@@ -151,9 +151,9 @@ body, button, input, select, textarea { color: #404040; font-family: sans-serif;
 .devhub-wrap h1.entry-title a, .devhub-wrap h1.page-title a { text-decoration: none; color: #606060; }
 .devhub-wrap h1.single-entry-title, .devhub-wrap h2.entry-title { text-align: left; font-size: 30px; font-size: 3rem; padding: 0 0 24px; padding: 0 0 2.4rem; }
 .devhub-wrap h1.single-entry-title a, .devhub-wrap h2.entry-title a { text-decoration: none; color: #606060; }
-.devhub-wrap .home-landing .section { padding: 75px 0%; padding: 7.5rem 0%; }
+.devhub-wrap .home-landing .section { padding: 30px 0%; padding: 3rem 0%; }
 .devhub-wrap .color.section { color: #fff; }
-.devhub-wrap .section.blue { background: #0F3D57; padding: 100px 0; padding: 10rem 0; }
+.devhub-wrap .section.blue { background: #0F3D57; padding: 30px 0; padding: 3rem 0; }
 .devhub-wrap .section.blue .box { text-align: center; }
 .devhub-wrap .section.blue .box .widget-description { padding: 1em 15%; }
 .devhub-wrap .section.blue .widget-title { font-size: 62px; font-size: 6.2rem; line-height: 78px; line-height: 7.8rem; }

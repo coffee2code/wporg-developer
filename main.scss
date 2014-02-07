@@ -1,4 +1,5 @@
-
+$header-font: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,sans-serif;
+$body-font: "Helvetica Neue",Helvetica,Arial,sans-serif;
 
 /* =Reset
 -------------------------------------------------------------- */
@@ -82,7 +83,7 @@ input,
 select,
 textarea {
 	color: #404040;
-	font-family: sans-serif;
+	font-family: $body-font;
 	font-size: 16px;
 	font-size: 1.6rem;
 	line-height: 1.5;
@@ -102,8 +103,6 @@ textarea {
 */
 
 //Global Fonts
-$sans-serif: "HelveticaNeue-Light",​"...vetica Neue",​sans-serif;
-
 .devhub-wrap {
 
 	/*
@@ -244,7 +243,7 @@ $sans-serif: "HelveticaNeue-Light",​"...vetica Neue",​sans-serif;
 		cursor: pointer; /* Improves usability and consistency of cursor style between image-type 'input' and others */
 		font-size: 16px;
 		font-size: 1.6rem;
-		line-height: 1;
+		line-height: 1.1;
 		float: none;
 		height: auto;
 		padding: .6em 1.8em;
@@ -518,10 +517,6 @@ $sans-serif: "HelveticaNeue-Light",​"...vetica Neue",​sans-serif;
 	}
 
 
-
-
-	font-family: $sans-serif;
-
 	*,
 	*:before,
 	*:after {
@@ -547,14 +542,14 @@ $sans-serif: "HelveticaNeue-Light",​"...vetica Neue",​sans-serif;
 		h5,
 		h6 {
 			color: #1e1e1e;
-			font-family: $sans-serif;
+			font-family: $header-font;
 		}
 
 	}
 
 	h2.widget-title,
 	h3.widget-title {
-		font-family: $sans-serif;
+		font-family: $header-font;
 	}
 
 	#headline h2 a {
@@ -563,7 +558,7 @@ $sans-serif: "HelveticaNeue-Light",​"...vetica Neue",​sans-serif;
 		font-size: 28px;
 		line-height: 1em;
 		text-shadow: #fff 0px 1px 0px;
-		font-family: $sans-serif;
+		font-family: $header-font;
 	}
 
 	h2 {
@@ -790,16 +785,16 @@ $sans-serif: "HelveticaNeue-Light",​"...vetica Neue",​sans-serif;
 	 */
 
 	.home-landing .section {
-		padding: 75px 0%;
-		padding: 7.5rem 0%;
+		padding: 30px 0%;
+		padding: 3rem 0%;
 	}
 	.color.section {
 		color: #fff;
 	}
 	.section.blue {
 		background: #0F3D57;
-		padding: 100px 0;
-		padding: 10rem 0;
+		padding: 30px 0;
+		padding: 3rem 0;
 
 		.box {
 			text-align: center;
