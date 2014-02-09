@@ -14,10 +14,10 @@ require WPORGPATH . 'header.php';
 	<header id="masthead" class="site-header" role="banner">
 		<div class="inner-wrap">
 			<div class="site-branding">
-				<?php if ( ! is_front_page() ) : ?>
-					<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+				<?php if ( is_front_page() ) : ?>
+					<h1 class="home-site-title site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php _e( 'Developer Resources', 'wporg' ); ?></a></h1>
 				<?php else : ?>
-					<h1 class="home-site-title site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+					<span class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php _e( 'Developer Resources', 'wporg' ); ?></a></span>
 				<?php endif; ?>
 			</div>
 		</div><!-- .inner-wrap -->
