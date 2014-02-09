@@ -1,5 +1,6 @@
 $header-font: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,sans-serif;
 $body-font: "Helvetica Neue",Helvetica,Arial,sans-serif;
+$code-font: monospace;
 
 /* =Reset
 -------------------------------------------------------------- */
@@ -1253,6 +1254,25 @@ textarea {
  * Content
  *
  */
+.wpapi-class, .wpapi-function, .wpapi-hook {
+	h1 {
+		margin: 24px 0;
+		a {
+			color: #24831d;
+			font-family: $code-font;
+			font-size: 20px;
+			.arg-type {
+				color: #cd2f23;
+			}
+			.arg-name {
+				color: #0f55c8;
+			}
+			.arg-default {
+				color: #000000;
+			}
+		}
+	}
+}
 .has-sidebar.content-area {
 	float: none;
 	margin: 0 auto;

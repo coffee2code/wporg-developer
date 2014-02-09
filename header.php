@@ -15,7 +15,7 @@ require WPORGPATH . 'header.php';
 		<div class="inner-wrap">
 			<div class="site-branding">
 				<?php if ( ! is_front_page() ) : ?>
-					<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+					<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a><?php if ( is_single() || is_archive() ) : ?>: <a href="/<?php echo get_post_type_name( null, true ); ?>/"><?php echo ucfirst( get_post_type_name( null, true ) ); ?></a><?php endif; ?></h1>
 				<?php else : ?>
 					<h1 class="home-site-title site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
 				<?php endif; ?>

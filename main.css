@@ -1137,6 +1137,24 @@ textarea {
  * Content
  *
  */
+.wpapi-class h1, .wpapi-function h1, .wpapi-hook h1 {
+  margin: 24px 0;
+}
+.wpapi-class h1 a, .wpapi-function h1 a, .wpapi-hook h1 a {
+  color: #24831d;
+  font-family: monospace;
+  font-size: 20px;
+}
+.wpapi-class h1 a .arg-type, .wpapi-function h1 a .arg-type, .wpapi-hook h1 a .arg-type {
+  color: #cd2f23;
+}
+.wpapi-class h1 a .arg-name, .wpapi-function h1 a .arg-name, .wpapi-hook h1 a .arg-name {
+  color: #0f55c8;
+}
+.wpapi-class h1 a .arg-default, .wpapi-function h1 a .arg-default, .wpapi-hook h1 a .arg-default {
+  color: #000000;
+}
+
 .has-sidebar.content-area {
   float: none;
   margin: 0 auto;
