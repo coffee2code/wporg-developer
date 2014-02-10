@@ -97,7 +97,7 @@ function register_post_types() {
 
 	// Functions
 	register_post_type( 'wpapi-function', array(
-		'has_archive' => 'reference/function',
+		'has_archive' => 'reference/functions',
 		'label' => __( 'Functions', 'wporg' ),
 		'public' => true,
 		'rewrite' => array(
@@ -113,7 +113,7 @@ function register_post_types() {
 
 	// Classes
 	register_post_type( 'wpapi-class', array(
-		'has_archive' => 'reference/class',
+		'has_archive' => 'reference/classes',
 		'label' => __( 'Classes', 'wporg' ),
 		'public' => true,
 		'rewrite' => array(
@@ -126,7 +126,7 @@ function register_post_types() {
 
 	// Hooks
 	register_post_type( 'wpapi-hook', array(
-		'has_archive' => 'reference/hook',
+		'has_archive' => 'reference/hooks',
 		'label' => __( 'Hooks', 'wporg' ),
 		'public' => true,
 		'rewrite' => array(
