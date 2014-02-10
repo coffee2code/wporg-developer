@@ -15,7 +15,7 @@ require WPORGPATH . 'header.php';
 		<div class="inner-wrap">
 			<div class="site-branding">
 				<?php if ( ! is_front_page() ) : ?>
-					<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a><?php if ( is_single() || is_archive() ) : ?>: <a href="/reference/<?php echo wporg_developer_get_post_type_name(); ?>/"><?php echo ucfirst( wporg_developer_get_post_type_name( null, true ) ); ?></a><?php endif; ?></h1>
+					<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a><?php if ( is_single() || is_archive() ) : ?>: <a href="/reference/<?php echo DevHub\get_post_type_name(); ?>/"><?php echo ucfirst( DevHub\get_post_type_name( null, true ) ); ?></a><?php endif; ?></h1>
 				<?php else : ?>
 					<span class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php _e( 'Developer Resources', 'wporg' ); ?></a></span>
 				<?php endif; ?>

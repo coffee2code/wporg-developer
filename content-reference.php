@@ -26,19 +26,19 @@
 	<?php if ( is_single() ) : ?>
 	<hr/>
 	<section class="explanation">
-		<h2><?php _e( 'Explanation', 'wporg_developer' ); ?></h2>
+		<h2><?php _e( 'Explanation', 'wporg-developer' ); ?></h2>
 	</section>
 	<hr/>
 	<section class="arguments">
-		<h2><?php _e( 'Arguments', 'wporg_developer' ); ?></h2>
+		<h2><?php _e( 'Arguments', 'wporg-developer' ); ?></h2>
 	</section>
 	<hr/>
 	<section class="learn-more">
-		<h2><?php _e( 'Learn More', 'wporg_developer' ); ?></h2>
+		<h2><?php _e( 'Learn More', 'wporg-developer' ); ?></h2>
 	</section>
 	<hr/>
 	<section class="examples">
-		<h2><?php _e( 'Examples', 'wporg_developer' ); ?></h2>
+		<h2><?php _e( 'Examples', 'wporg-developer' ); ?></h2>
 	</section>
 	<?php endif; ?>
 

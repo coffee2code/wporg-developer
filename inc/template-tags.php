@@ -203,28 +203,6 @@ namespace {
 
 	add_action( 'edit_category', 'wporg_developer_category_transient_flusher' );
 	add_action( 'save_post', 'wporg_developer_category_transient_flusher' );
-
-	/**
-	 * Get post type name
-	 *
-	 * @param string $post_type
-	 * @param bool $plural
-	 *
-	 * @return string
-	 */
-	function wporg_developer_get_post_type_name( $post_type = null, $plural = false ) {
-		if ( empty( $post_type ) ) {
-			$post_type = get_post_type();
-		}
-
-		$name = substr( $post_type, 6 );
-
-		if ( $plural ) {
-			$name .= ( 'class' == $name ) ? 'es' : 's';
-		}
-		return $name;
-	}
-
 }
 
 namespace DevHub {
@@ -303,6 +281,27 @@ namespace DevHub {
 		}
 
 		return $part;
+	}
+
+	/**
+	 * Get post type name
+	 *
+	 * @param string $post_type
+	 * @param bool $plural
+	 *
+	 * @return string
+	 */
+	function get_post_type_name( $post_type = null, $plural = false ) {
+		if ( empty( $post_type ) ) {
+			$post_type = get_post_type();
+		}
+
+		$name = substr( $post_type, 6 );
+
+		if ( $plural ) {
+			$name .= ( 'class' == $name ) ? 'es' : 's';
+		}
+		return $name;
 	}
 
 	/**
