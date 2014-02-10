@@ -1,5 +1,7 @@
 $header-font: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,sans-serif;
 $body-font: "Helvetica Neue",Helvetica,Arial,sans-serif;
+$code-font: monospace;
+$serif-font: Georgia,​Times,​serif;
 
 /* =Reset
 -------------------------------------------------------------- */
@@ -118,7 +120,7 @@ textarea {
 		clear: both;
 	}
 	hr {
-		background-color: #ccc;
+		background-color: #dfdfdf;
 		border: 0;
 		height: 1px;
 		margin-bottom: 1.5em;
@@ -758,8 +760,6 @@ textarea {
 		font-size: 3.7rem;
 		color: #606060;
 		text-align: center;
-		padding: 0 0 30px;
-		padding: 0 0 3rem;
 		a {
 			text-decoration: none;
 			color: #606060;
@@ -1075,6 +1075,40 @@ textarea {
 	.widget-description {
 		font-style: italic;
 		font-weight: 300;
+	}
+	.wpapi-class, .wpapi-function, .wpapi-hook {
+		border-bottom: 1px solid #dfdfdf;
+		h1 {
+			margin: 24px 0;
+			a {
+				color: #24831d;
+				font-family: $code-font;
+				font-size: 20px;
+				.arg-type {
+					color: #cd2f23;
+				}
+				.arg-name {
+					color: #0f55c8;
+				}
+				.arg-default {
+					color: #000000;
+				}
+			}
+		}
+		h2 {
+			font-family: $serif-font;
+		}
+		.learn-more {
+			background-color: #f1f1f1;
+			border: 1px solid #dfdfdf;
+			border-radius: 5px;
+			padding: 20px;
+		}
+	}
+	.loop-pagination {
+		text-align: center;
+		font-size: 18px;
+		margin-bottom: 20px;
 	}
 
 	@media ( max-width: 43em ) {

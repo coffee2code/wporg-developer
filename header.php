@@ -14,10 +14,10 @@ require WPORGPATH . 'header.php';
 	<header id="masthead" class="site-header" role="banner">
 		<div class="inner-wrap">
 			<div class="site-branding">
-				<?php if ( is_front_page() ) : ?>
-					<h1 class="home-site-title site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php _e( 'Developer Resources', 'wporg' ); ?></a></h1>
+				<?php if ( ! is_front_page() ) : ?>
+					<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/reference/' ) ); ?>" rel="home"><?php echo DevHub\get_site_section_title(); ?></a><?php if ( is_single() || is_archive() ) : ?>: <a href="/reference/<?php echo DevHub\get_post_type_name(); ?>/"><?php echo ucfirst( DevHub\get_post_type_name( null, true ) ); ?></a><?php endif; ?></h1>
 				<?php else : ?>
-					<span class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php _e( 'Developer Resources', 'wporg' ); ?></a></span>
+					<span class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php echo DevHub\get_site_section_title(); ?></a></span>
 				<?php endif; ?>
 			</div>
 		</div><!-- .inner-wrap -->

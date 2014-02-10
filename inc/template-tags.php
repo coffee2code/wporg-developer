@@ -264,6 +264,61 @@ namespace DevHub {
 	}
 
 	/**
+	 * Get site section from url path
+	 *
+	 * @return string
+	 */
+	function get_site_section_title() {
+		$parts = explode( '/', $_SERVER['REQUEST_URI'] );
+		switch ( $parts[1] ) {
+			case 'reference':
+				return 'Code Reference';
+			default:
+				return 'Developer Resources';
+		}
+	}
+	/**
+	 * Get template part name
+	 *
+	 * @return string
+	 */
+	function get_template_part_name( $post_type = null ) {
+		if ( empty( $post_type ) ) {
+			$post_type = get_post_type();
+		}
+
+		$reference = array( 'wpapi-class', 'wpapi-function', 'wpapi-hook' );
+		if ( in_array( $post_type, $reference ) ) {
+			$part = 'reference';
+		} else {
+			$part = $post_type;
+		}
+
+		return $part;
+	}
+
+	/**
+	 * Get post type name
+	 *
+	 * @param string $post_type
+	 * @param bool $plural
+	 *
+	 * @return string
+	 */
+	function get_post_type_name( $post_type = null, $plural = false ) {
+		if ( empty( $post_type ) ) {
+			$post_type = get_post_type();
+		}
+
+		$name = substr( $post_type, 6 );
+
+		if ( $plural ) {
+			$name .= ( 'class' == $name ) ? 'es' : 's';
+		}
+		return $name;
+	}
+
+	/**
 	 * Retrieve function name and arguments as signature string
 	 *
 	 * @param int $post_id
@@ -278,17 +333,22 @@ namespace DevHub {
 
 		$signature    = get_the_title( $post_id ) . '(';
 		$args         = get_post_meta( $post_id, '_wpapi_args', true );
+		$tags 		  = get_post_meta( $post_id, '_wpapi_tags', true );
 		$args_strings = array();
 
+		foreach ( $tags as $tag ) {
+			if ( 'param' == $tag['name'] ) {
+				$types[ $tag['variable'] ] = implode( '|', $tag['types'] );
+			}
+		}
 		foreach ( $args as $arg ) {
-
 			$arg_string = '';
-			if ( ! empty ( $arg['type'] ) ) {
-				$arg_string .= $arg['type'];
+			if ( ! empty ( $types[ $arg['name'] ] ) ) {
+				$arg_string .= ' <span class="arg-type">' . $types[ $arg['name'] ] . '</span>';
 			}
 
 			if ( ! empty ( $arg['name'] ) ) {
-				$arg_string .= ' ' . $arg['name'] . ' ';
+				$arg_string .= '&nbsp;<span class="arg-name">' . $arg['name'] . '</span>&nbsp;';
 			}
 
 			if ( array_key_exists( 'default', $arg ) ) {
@@ -297,7 +357,7 @@ namespace DevHub {
 					$arg['default'] = 'null';
 				}
 
-				$arg_string .= '= ' . $arg['default'];
+				$arg_string .= '=&nbsp;<span class="arg-default">' . $arg['default'] . "</span>";
 			}
 
 			$args_strings[] = $arg_string;
@@ -306,7 +366,7 @@ namespace DevHub {
 
 		$signature .= implode( ', ', $args_strings ) . ' )';
 
-		return esc_html( $signature );
+		return wp_kses_post( $signature );
 	}
 
 	/**

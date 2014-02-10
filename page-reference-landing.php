@@ -11,13 +11,9 @@ get_header(); ?>
 
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
+		<?php breadcrumb_trail(); ?>
 
 			<div class="reference-landing">
-
-				<header class="entry-header">
-					<h1 class="entry-title"><?php the_title(); ?></h1>
-				</header><!-- .entry-header -->
-
 				<div class="search-guide section clear">
 					<h4 class="ref-intro"><?php _e( 'Want to know what&#39;s going on inside WordPress? Search the Code Reference for more information about WordPress&#39; functions, hooks, and filters.', 'wporg' ); ?></h4>
 					<h3 class="search-intro"><?php _e( 'Try it out:', 'wporg' ); ?></h3>
