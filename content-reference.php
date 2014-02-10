@@ -7,7 +7,6 @@
 	<section class="description">
 		<?php the_excerpt(); ?>
 	</section>
-	<?php if ( is_single() ) : ?>
 	<section class="long-description">
 		<?php the_content(); ?>
 	</section>
@@ -21,8 +20,26 @@
 			<p><strong>Since:</strong> WordPress <a href="<?php echo get_since_link( $since ); ?>"><?php echo $since; ?></a></p>
 		</section>
 	<?php endif; ?>
-
+	<?php if ( is_archive() ) : ?>
 	<section class="meta">Used by TODO | Uses TODO | TODO Examples</section>
+	<?php endif; ?>
+	<?php if ( is_single() ) : ?>
+	<hr/>
+	<section class="explanation">
+		<h2><?php _e( 'Explanation', 'wporg_developer' ); ?></h2>
+	</section>
+	<hr/>
+	<section class="arguments">
+		<h2><?php _e( 'Arguments', 'wporg_developer' ); ?></h2>
+	</section>
+	<hr/>
+	<section class="learn-more">
+		<h2><?php _e( 'Learn More', 'wporg_developer' ); ?></h2>
+	</section>
+	<hr/>
+	<section class="examples">
+		<h2><?php _e( 'Examples', 'wporg_developer' ); ?></h2>
+	</section>
 	<?php endif; ?>
 
 </article>

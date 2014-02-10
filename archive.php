@@ -12,56 +12,12 @@ get_header(); ?>
 
 <div class="<?php body_class( 'pagebody' ) ?>">
 	<div class="wrapper">
-
-		<?php breadcrumb_trail(); ?>
-
+		<header class="page-header">
+			<?php breadcrumb_trail(); ?>
+		</header><!-- .page-header -->
 
 		<?php if ( have_posts() ) : ?>
 
-			<header class="page-header">
-				<h1 class="page-title">
-					<?php
-						if ( is_category() ) :
-							single_cat_title();
-
-						elseif ( is_tag() ) :
-							single_tag_title();
-
-						elseif ( is_author() ) :
-							/* Queue the first post, that way we know
-							 * what author we're dealing with (if that is the case).
-							*/
-							the_post();
-							printf( __( 'Author: %s', 'wporg-developer' ), '<span class="vcard">' . get_the_author() . '</span>' );
-							/* Since we called the_post() above, we need to
-							 * rewind the loop back to the beginning that way
-							 * we can run the loop properly, in full.
-							 */
-							rewind_posts();
-
-						elseif ( is_day() ) :
-							printf( __( 'Day: %s', 'wporg-developer' ), '<span>' . get_the_date() . '</span>' );
-
-						elseif ( is_month() ) :
-							printf( __( 'Month: %s', 'wporg-developer' ), '<span>' . get_the_date( _x( 'F Y', 'monthly archives date format', 'wporg-developer' ) ) . '</span>' );
-
-						elseif ( is_year() ) :
-							printf( __( 'Year: %s', 'wporg-developer' ), '<span>' . get_the_date( _x( 'Y', 'yearly archives date format', 'wporg-developer' ) ) . '</span>' );
-
-						else :
-							_e( 'Archives', 'wporg-developer' );
-
-						endif;
-					?>
-				</h1>
-				<?php
-					// Show an optional term description.
-					$term_description = term_description();
-					if ( ! empty( $term_description ) ) :
-						printf( '<div class="taxonomy-description">%s</div>', $term_description );
-					endif;
-				?>
-			</header><!-- .page-header -->
 
 			<?php /* Start the Loop */ ?>
 			<?php while ( have_posts() ) : the_post(); ?>
@@ -76,7 +32,7 @@ get_header(); ?>
 
 			<?php endwhile; ?>
 
-			<?php wporg_developer_paging_nav(); ?>
+			<?php //wporg_developer_paging_nav(); ?>
 
 		<?php else : ?>
 

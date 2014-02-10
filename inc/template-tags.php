@@ -212,7 +212,7 @@ namespace {
 	 *
 	 * @return string
 	 */
-	function get_post_type_name( $post_type = null, $plural = false ) {
+	function wporg_developer_get_post_type_name( $post_type = null, $plural = false ) {
 		if ( empty( $post_type ) ) {
 			$post_type = get_post_type();
 		}
