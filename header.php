@@ -15,9 +15,9 @@ require WPORGPATH . 'header.php';
 		<div class="inner-wrap">
 			<div class="site-branding">
 				<?php if ( ! is_front_page() ) : ?>
-					<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a><?php if ( is_single() || is_archive() ) : ?>: <a href="/<?php echo wporg_developer_get_post_type_name( null, true ); ?>/"><?php echo ucfirst( wporg_developer_get_post_type_name( null, true ) ); ?></a><?php endif; ?></h1>
+					<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a><?php if ( is_single() || is_archive() ) : ?>: <a href="/reference/<?php echo wporg_developer_get_post_type_name(); ?>/"><?php echo ucfirst( wporg_developer_get_post_type_name( null, true ) ); ?></a><?php endif; ?></h1>
 				<?php else : ?>
-					<h1 class="home-site-title site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+					<span class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php _e( 'Developer Resources', 'wporg' ); ?></a></span>
 				<?php endif; ?>
 			</div>
 		</div><!-- .inner-wrap -->

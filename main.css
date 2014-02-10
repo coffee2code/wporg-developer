@@ -727,7 +727,7 @@ textarea {
 .devhub-wrap .site-branding .breadcrumb .active {
   font-weight: 600;
 }
-.devhub-wrap .site-branding h1.site-title {
+.devhub-wrap .site-branding .site-title {
   color: #555555;
   float: left;
   font-size: 28px;
