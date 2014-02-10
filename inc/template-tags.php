@@ -264,7 +264,21 @@ namespace DevHub {
 	}
 
 	/**
-	 * Retrieve template part name
+	 * Get site section from url path
+	 *
+	 * @return string
+	 */
+	function get_site_section_title() {
+		$parts = explode( '/', $_SERVER['REQUEST_URI'] );
+		switch ( $parts[1] ) {
+			case 'reference':
+				return 'Code Reference';
+			default:
+				return 'Developer Resources';
+		}
+	}
+	/**
+	 * Get template part name
 	 *
 	 * @return string
 	 */
