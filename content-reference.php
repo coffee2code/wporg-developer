@@ -27,21 +27,21 @@
 	<!--
 	<hr/>
 	<section class="explanation">
-		<h2><?php _e( 'Explanation', 'wporg-developer' ); ?></h2>
+		<h2><?php _e( 'Explanation', 'wporg' ); ?></h2>
 	</section>
 	-->
 	<hr/>
 	<section class="arguments">
-		<h2><?php _e( 'Arguments', 'wporg-developer' ); ?></h2>
+		<h2><?php _e( 'Arguments', 'wporg' ); ?></h2>
 	</section>
 	<hr/>
 	<section class="learn-more">
-		<h2><?php _e( 'Learn More', 'wporg-developer' ); ?></h2>
+		<h2><?php _e( 'Learn More', 'wporg' ); ?></h2>
 	</section>
 	<!--
 	<hr/>
 	<section class="examples">
-		<h2><?php _e( 'Examples', 'wporg-developer' ); ?></h2>
+		<h2><?php _e( 'Examples', 'wporg' ); ?></h2>
 	</section>
 	-->
 	<?php endif; ?>

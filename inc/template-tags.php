@@ -23,16 +23,16 @@ namespace {
 			}
 			?>
 			<nav class="navigation paging-navigation" role="navigation">
-				<h1 class="screen-reader-text"><?php _e( 'Posts navigation', 'wporg-developer' ); ?></h1>
+				<h1 class="screen-reader-text"><?php _e( 'Posts navigation', 'wporg' ); ?></h1>
 
 				<div class="nav-links">
 
 					<?php if ( get_next_posts_link() ) : ?>
-						<div class="nav-previous"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Older posts', 'wporg-developer' ) ); ?></div>
+						<div class="nav-previous"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Older posts', 'wporg' ) ); ?></div>
 					<?php endif; ?>
 
 					<?php if ( get_previous_posts_link() ) : ?>
-						<div class="nav-next"><?php previous_posts_link( __( 'Newer posts <span class="meta-nav">&rarr;</span>', 'wporg-developer' ) ); ?></div>
+						<div class="nav-next"><?php previous_posts_link( __( 'Newer posts <span class="meta-nav">&rarr;</span>', 'wporg' ) ); ?></div>
 					<?php endif; ?>
 
 				</div>
@@ -58,12 +58,12 @@ namespace {
 			}
 			?>
 			<nav class="navigation post-navigation" role="navigation">
-				<h1 class="screen-reader-text"><?php _e( 'Post navigation', 'wporg-developer' ); ?></h1>
+				<h1 class="screen-reader-text"><?php _e( 'Post navigation', 'wporg' ); ?></h1>
 
 				<div class="nav-links">
 
-					<?php previous_post_link( '%link', _x( '<span class="meta-nav">&larr;</span> %title', 'Previous post link', 'wporg-developer' ) ); ?>
-					<?php next_post_link( '%link', _x( '%title <span class="meta-nav">&rarr;</span>', 'Next post link', 'wporg-developer' ) ); ?>
+					<?php previous_post_link( '%link', _x( '<span class="meta-nav">&larr;</span> %title', 'Previous post link', 'wporg' ) ); ?>
+					<?php next_post_link( '%link', _x( '%title <span class="meta-nav">&rarr;</span>', 'Next post link', 'wporg' ) ); ?>
 
 				</div>
 				<!-- .nav-links -->
@@ -85,7 +85,7 @@ namespace {
 
 				<li id="comment-<?php comment_ID(); ?>" <?php comment_class(); ?>>
 				<div class="comment-body">
-					<?php _e( 'Pingback:', 'wporg-developer' ); ?> <?php comment_author_link(); ?> <?php edit_comment_link( __( 'Edit', 'wporg-developer' ), '<span class="edit-link">', '</span>' ); ?>
+					<?php _e( 'Pingback:', 'wporg' ); ?> <?php comment_author_link(); ?> <?php edit_comment_link( __( 'Edit', 'wporg' ), '<span class="edit-link">', '</span>' ); ?>
 				</div>
 
 			<?php else : ?>
@@ -97,22 +97,22 @@ namespace {
 							<?php if ( 0 != $args['avatar_size'] ) {
 								echo get_avatar( $comment, $args['avatar_size'] );
 							} ?>
-							<?php printf( __( '%s <span class="says">says:</span>', 'wporg-developer' ), sprintf( '<cite class="fn">%s</cite>', get_comment_author_link() ) ); ?>
+							<?php printf( __( '%s <span class="says">says:</span>', 'wporg' ), sprintf( '<cite class="fn">%s</cite>', get_comment_author_link() ) ); ?>
 						</div>
 						<!-- .comment-author -->
 
 						<div class="comment-metadata">
 							<a href="<?php echo esc_url( get_comment_link( $comment->comment_ID ) ); ?>">
 								<time datetime="<?php comment_time( 'c' ); ?>">
-									<?php printf( _x( '%1$s at %2$s', '1: date, 2: time', 'wporg-developer' ), get_comment_date(), get_comment_time() ); ?>
+									<?php printf( _x( '%1$s at %2$s', '1: date, 2: time', 'wporg' ), get_comment_date(), get_comment_time() ); ?>
 								</time>
 							</a>
-							<?php edit_comment_link( __( 'Edit', 'wporg-developer' ), '<span class="edit-link">', '</span>' ); ?>
+							<?php edit_comment_link( __( 'Edit', 'wporg' ), '<span class="edit-link">', '</span>' ); ?>
 						</div>
 						<!-- .comment-metadata -->
 
 						<?php if ( '0' == $comment->comment_approved ) : ?>
-							<p class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.', 'wporg-developer' ); ?></p>
+							<p class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.', 'wporg' ); ?></p>
 						<?php endif; ?>
 					</footer>
 					<!-- .comment-meta -->
@@ -155,7 +155,7 @@ namespace {
 				esc_html( get_the_modified_date() )
 			);
 
-			printf( __( '<span class="posted-on">Posted on %1$s</span><span class="byline"> by %2$s</span>', 'wporg-developer' ),
+			printf( __( '<span class="posted-on">Posted on %1$s</span><span class="byline"> by %2$s</span>', 'wporg' ),
 				sprintf( '<a href="%1$s" rel="bookmark">%2$s</a>',
 					esc_url( get_permalink() ),
 					$time_string

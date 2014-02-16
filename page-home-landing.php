@@ -56,12 +56,12 @@ get_header(); ?>
 								<?php the_content(); ?>
 								<?php
 									wp_link_pages( array(
-										'before' => '<div class="page-links">' . __( 'Pages:', 'wporg-developer' ),
+										'before' => '<div class="page-links">' . __( 'Pages:', 'wporg' ),
 										'after'  => '</div>',
 									) );
 								?>
 							</div><!-- .entry-content -->
-							<?php edit_post_link( __( 'Edit', 'wporg-developer' ), '<footer class="entry-meta"><span class="edit-link">', '</span></footer>' ); ?>
+							<?php edit_post_link( __( 'Edit', 'wporg' ), '<footer class="entry-meta"><span class="edit-link">', '</span></footer>' ); ?>
 						</div><!-- #post-## -->
 
 					<?php endwhile; // end of the loop. ?>

@@ -10,7 +10,7 @@ get_header(); ?>
 	<div id="primary" class="content-area has-sidebar">
 
 		<header class="page-header">
-			<h1 class="page-title"><?php _e( 'Handbook', 'wporg-developer' ); ?></h1>
+			<h1 class="page-title"><?php _e( 'Handbook', 'wporg' ); ?></h1>
 		</header><!-- .page-header -->
 
 		<main id="main" class="site-main" role="main">

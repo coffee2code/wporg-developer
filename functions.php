@@ -62,7 +62,7 @@ function init() {
  */
 function widgets_init() {
 	register_sidebar( array(
-		'name'          => __( 'Sidebar', 'wporg-developer' ),
+		'name'          => __( 'Sidebar', 'wporg' ),
 		'id'            => 'sidebar-1',
 		'before_widget' => '<aside id="%1$s" class="box gray widget %2$s">',
 		'after_widget'  => '</div></aside>',

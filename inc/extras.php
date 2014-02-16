@@ -60,7 +60,7 @@ function wporg_developer_wp_title( $title, $sep ) {
 
 	// Add a page number if necessary:
 	if ( $paged >= 2 || $page >= 2 ) {
-		$title .= " $sep " . sprintf( __( 'Page %s', 'wporg-developer' ), max( $paged, $page ) );
+		$title .= " $sep " . sprintf( __( 'Page %s', 'wporg' ), max( $paged, $page ) );
 	}
 
 	return $title;

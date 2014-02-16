@@ -14,14 +14,14 @@
 			</aside>
 
 			<aside id="archives" class="box gray widget">
-				<h1 class="widget-title"><?php _e( 'Archives', 'wporg-developer' ); ?></h1>
+				<h1 class="widget-title"><?php _e( 'Archives', 'wporg' ); ?></h1>
 				<ul>
 					<?php wp_get_archives( array( 'type' => 'monthly' ) ); ?>
 				</ul>
 			</aside>
 
 			<aside id="meta" class="box gray widget">
-				<h1 class="widget-title"><?php _e( 'Meta', 'wporg-developer' ); ?></h1>
+				<h1 class="widget-title"><?php _e( 'Meta', 'wporg' ); ?></h1>
 				<ul>
 					<?php wp_register(); ?>
 					<li><?php wp_loginout(); ?></li>
