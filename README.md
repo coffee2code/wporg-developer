@@ -1,6 +1,6 @@
 # developer.wordpress.org
 
-This is the work-in-progress for the forthcoming developer.wordpress.org aka devhub
+developer.wordpress.org is the forthcoming resource for developers working with WordPress
 
 There are a number of ways to get involved:
 
