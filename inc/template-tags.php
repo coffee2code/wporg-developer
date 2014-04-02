@@ -337,7 +337,7 @@ namespace DevHub {
 		$types        = array();
 		$args_strings = array();
 		
-		if( $tags ) {
+		if ( $tags ) {
 			foreach ( $tags as $tag ) {
 				if ( 'param' == $tag['name'] ) {
 					$types[ $tag['variable'] ] = implode( '|', $tag['types'] );
@@ -345,14 +345,14 @@ namespace DevHub {
 			}
 		}
 		
-		if( $args ) {
+		if ( $args ) {
 			foreach ( $args as $arg ) {
 				$arg_string = ''; 	
-				if ( ! empty ( $arg['name'] ) && ! empty ( $types[ $arg['name'] ] ) ) {
+				if ( ! empty( $arg['name'] ) && ! empty( $types[ $arg['name'] ] ) ) {
 					$arg_string .= ' <span class="arg-type">' . $types[ $arg['name'] ] . '</span>';
 				}
 	
-				if ( ! empty ( $arg['name'] ) ) {
+				if ( ! empty( $arg['name'] ) ) {
 					$arg_string .= '&nbsp;<span class="arg-name">' . $arg['name'] . '</span>&nbsp;';
 				}
 	
@@ -391,7 +391,7 @@ namespace DevHub {
 		$args = get_post_meta( $post_id, '_wpapi_args', true );
 		$tags = get_post_meta( $post_id, '_wpapi_tags', true );
 		
-		if( $tags ) {
+		if ( $tags ) {
 			foreach ( $tags as $tag ) {
 				if ( 'param' == $tag['name'] ) {
 					$params[ $tag['variable'] ] = $tag;
@@ -409,9 +409,9 @@ namespace DevHub {
 			}
 		}
 		
-		if( $args ) {
+		if ( $args ) {
 			foreach ( $args as $arg ) {
-				if ( ! empty ( $arg['name'] ) && ! empty ( $params[ $arg['name'] ] ) ) {
+				if ( ! empty( $arg['name'] ) && ! empty( $params[ $arg['name'] ] ) ) {
 					$params[ $arg['name'] ]['default'] = $arg['default'];
 				}
 	
@@ -436,9 +436,9 @@ namespace DevHub {
 		$arguments = array();
 		$args = get_post_meta( $post_id, '_wpapi_args', true );
 		
-		if( $args ) {
+		if ( $args ) {
 			foreach ( $args as $arg ) {
-				if ( ! empty ( $arg['type'] ) ) {
+				if ( ! empty( $arg['type'] ) ) {
 					$arguments[ $arg['name'] ] = $arg['type'];
 				}
 			}

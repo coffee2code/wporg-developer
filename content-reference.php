@@ -36,22 +36,22 @@ if ( ! empty( $since ) ) : ?>
 		<h2><?php _e( 'Parameters', 'wporg-developer' ); ?></h2>
 		<dl>
 			<?php foreach ( $params as $param ) : ?>
-			<?php if ( isset( $param['variable'] ) ) : ?>
+			<?php if ( ! empty( $param['variable'] ) ) : ?>
 			<dt><?php echo esc_html( $param['variable'] ); ?></dt>
 			<?php endif; ?>
 			<dd>
 				<p class="desc">
-					<?php if ( isset ( $param['types'] ) ) : ?>
+					<?php if ( ! empty( $param['types'] ) ) : ?>
 					<span class="type">(<?php echo wp_kses_post( $param['types'] ); ?>)</span>
 					<?php endif; ?>
-					<?php if ( isset ( $param['required'] ) ) : ?>
+					<?php if ( ! empty( $param['required'] ) ) : ?>
 					<span class="required">(<?php echo esc_html( $param['required'] ); ?>)</span>
 					<?php endif; ?>
-					<?php if ( isset ( $param['content'] ) ) : ?>
+					<?php if ( ! empty( $param['content'] ) ) : ?>
 					<span class="description"><?php echo wp_kses_post( $param['content'] ); ?></span>
 					<?php endif; ?>
 				</p>
-				<?php if ( isset ( $param['default'] ) ) : ?>
+				<?php if ( ! empty( $param['default'] ) ) : ?>
 				<p class="default"><?php echo esc_html( $param['default'] ); ?></p>
 				<?php endif; ?>
 			</dd>
