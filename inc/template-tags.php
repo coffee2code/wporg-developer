@@ -334,6 +334,7 @@ namespace DevHub {
 		$signature    = get_the_title( $post_id ) . '(';
 		$args         = get_post_meta( $post_id, '_wpapi_args', true );
 		$tags 		  = get_post_meta( $post_id, '_wpapi_tags', true );
+		$types        = array();
 		$args_strings = array();
 		
 		if( $tags ) {
@@ -346,8 +347,8 @@ namespace DevHub {
 		
 		if( $args ) {
 			foreach ( $args as $arg ) {
-				$arg_string = '';
-				if ( ! empty ( $types[ $arg['name'] ] ) ) {
+				$arg_string = ''; 	
+				if ( ! empty ( $arg['name'] ) && ! empty ( $types[ $arg['name'] ] ) ) {
 					$arg_string .= ' <span class="arg-type">' . $types[ $arg['name'] ] . '</span>';
 				}
 	
@@ -355,7 +356,7 @@ namespace DevHub {
 					$arg_string .= '&nbsp;<span class="arg-name">' . $arg['name'] . '</span>&nbsp;';
 				}
 	
-				if ( array_key_exists( 'default', $arg ) ) {
+				if ( is_array( $arg ) && array_key_exists( 'default', $arg ) ) {
 	
 					if ( is_null( $arg['default'] ) ) {
 						$arg['default'] = 'null';
@@ -410,7 +411,7 @@ namespace DevHub {
 		
 		if( $args ) {
 			foreach ( $args as $arg ) {
-				if ( ! empty ( $params[ $arg['name'] ] ) ) {
+				if ( ! empty ( $arg['name'] ) && ! empty ( $params[ $arg['name'] ] ) ) {
 					$params[ $arg['name'] ]['default'] = $arg['default'];
 				}
 	
