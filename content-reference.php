@@ -30,29 +30,29 @@ if ( ! empty( $since ) ) : ?>
 	</section>
 	-->
 	
-	<?php if( $params = get_params() ) : ?>
+	<?php if ( $params = get_params() ) : ?>
 	<hr/>
 	<section class="parameters">
 		<h2><?php _e( 'Parameters', 'wporg-developer' ); ?></h2>
 		<dl>
-			<?php foreach( $params as $param ) : ?>
-			<?php if( isset( $param['variable'] ) ) : ?>
+			<?php foreach ( $params as $param ) : ?>
+			<?php if ( isset( $param['variable'] ) ) : ?>
 			<dt><?php echo esc_html( $param['variable'] ); ?></dt>
 			<?php endif; ?>
 			<dd>
 				<p class="desc">
-					<?php if( isset( $param['types'] ) ) : ?>
+					<?php if ( isset ( $param['types'] ) ) : ?>
 					<span class="type">(<?php echo wp_kses_post( $param['types'] ); ?>)</span>
 					<?php endif; ?>
-					<?php if( isset( $param['required'] ) ) : ?>
+					<?php if ( isset ( $param['required'] ) ) : ?>
 					<span class="required">(<?php echo esc_html( $param['required'] ); ?>)</span>
 					<?php endif; ?>
-					<?php if( isset( $param['content'] ) ) : ?>
+					<?php if ( isset ( $param['content'] ) ) : ?>
 					<span class="description"><?php echo wp_kses_post( $param['content'] ); ?></span>
 					<?php endif; ?>
 				</p>
-				<?php if( isset( $param['default'] ) ) : ?>
-				<p class="default"><?php dbgx_trace_var($param['default']); echo esc_html( $param['default'] ); ?></p>
+				<?php if ( isset ( $param['default'] ) ) : ?>
+				<p class="default"><?php echo esc_html( $param['default'] ); ?></p>
 				<?php endif; ?>
 			</dd>
 			<?php endforeach; ?>
