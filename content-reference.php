@@ -29,10 +29,11 @@ if ( ! empty( $since ) ) : ?>
 		<h2><?php _e( 'Explanation', 'wporg' ); ?></h2>
 	</section>
 	-->
+	
+	<?php if( $params = get_params() ) : ?>
 	<hr/>
 	<section class="parameters">
 		<h2><?php _e( 'Parameters', 'wporg-developer' ); ?></h2>
-		<?php $params = get_params(); ?>
 		<dl>
 			<?php foreach( $params as $param ) : ?>
 			<dt><?php echo esc_html( $param['variable'] ); ?></dt>
@@ -43,6 +44,8 @@ if ( ! empty( $since ) ) : ?>
 			<?php endforeach; ?>
 		</dl>
 	</section>
+	<?php endif; ?>
+	
 	<?php if ( $arguments = get_arguments() ) : //todo: output arg data ?>
 	<hr/>
 	<section class="arguments">
