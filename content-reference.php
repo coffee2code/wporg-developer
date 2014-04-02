@@ -38,7 +38,11 @@ if ( ! empty( $since ) ) : ?>
 			<?php foreach( $params as $param ) : ?>
 			<dt><?php echo esc_html( $param['variable'] ); ?></dt>
 			<dd>
-				<p class="desc"><span class="type">(<?php echo wp_kses_post( $param['types'] ); ?>)</span> <span class="required">(<?php echo esc_html( $param['required'] ); ?>) <?php echo wp_kses_post( $param['content'] ); ?></p>
+				<p class="desc">
+					<span class="type">(<?php echo wp_kses_post( $param['types'] ); ?>)</span> 
+					<span class="required">(<?php echo esc_html( $param['required'] ); ?>)</span>
+					<span class="description"><?php echo wp_kses_post( $param['content'] ); ?></span>
+				</p>
 				<p class="default"><?php echo esc_html( $param['default'] ); ?></p>
 			</dd>
 			<?php endforeach; ?>
