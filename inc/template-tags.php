@@ -396,7 +396,7 @@ namespace DevHub {
 				if ( 'param' == $tag['name'] ) {
 					$params[ $tag['variable'] ] = $tag;
 					foreach ( $tag['types'] as $i => $v ) {
-						$types[$i] = "<span class=\"{$v}\">{$v}</span>";
+						$types[ $i ] = "<span class=\"{$v}\">{$v}</span>";
 					}
 					$params[ $tag['variable'] ]['types'] = implode( '|', $types );
 					if ( strtolower( substr( $tag['content'], 0, 8 ) ) == "optional." ) {
