@@ -29,20 +29,37 @@ if ( ! empty( $since ) ) : ?>
 		<h2><?php _e( 'Explanation', 'wporg' ); ?></h2>
 	</section>
 	-->
+	
+	<?php if ( $params = get_params() ) : ?>
 	<hr/>
 	<section class="parameters">
 		<h2><?php _e( 'Parameters', 'wporg-developer' ); ?></h2>
-		<?php $params = get_params(); ?>
 		<dl>
-			<?php foreach( $params as $param ) : ?>
+			<?php foreach ( $params as $param ) : ?>
+			<?php if ( ! empty( $param['variable'] ) ) : ?>
 			<dt><?php echo esc_html( $param['variable'] ); ?></dt>
+			<?php endif; ?>
 			<dd>
-				<p class="desc"><span class="type">(<?php echo wp_kses_post( $param['types'] ); ?>)</span> <span class="required">(<?php echo esc_html( $param['required'] ); ?>) <?php echo wp_kses_post( $param['content'] ); ?></p>
+				<p class="desc">
+					<?php if ( ! empty( $param['types'] ) ) : ?>
+					<span class="type">(<?php echo wp_kses_post( $param['types'] ); ?>)</span>
+					<?php endif; ?>
+					<?php if ( ! empty( $param['required'] ) ) : ?>
+					<span class="required">(<?php echo esc_html( $param['required'] ); ?>)</span>
+					<?php endif; ?>
+					<?php if ( ! empty( $param['content'] ) ) : ?>
+					<span class="description"><?php echo wp_kses_post( $param['content'] ); ?></span>
+					<?php endif; ?>
+				</p>
+				<?php if ( ! empty( $param['default'] ) ) : ?>
 				<p class="default"><?php echo esc_html( $param['default'] ); ?></p>
+				<?php endif; ?>
 			</dd>
 			<?php endforeach; ?>
 		</dl>
 	</section>
+	<?php endif; ?>
+	
 	<?php if ( $arguments = get_arguments() ) : //todo: output arg data ?>
 	<hr/>
 	<section class="arguments">

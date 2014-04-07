@@ -334,33 +334,39 @@ namespace DevHub {
 		$signature    = get_the_title( $post_id ) . '(';
 		$args         = get_post_meta( $post_id, '_wpapi_args', true );
 		$tags 		  = get_post_meta( $post_id, '_wpapi_tags', true );
+		$types        = array();
 		$args_strings = array();
-
-		foreach ( $tags as $tag ) {
-			if ( 'param' == $tag['name'] ) {
-				$types[ $tag['variable'] ] = implode( '|', $tag['types'] );
+		
+		if ( $tags ) {
+			foreach ( $tags as $tag ) {
+				if ( 'param' == $tag['name'] ) {
+					$types[ $tag['variable'] ] = implode( '|', $tag['types'] );
+				}
 			}
 		}
-		foreach ( $args as $arg ) {
-			$arg_string = '';
-			if ( ! empty ( $types[ $arg['name'] ] ) ) {
-				$arg_string .= ' <span class="arg-type">' . $types[ $arg['name'] ] . '</span>';
-			}
-
-			if ( ! empty ( $arg['name'] ) ) {
-				$arg_string .= '&nbsp;<span class="arg-name">' . $arg['name'] . '</span>&nbsp;';
-			}
-
-			if ( array_key_exists( 'default', $arg ) ) {
-
-				if ( is_null( $arg['default'] ) ) {
-					$arg['default'] = 'null';
+		
+		if ( $args ) {
+			foreach ( $args as $arg ) {
+				$arg_string = ''; 	
+				if ( ! empty( $arg['name'] ) && ! empty( $types[ $arg['name'] ] ) ) {
+					$arg_string .= ' <span class="arg-type">' . $types[ $arg['name'] ] . '</span>';
 				}
-
-				$arg_string .= '=&nbsp;<span class="arg-default">' . $arg['default'] . "</span>";
+	
+				if ( ! empty( $arg['name'] ) ) {
+					$arg_string .= '&nbsp;<span class="arg-name">' . $arg['name'] . '</span>&nbsp;';
+				}
+	
+				if ( is_array( $arg ) && array_key_exists( 'default', $arg ) ) {
+	
+					if ( is_null( $arg['default'] ) ) {
+						$arg['default'] = 'null';
+					}
+	
+					$arg_string .= '=&nbsp;<span class="arg-default">' . $arg['default'] . "</span>";
+				}
+	
+				$args_strings[] = $arg_string;
 			}
-
-			$args_strings[] = $arg_string;
 		}
 
 
@@ -381,30 +387,37 @@ namespace DevHub {
 		if ( empty( $post_id ) ) {
 			$post_id = get_the_ID();
 		}
-
+		$params = '';
 		$args = get_post_meta( $post_id, '_wpapi_args', true );
 		$tags = get_post_meta( $post_id, '_wpapi_tags', true );
-		foreach ( $tags as $tag ) {
-			if ( 'param' == $tag['name'] ) {
-				$params[ $tag['variable'] ] = $tag;
-				foreach ( $tag['types'] as $i => $v ) {
-					$types[$i] = "<span class=\"{$v}\">{$v}</span>";
-				}
-				$params[ $tag['variable'] ]['types'] = implode( '|', $types );
-				if ( strtolower( substr( $tag['content'], 0, 8 ) ) == "optional." ) {
-					$params[ $tag['variable'] ]['required'] = 'Optional';
-					$params[ $tag['variable'] ]['content'] = substr( $tag['content'], 9 );
-				} else {
-					$params[ $tag['variable'] ]['required'] = 'Required';
+		
+		if ( $tags ) {
+			foreach ( $tags as $tag ) {
+				if ( 'param' == $tag['name'] ) {
+					$params[ $tag['variable'] ] = $tag;
+					foreach ( $tag['types'] as $i => $v ) {
+						$types[ $i ] = "<span class=\"{$v}\">{$v}</span>";
+					}
+					$params[ $tag['variable'] ]['types'] = implode( '|', $types );
+					if ( strtolower( substr( $tag['content'], 0, 8 ) ) == "optional." ) {
+						$params[ $tag['variable'] ]['required'] = 'Optional';
+						$params[ $tag['variable'] ]['content'] = substr( $tag['content'], 9 );
+					} else {
+						$params[ $tag['variable'] ]['required'] = 'Required';
+					}
 				}
 			}
 		}
-		foreach ( $args as $arg ) {
-			if ( ! empty ( $params[ $arg['name'] ] ) ) {
-				$params[ $arg['name'] ]['default'] = $arg['default'];
+		
+		if ( $args ) {
+			foreach ( $args as $arg ) {
+				if ( ! empty( $arg['name'] ) && ! empty( $params[ $arg['name'] ] ) ) {
+					$params[ $arg['name'] ]['default'] = $arg['default'];
+				}
+	
 			}
-
 		}
+		
 		return $params;
 	}
 
@@ -422,11 +435,15 @@ namespace DevHub {
 		}
 		$arguments = array();
 		$args = get_post_meta( $post_id, '_wpapi_args', true );
-		foreach ( $args as $arg ) {
-			if ( ! empty ( $arg['type'] ) ) {
-				$arguments[ $arg['name'] ] = $arg['type'];
+		
+		if ( $args ) {
+			foreach ( $args as $arg ) {
+				if ( ! empty( $arg['type'] ) ) {
+					$arguments[ $arg['name'] ] = $arg['type'];
+				}
 			}
 		}
+		
 		return $arguments;
 	}
 
