@@ -255,7 +255,7 @@ namespace DevHub {
 	 */
 	function get_current_version() {
 
-		$version = get_terms( 'wpapi-since', array(
+		$version = get_terms( 'wp-parser-since', array(
 			'number' => '1',
 			'order'  => 'DESC',
 		) );
@@ -287,7 +287,7 @@ namespace DevHub {
 			$post_type = get_post_type();
 		}
 
-		$reference = array( 'wpapi-class', 'wpapi-function', 'wpapi-hook' );
+		$reference = array( 'wp-parser-class', 'wp-parser-function', 'wp-parser-hook' );
 		if ( in_array( $post_type, $reference ) ) {
 			$part = 'reference';
 		} else {
@@ -332,8 +332,8 @@ namespace DevHub {
 		}
 
 		$signature    = get_the_title( $post_id ) . '(';
-		$args         = get_post_meta( $post_id, '_wpapi_args', true );
-		$tags 		  = get_post_meta( $post_id, '_wpapi_tags', true );
+		$args         = get_post_meta( $post_id, '_wp-parser_args', true );
+		$tags 		  = get_post_meta( $post_id, '_wp-parser_tags', true );
 		$types        = array();
 		$args_strings = array();
 		
@@ -388,8 +388,8 @@ namespace DevHub {
 			$post_id = get_the_ID();
 		}
 		$params = '';
-		$args = get_post_meta( $post_id, '_wpapi_args', true );
-		$tags = get_post_meta( $post_id, '_wpapi_tags', true );
+		$args = get_post_meta( $post_id, '_wp-parser_args', true );
+		$tags = get_post_meta( $post_id, '_wp-parser_tags', true );
 		
 		if ( $tags ) {
 			foreach ( $tags as $tag ) {
@@ -434,7 +434,7 @@ namespace DevHub {
 			$post_id = get_the_ID();
 		}
 		$arguments = array();
-		$args = get_post_meta( $post_id, '_wpapi_args', true );
+		$args = get_post_meta( $post_id, '_wp-parser_args', true );
 		
 		if ( $args ) {
 			foreach ( $args as $arg ) {
@@ -460,7 +460,7 @@ namespace DevHub {
 			$post_id = get_the_ID();
 		}
 
-		$tags   = get_post_meta( $post_id, '_wpapi_tags', true );
+		$tags   = get_post_meta( $post_id, '_wp-parser_tags', true );
 		$return = wp_filter_object_list( $tags, array( 'name' => 'return' ) );
 
 		if ( empty( $return ) ) {
@@ -484,7 +484,7 @@ namespace DevHub {
 	 */
 	function get_since_link( $name = null ) {
 
-		$since_object = get_term_by( 'name', empty( $name ) ? get_since() : $name, 'wpapi-since' );
+		$since_object = get_term_by( 'name', empty( $name ) ? get_since() : $name, 'wp-parser-since' );
 
 		return empty( $since_object ) ? '' : esc_url( get_term_link( $since_object ) );
 	}
@@ -498,7 +498,7 @@ namespace DevHub {
 	 */
 	function get_since( $post_id = null ) {
 
-		$since_object = wp_get_post_terms( empty( $post_id ) ? get_the_ID() : $post_id, 'wpapi-since', array( 'fields' => 'names' ) );
+		$since_object = wp_get_post_terms( empty( $post_id ) ? get_the_ID() : $post_id, 'wp-parser-since', array( 'fields' => 'names' ) );
 
 		return empty( $since_object ) ? '' : esc_html( $since_object[0] );
 	}

@@ -96,7 +96,7 @@ function register_post_types() {
 	);
 
 	// Functions
-	register_post_type( 'wpapi-function', array(
+	register_post_type( 'wp-parser-function', array(
 		'has_archive' => 'reference/functions',
 		'label' => __( 'Functions', 'wporg' ),
 		'public' => true,
@@ -109,10 +109,10 @@ function register_post_types() {
 	) );
 
 	// Methods
-	add_rewrite_rule( 'method/([^/]+)/([^/]+)/?$', 'index.php?post_type=wpapi-function&name=$matches[1]-$matches[2]', 'top' );
+	add_rewrite_rule( 'method/([^/]+)/([^/]+)/?$', 'index.php?post_type=wp-parser-function&name=$matches[1]-$matches[2]', 'top' );
 
 	// Classes
-	register_post_type( 'wpapi-class', array(
+	register_post_type( 'wp-parser-class', array(
 		'has_archive' => 'reference/classes',
 		'label' => __( 'Classes', 'wporg' ),
 		'public' => true,
@@ -125,7 +125,7 @@ function register_post_types() {
 	) );
 
 	// Hooks
-	register_post_type( 'wpapi-hook', array(
+	register_post_type( 'wp-parser-hook', array(
 		'has_archive' => 'reference/hooks',
 		'label' => __( 'Hooks', 'wporg' ),
 		'public' => true,
@@ -143,7 +143,7 @@ function register_post_types() {
  */
 function register_taxonomies() {
 	// Files
-	register_taxonomy( 'wpapi-source-file', array( 'wpapi-class', 'wpapi-function', 'wpapi-hook' ), array(
+	register_taxonomy( 'wp-parser-source-file', array( 'wp-parser-class', 'wp-parser-function', 'wp-parser-hook' ), array(
 		'label'                 => __( 'Files', 'wporg' ),
 		'public'                => true,
 		'rewrite'               => array( 'slug' => 'reference/files' ),
@@ -152,7 +152,7 @@ function register_taxonomies() {
 	) );
 
 	// Package
-	register_taxonomy( 'wpapi-package', array( 'wpapi-class', 'wpapi-function', 'wpapi-hook' ), array(
+	register_taxonomy( 'wp-parser-package', array( 'wp-parser-class', 'wp-parser-function', 'wp-parser-hook' ), array(
 		'hierarchical'          => true,
 		'label'                 => '@package',
 		'public'                => true,
@@ -162,7 +162,7 @@ function register_taxonomies() {
 	) );
 
 	// @since
-	register_taxonomy( 'wpapi-since', array( 'wpapi-class', 'wpapi-function', 'wpapi-hook' ), array(
+	register_taxonomy( 'wp-parser-since', array( 'wp-parser-class', 'wp-parser-function', 'wp-parser-hook' ), array(
 		'hierarchical'          => true,
 		'label'                 => __( '@since', 'wporg' ),
 		'public'                => true,
@@ -173,7 +173,7 @@ function register_taxonomies() {
 }
 
 function method_permalink( $link, $post ) {
-	if ( $post->post_type !== 'wpapi-function' || $post->post_parent == 0 )
+	if ( $post->post_type !== 'wp-parser-function' || $post->post_parent == 0 )
 		return $link;
 
 	list( $class, $method ) = explode( '-', $post->post_name );

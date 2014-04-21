@@ -22,9 +22,9 @@ get_header(); ?>
 				<div class="topic-guide section">
 					<h4><?php _e( 'Or browse through topics:', 'wporg' ); ?></h4>
 					<ul class="unordered-list horizontal-list no-bullets">
-						<li><a href="<?php echo get_post_type_archive_link( 'wpapi-function' ) ?>"><?php _e( 'Functions', 'wporg' ); ?></a></li>
-						<li><a href="<?php echo get_post_type_archive_link( 'wpapi-hook' ) ?>"><?php _e( 'Hooks', 'wporg' ); ?></a></li>
-						<li><a href="<?php echo get_post_type_archive_link( 'wpapi-class' ) ?>"><?php _e( 'Classes', 'wporg' ); ?></a></li>
+						<li><a href="<?php echo get_post_type_archive_link( 'wp-parser-function' ) ?>"><?php _e( 'Functions', 'wporg' ); ?></a></li>
+						<li><a href="<?php echo get_post_type_archive_link( 'wp-parser-hook' ) ?>"><?php _e( 'Hooks', 'wporg' ); ?></a></li>
+						<li><a href="<?php echo get_post_type_archive_link( 'wp-parser-class' ) ?>"><?php _e( 'Classes', 'wporg' ); ?></a></li>
 					</ul>
 				</div><!-- /topic-guide -->
 
@@ -37,11 +37,11 @@ get_header(); ?>
 
 								$list = new WP_Query( array(
 									'posts_per_page' => 10,
-									'post_type'      => array( 'wpapi-function', 'wpapi-hook', 'wpapi-class' ),
+									'post_type'      => array( 'wp-parser-function', 'wp-parser-hook', 'wp-parser-class' ),
 									'orderby'        => 'title',
 									'order'          => 'ASC',
 									'tax_query'      => array( array(
-										'taxonomy' => 'wpapi-since',
+										'taxonomy' => 'wp-parser-since',
 										'field'    => 'ids',
 										'terms'    => $version->term_id,
 									) ),
