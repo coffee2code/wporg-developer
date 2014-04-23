@@ -287,7 +287,7 @@ namespace DevHub {
 			$post_type = get_post_type();
 		}
 
-		$reference = array( 'wp-parser-class', 'wp-parser-function', 'wp-parser-hook' );
+		$reference = array( 'wp-parser-class', 'wp-parser-function' );
 		if ( in_array( $post_type, $reference ) ) {
 			$part = 'reference';
 		} else {
@@ -331,12 +331,13 @@ namespace DevHub {
 			$post_id = get_the_ID();
 		}
 
-		$signature    = get_the_title( $post_id ) . '(';
 		$args         = get_post_meta( $post_id, '_wp-parser_args', true );
 		$tags 		  = get_post_meta( $post_id, '_wp-parser_tags', true );
-		$types        = array();
+		$signature    = get_the_title( $post_id );
+		$params       = get_params();
 		$args_strings = array();
-		
+		$types        = array();
+
 		if ( $tags ) {
 			foreach ( $tags as $tag ) {
 				if ( 'param' == $tag['name'] ) {
@@ -344,7 +345,26 @@ namespace DevHub {
 				}
 			}
 		}
-		
+
+		// Decorate and return hook arguments.
+		if ( 'wp-parser-hook' === get_post_type( $post_id ) ) {
+			$arg_string = '';
+			if ( ! empty( $types ) ) {
+				foreach ( $types as $arg => $type ) {
+					$arg_string .= ' <span class="arg-type">' . esc_html( $type ) . '</span>';
+					$arg_string .= ' <span class="arg-name">' . esc_html( $arg ) . '</span>';
+					$arg_string .= $arg === end( array_keys( $types ) ) ? ' ' : ',';
+				}
+				if ( ! empty( $arg_string ) ) {
+					$signature .= " ($arg_string)";
+				}
+			}
+			return $signature;
+		}
+
+		// Decorate and return function/class arguments.
+		$signature .= ' (';
+
 		if ( $args ) {
 			foreach ( $args as $arg ) {
 				$arg_string = ''; 	
@@ -368,7 +388,6 @@ namespace DevHub {
 				$args_strings[] = $arg_string;
 			}
 		}
-
 
 		$signature .= implode( ', ', $args_strings ) . ' )';
 
