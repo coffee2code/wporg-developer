@@ -57,12 +57,24 @@ get_header(); ?>
 						</div>
 					</div>
 					<div class="widget box gray">
-						<h3 class="widget-title"><?php _e( 'APIs', 'wporg' ); ?></h3>
+						<h3 class="widget-title"><?php _e( 'API', 'wporg' ); ?></h3>
 						<div class="widget-content">
 							<ul class="unordered-list no-bullets">
-								<li><a href="#">Some API</a></li>
-								<li><a href="#">Some other API</a></li>
-								<li><a href="#">Another new API</a></li>
+								<li><a href="https://codex.wordpress.org/Dashboard_Widgets_API">Dashboard widgets</a></li>
+								<li><a href="https://codex.wordpress.org/Database_API">Database</a></li>
+								<li><a href="https://codex.wordpress.org/HTTP_API">HTTP API</a></li>
+								<li><a href="https://codex.wordpress.org/Filesystem_API">Filesystem</a></li>
+								<li><a href="https://codex.wordpress.org/Metadata_API">Metadata</a></li>
+								<li><a href="https://codex.wordpress.org/Options_API">Options</a></li>
+								<li><a href="https://codex.wordpress.org/Plugin_API">Plugins</a></li>
+								<li><a href="https://codex.wordpress.org/Quicktags_API">Quicktags</a></li>
+								<li><a href="https://codex.wordpress.org/Rewrite_API">Rewrite</a></li>
+								<li><a href="https://codex.wordpress.org/Rewrite_API">Settings</a></li>
+								<li><a href="https://codex.wordpress.org/Shortcode_API">Shortcode</a></li>
+								<li><a href=""https://codex.wordpress.org/Shortcode_API"https://codex.wordpress.org/Theme_Modification_API">Theme Modification</a></li>
+								<li><a href="https://codex.wordpress.org/Transients_API">Transients</a></li>
+								<li><a href="https://codex.wordpress.org/XML-RPC_WordPress_API">XML-RPC</a></li>
+								
 							</ul>
 						</div>
 					</div>
