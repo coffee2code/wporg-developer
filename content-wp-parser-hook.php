@@ -15,7 +15,7 @@
 	$since = get_since();
 	if ( ! empty( $since ) ) : ?>
 		<section class="since">
-			<p><strong><?php _e( 'Since</strong>: WordPress' ); ?> <a href="<?php echo get_since_link( $since ); ?>"><?php echo esc_html( $since ); ?></a></p>
+			<p><strong><?php _e( 'Since:</strong> WordPress' ); ?> <a href="<?php echo get_since_link( $since ); ?>"><?php echo esc_html( $since ); ?></a></p>
 		</section>
 	<?php endif; ?>
 
