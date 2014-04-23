@@ -71,6 +71,6 @@
 			<h2><?php _e( 'Examples', 'wporg' ); ?></h2>
 		</section>
 		-->
-<?php endif; ?>
+	<?php endif; ?>
 
 </article>
