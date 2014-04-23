@@ -157,8 +157,8 @@ function register_post_types() {
 	// Hooks
 	register_post_type( 'wp-parser-hook', array(
 		'has_archive' => 'reference/hooks',
-		'label' => __( 'Hooks', 'wporg' ),
-		'labels' => array(
+		'label'       => __( 'Hooks', 'wporg' ),
+		'labels'      => array(
 			'name'               => __( 'Hooks', 'wporg' ),
 			'singular_name'      => __( 'Hook', 'wporg' ),
 			'all_items'          => __( 'Hooks', 'wporg' ),
@@ -173,13 +173,13 @@ function register_post_types() {
 			'parent_item_colon'  => __( 'Parent Hook', 'wporg' ),
 			'menu_name'          => __( 'Hooks', 'wporg' ),
 		),
-		'public' => true,
-		'rewrite' => array(
-			'feeds' => false,
-			'slug' => 'reference/hook',
+		'public'      => true,
+		'rewrite'     => array(
+			'feeds'      => false,
+			'slug'       => 'reference/hook',
 			'with_front' => false,
 		),
-		'supports' => $supports,
+		'supports'    => $supports,
 	) );
 }
 
