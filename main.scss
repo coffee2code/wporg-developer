@@ -754,7 +754,11 @@ textarea {
 		}
 
 	}
-
+	.site-main {
+		.breadcrumb-trail {
+			margin-top: 1em;
+		}
+	}
 	h1.entry-title,
 	h1.page-title {
 		font-weight: 300;
