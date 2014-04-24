@@ -287,7 +287,7 @@ namespace DevHub {
 			$post_type = get_post_type();
 		}
 
-		$reference = array( 'wp-parser-class', 'wp-parser-function' );
+		$reference = array( 'wp-parser-class', 'wp-parser-function', 'wp-parser-method' );
 		if ( in_array( $post_type, $reference ) ) {
 			$part = 'reference';
 		} else {

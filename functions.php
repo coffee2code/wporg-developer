@@ -181,6 +181,34 @@ function register_post_types() {
 		),
 		'supports'    => $supports,
 	) );
+
+	// Methods
+	register_post_type( 'wp-parser-method', array(
+		'has_archive' => 'reference/methods',
+		'label'       => __( 'Methods', 'wporg' ),
+		'labels'      => array(
+			'name'               => __( 'Methods', 'wporg' ),
+			'singular_name'      => __( 'Method', 'wporg' ),
+			'all_items'          => __( 'Methods', 'wporg' ),
+			'new_item'           => __( 'New Method', 'wporg' ),
+			'add_new'            => __( 'Add New', 'wporg' ),
+			'add_new_item'       => __( 'Add New Method', 'wporg' ),
+			'edit_item'          => __( 'Edit Method', 'wporg' ),
+			'view_item'          => __( 'View Method', 'wporg' ),
+			'search_items'       => __( 'Search Methods', 'wporg' ),
+			'not_found'          => __( 'No Methods found', 'wporg' ),
+			'not_found_in_trash' => __( 'No Methods found in trash', 'wporg' ),
+			'parent_item_colon'  => __( 'Parent Method', 'wporg' ),
+			'menu_name'          => __( 'Methods', 'wporg' ),
+		),
+		'public'      => true,
+		'rewrite'     => array(
+			'feeds'      => false,
+			'slug'       => 'reference/method',
+			'with_front' => false,
+		),
+		'supports'    => $supports,
+	) );
 }
 
 /**
@@ -188,7 +216,7 @@ function register_post_types() {
  */
 function register_taxonomies() {
 	// Files
-	register_taxonomy( 'wp-parser-source-file', array( 'wp-parser-class', 'wp-parser-function', 'wp-parser-hook' ), array(
+	register_taxonomy( 'wp-parser-source-file', array( 'wp-parser-class', 'wp-parser-function', 'wp-parser-hook', 'wp-parser-method' ), array(
 		'label'                 => __( 'Files', 'wporg' ),
 		'labels'                => array(
 			'name'                       => __( 'Files', 'wporg' ),
@@ -214,7 +242,7 @@ function register_taxonomies() {
 	) );
 
 	// Package
-	register_taxonomy( 'wp-parser-package', array( 'wp-parser-class', 'wp-parser-function', 'wp-parser-hook' ), array(
+	register_taxonomy( 'wp-parser-package', array( 'wp-parser-class', 'wp-parser-function', 'wp-parser-hook', 'wp-parser-method' ), array(
 		'hierarchical'          => true,
 		'label'                 => '@package',
 		'public'                => true,
@@ -224,7 +252,7 @@ function register_taxonomies() {
 	) );
 
 	// @since
-	register_taxonomy( 'wp-parser-since', array( 'wp-parser-class', 'wp-parser-function', 'wp-parser-hook' ), array(
+	register_taxonomy( 'wp-parser-since', array( 'wp-parser-class', 'wp-parser-function', 'wp-parser-hook', 'wp-parser-method' ), array(
 		'hierarchical'          => true,
 		'label'                 => __( '@since', 'wporg' ),
 		'public'                => true,

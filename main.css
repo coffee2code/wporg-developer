@@ -1014,40 +1014,43 @@ textarea {
   font-style: italic;
   font-weight: 300;
 }
-.devhub-wrap .wp-parser-class, .devhub-wrap .wp-parser-function, .devhub-wrap .wp-parser-hook {
+.devhub-wrap .wp-parser-class, .devhub-wrap .wp-parser-function, .devhub-wrap .wp-parser-hook, .devhub-wrap .wp-parser-method {
   border-bottom: 1px solid #dfdfdf;
 }
-.devhub-wrap .wp-parser-class h1, .devhub-wrap .wp-parser-function h1, .devhub-wrap .wp-parser-hook h1 {
+.devhub-wrap .wp-parser-class h1, .devhub-wrap .wp-parser-function h1, .devhub-wrap .wp-parser-hook h1, .devhub-wrap .wp-parser-method h1 {
   margin: 24px 0;
 }
-.devhub-wrap .wp-parser-class h1 a, .devhub-wrap .wp-parser-function h1 a, .devhub-wrap .wp-parser-hook h1 a {
+.devhub-wrap .wp-parser-class h1 a, .devhub-wrap .wp-parser-function h1 a, .devhub-wrap .wp-parser-hook h1 a, .devhub-wrap .wp-parser-method h1 a {
   color: #24831d;
   font-family: monospace;
   font-size: 20px;
 }
-.devhub-wrap .wp-parser-class h1 a .arg-type, .devhub-wrap .wp-parser-function h1 a .arg-type, .devhub-wrap .wp-parser-hook h1 a .arg-type {
+.devhub-wrap .wp-parser-class h1 a .arg-type, .devhub-wrap .wp-parser-function h1 a .arg-type, .devhub-wrap .wp-parser-hook h1 a .arg-type, .devhub-wrap .wp-parser-method h1 a .arg-type {
   color: #cd2f23;
 }
-.devhub-wrap .wp-parser-class h1 a .arg-name, .devhub-wrap .wp-parser-function h1 a .arg-name, .devhub-wrap .wp-parser-hook h1 a .arg-name {
+.devhub-wrap .wp-parser-class h1 a .arg-name, .devhub-wrap .wp-parser-function h1 a .arg-name, .devhub-wrap .wp-parser-hook h1 a .arg-name, .devhub-wrap .wp-parser-method h1 a .arg-name {
   color: #0f55c8;
 }
-.devhub-wrap .wp-parser-class h1 a .arg-default, .devhub-wrap .wp-parser-function h1 a .arg-default, .devhub-wrap .wp-parser-hook h1 a .arg-default {
+.devhub-wrap .wp-parser-class h1 a .arg-default, .devhub-wrap .wp-parser-function h1 a .arg-default, .devhub-wrap .wp-parser-hook h1 a .arg-default, .devhub-wrap .wp-parser-method h1 a .arg-default {
   color: #000000;
 }
-.devhub-wrap .wp-parser-class h2, .devhub-wrap .wp-parser-function h2, .devhub-wrap .wp-parser-hook h2 {
+.devhub-wrap .wp-parser-class h2, .devhub-wrap .wp-parser-function h2, .devhub-wrap .wp-parser-hook h2, .devhub-wrap .wp-parser-method h2 {
   font-family: Georgia, ​Times, ​serif;
   margin-bottom: .5em;
 }
-.devhub-wrap .wp-parser-class .parameters p, .devhub-wrap .wp-parser-function .parameters p, .devhub-wrap .wp-parser-hook .parameters p {
+.devhub-wrap .wp-parser-class .parameters p, .devhub-wrap .wp-parser-function .parameters p, .devhub-wrap .wp-parser-hook .parameters p, .devhub-wrap .wp-parser-method .parameters p {
   margin-bottom: 0;
 }
-.devhub-wrap .wp-parser-class .parameters dd .desc .type, .devhub-wrap .wp-parser-class .parameters dd .desc .required, .devhub-wrap .wp-parser-function .parameters dd .desc .type, .devhub-wrap .wp-parser-function .parameters dd .desc .required, .devhub-wrap .wp-parser-hook .parameters dd .desc .type, .devhub-wrap .wp-parser-hook .parameters dd .desc .required {
+.devhub-wrap .wp-parser-class .parameters dd .desc .type, .devhub-wrap .wp-parser-class .parameters dd .desc .required,
+.devhub-wrap .wp-parser-function .parameters dd .desc .type, .devhub-wrap .wp-parser-function .parameters dd .desc .required,
+.devhub-wrap .wp-parser-hook .parameters dd .desc .type, .devhub-wrap .wp-parser-hook .parameters dd .desc .required,
+.devhub-wrap .wp-parser-method .parameters dd .desc .type, .devhub-wrap .wp-parser-method .parameters dd .desc .required {
   font-style: italic;
 }
-.devhub-wrap .wp-parser-class .parameters dd .default, .devhub-wrap .wp-parser-function .parameters dd .default, .devhub-wrap .wp-parser-hook .parameters dd .default {
+.devhub-wrap .wp-parser-class .parameters dd .default, .devhub-wrap .wp-parser-function .parameters dd .default, .devhub-wrap .wp-parser-hook .parameters dd .default, .devhub-wrap .wp-parser-method .parameters dd .default {
   font-style: italic;
 }
-.devhub-wrap .wp-parser-class .learn-more, .devhub-wrap .wp-parser-function .learn-more, .devhub-wrap .wp-parser-hook .learn-more {
+.devhub-wrap .wp-parser-class .learn-more, .devhub-wrap .wp-parser-function .learn-more, .devhub-wrap .wp-parser-hook .learn-more, .devhub-wrap .wp-parser-method .learn-more {
   background-color: #f1f1f1;
   border: 1px solid #dfdfdf;
   border-radius: 5px;

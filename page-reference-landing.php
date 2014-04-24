@@ -37,7 +37,7 @@ get_header(); ?>
 
 								$list = new WP_Query( array(
 									'posts_per_page' => 10,
-									'post_type'      => array( 'wp-parser-function', 'wp-parser-hook', 'wp-parser-class' ),
+									'post_type'      => array( 'wp-parser-function', 'wp-parser-hook', 'wp-parser-class', 'wp-parser-method' ),
 									'orderby'        => 'title',
 									'order'          => 'ASC',
 									'tax_query'      => array( array(
