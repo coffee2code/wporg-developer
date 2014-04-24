@@ -951,7 +951,14 @@ textarea {
 		h4.widget-title {
 			margin-bottom: 0;
 		}
-
+	}
+	.reference-landing .section.search-guide {
+		padding-bottom: 0;
+	}
+	.reference-landing {
+		.section.topic-guide, .section.new-in-guide  {
+			padding-top: 0;
+		}
 	}
 	.reference-landing .box,
 	.sidebar .box {
