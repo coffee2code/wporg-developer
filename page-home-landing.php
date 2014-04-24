@@ -7,6 +7,10 @@
  * @package wporg-developer
  */
 
+// Temporarily redirect to reference until other section become live, justifying a main landing page.
+wp_redirect( site_url( 'reference' ) );
+exit();
+
 get_header(); ?>
 
 	<div id="primary" class="content-area">
