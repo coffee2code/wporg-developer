@@ -1,4 +1,4 @@
-<?php
+<?php namespace DevHub;
 /**
  * The template for displaying Search Results pages.
  *
@@ -7,7 +7,7 @@
 
 get_header(); ?>
 
-	<section id="primary" class="content-area has-sidebar">
+	<div id="primary" class="content-area">
 
 		<header class="page-header">
 			<h1 class="page-title"><?php printf( __( 'Search Results for: %s', 'wporg' ), '<span>' . get_search_query() . '</span>' ); ?></h1>
@@ -19,7 +19,7 @@ get_header(); ?>
 			<?php /* Start the Loop */ ?>
 			<?php while ( have_posts() ) : the_post(); ?>
 
-				<?php get_template_part( 'content', 'search' ); ?>
+				<?php get_template_part( 'content', get_template_part_name() ); ?>
 
 			<?php endwhile; ?>
 
@@ -32,6 +32,6 @@ get_header(); ?>
 		<?php endif; ?>
 
 		</main><!-- #main -->
-		<?php get_sidebar(); ?>
-	</section><!-- #primary -->
+		<?php //get_sidebar(); ?>
+	</div><!-- #primary -->
 <?php get_footer(); ?>
