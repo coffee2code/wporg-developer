@@ -27,9 +27,9 @@
 	</section>
 	<?php endif; ?>
 
-	<?php if ( is_archive() ) : ?>
+	<?php /* if ( is_archive() ) : ?>
 		<section class="meta">Used by TODO | Uses TODO | TODO Examples</section>
-	<?php endif; ?>
+	<?php endif; */ ?>
 
 	<?php if ( is_single() ) : ?>
 		<!--

@@ -28,9 +28,9 @@ if ( ! empty( $since ) ) : ?>
 	</section>
 	<?php endif; ?>
 
-<?php if ( is_archive() ) : ?>
+<?php /* if ( is_archive() ) : ?>
 	<section class="meta">Used by TODO | Uses TODO | TODO Examples</section>
-<?php endif; ?>
+<?php endif; */ ?>
 <?php if ( is_single() ) : ?>
 	<!--
 	<hr/>
@@ -75,15 +75,16 @@ if ( ! empty( $since ) ) : ?>
 		<h2><?php _e( 'Arguments', 'wporg' ); ?></h2>
 	</section>
 	<?php endif; ?>
+	<!--
 	<hr/>
 	<section class="learn-more">
 		<h2><?php _e( 'Learn More', 'wporg' ); ?></h2>
 	</section>
-	<!--
 	<hr/>
 	<section class="examples">
 		<h2><?php _e( 'Examples', 'wporg' ); ?></h2>
 	</section>
+	-->
 <?php endif; ?>
 
 </article>
