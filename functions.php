@@ -51,6 +51,9 @@ function init() {
 	add_filter( 'post_type_link', __NAMESPACE__ . '\\method_permalink', 10, 2 );
 	add_theme_support( 'automatic-feed-links' );
 	add_theme_support( 'post-thumbnails' );
+
+	// Temporarily disable comments
+	add_filter( 'comments_open', '__return_false' );
 }
 
 
