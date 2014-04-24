@@ -731,7 +731,7 @@ textarea {
 .devhub-wrap .site-branding .breadcrumb .active {
   font-weight: 600;
 }
-.devhub-wrap .site-main .breadcrumb-trail {
+.devhub-wrap .breadcrumb-trail {
 	margin-top: 1em;
 }
 .devhub-wrap .site-branding .site-title {
