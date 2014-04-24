@@ -1107,6 +1107,9 @@ textarea {
 					color: #000000;
 				}
 			}
+			a:hover {
+				border-bottom: 1px dotted #21759b;
+			}
 		}
 		h2 {
 			font-family: $serif-font;
