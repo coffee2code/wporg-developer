@@ -7,7 +7,7 @@
 ?>
 	<div id="secondary" class="widget-area sidebar section" role="complementary">
 		<?php do_action( 'before_sidebar' ); ?>
-		<?php if ( ! dynamic_sidebar( 'sidebar-1' ) ) : ?>
+		<?php if ( ! dynamic_sidebar( get_post_type() ) ) : ?>
 
 			<aside id="search" class="box gray widget widget_search">
 				<?php get_search_form(); ?>

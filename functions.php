@@ -39,7 +39,7 @@ if ( ! isset( $content_width ) ) {
 
 
 add_action( 'init', __NAMESPACE__ . '\\init' );
-
+add_filter( 'handbook_post_types', __NAMESPACE__ . '\\filter_handbook_post_types' );
 
 function init() {
 
@@ -54,6 +54,12 @@ function init() {
 }
 
 
+/**
+ * handbook post_type filter function
+ */
+function filter_handbook_post_types( $types ) {
+	return array( 'theme', 'plugin' );
+}
 /**
  * widgets_init function.
  *
@@ -96,118 +102,45 @@ function register_post_types() {
 	);
 
 	// Functions
-	register_post_type( 'wp-parser-function', array(
+	register_post_type( 'wpapi-function', array(
 		'has_archive' => 'reference/functions',
-		'label'       => __( 'Functions', 'wporg' ),
-		'labels'      => array(
-			'name'               => __( 'Functions', 'wporg' ),
-			'singular_name'      => __( 'Function', 'wporg' ),
-			'all_items'          => __( 'Functions', 'wporg' ),
-			'new_item'           => __( 'New Function', 'wporg' ),
-			'add_new'            => __( 'Add New', 'wporg' ),
-			'add_new_item'       => __( 'Add New Function', 'wporg' ),
-			'edit_item'          => __( 'Edit Function', 'wporg' ),
-			'view_item'          => __( 'View Function', 'wporg' ),
-			'search_items'       => __( 'Search Functions', 'wporg' ),
-			'not_found'          => __( 'No Functions found', 'wporg' ),
-			'not_found_in_trash' => __( 'No Functions found in trash', 'wporg' ),
-			'parent_item_colon'  => __( 'Parent Function', 'wporg' ),
-			'menu_name'          => __( 'Functions', 'wporg' ),
-		),
-		'public'      => true,
-		'rewrite'     => array(
-			'feeds'      => false,
-			'slug'       => 'reference/function',
+		'label' => __( 'Functions', 'wporg' ),
+		'public' => true,
+		'rewrite' => array(
+			'feeds' => false,
+			'slug' => 'reference/function',
 			'with_front' => false,
 		),
-		'supports'    => $supports,
+		'supports' => $supports,
 	) );
 
 	// Methods
-	add_rewrite_rule( 'method/([^/]+)/([^/]+)/?$', 'index.php?post_type=wp-parser-function&name=$matches[1]-$matches[2]', 'top' );
+	add_rewrite_rule( 'method/([^/]+)/([^/]+)/?$', 'index.php?post_type=wpapi-function&name=$matches[1]-$matches[2]', 'top' );
 
 	// Classes
-	register_post_type( 'wp-parser-class', array(
+	register_post_type( 'wpapi-class', array(
 		'has_archive' => 'reference/classes',
-		'label'       => __( 'Classes', 'wporg' ),
-		'labels'      => array(
-			'name'               => __( 'Classes', 'wporg' ),
-			'singular_name'      => __( 'Class', 'wporg' ),
-			'all_items'          => __( 'Classes', 'wporg' ),
-			'new_item'           => __( 'New Class', 'wporg' ),
-			'add_new'            => __( 'Add New', 'wporg' ),
-			'add_new_item'       => __( 'Add New Class', 'wporg' ),
-			'edit_item'          => __( 'Edit Class', 'wporg' ),
-			'view_item'          => __( 'View Class', 'wporg' ),
-			'search_items'       => __( 'Search Classes', 'wporg' ),
-			'not_found'          => __( 'No Classes found', 'wporg' ),
-			'not_found_in_trash' => __( 'No Classes found in trash', 'wporg' ),
-			'parent_item_colon'  => __( 'Parent Class', 'wporg' ),
-			'menu_name'          => __( 'Classes', 'wporg' ),
-		),
-		'public'      => true,
-		'rewrite'     => array(
-			'feeds'      => false,
-			'slug'       => 'reference/class',
+		'label' => __( 'Classes', 'wporg' ),
+		'public' => true,
+		'rewrite' => array(
+			'feeds' => false,
+			'slug' => 'reference/class',
 			'with_front' => false,
 		),
-		'supports'    => $supports,
+		'supports' => $supports,
 	) );
 
 	// Hooks
-	register_post_type( 'wp-parser-hook', array(
+	register_post_type( 'wpapi-hook', array(
 		'has_archive' => 'reference/hooks',
-		'label'       => __( 'Hooks', 'wporg' ),
-		'labels'      => array(
-			'name'               => __( 'Hooks', 'wporg' ),
-			'singular_name'      => __( 'Hook', 'wporg' ),
-			'all_items'          => __( 'Hooks', 'wporg' ),
-			'new_item'           => __( 'New Hook', 'wporg' ),
-			'add_new'            => __( 'Add New', 'wporg' ),
-			'add_new_item'       => __( 'Add New Hook', 'wporg' ),
-			'edit_item'          => __( 'Edit Hook', 'wporg' ),
-			'view_item'          => __( 'View Hook', 'wporg' ),
-			'search_items'       => __( 'Search Hooks', 'wporg' ),
-			'not_found'          => __( 'No Hooks found', 'wporg' ),
-			'not_found_in_trash' => __( 'No Hooks found in trash', 'wporg' ),
-			'parent_item_colon'  => __( 'Parent Hook', 'wporg' ),
-			'menu_name'          => __( 'Hooks', 'wporg' ),
-		),
-		'public'      => true,
-		'rewrite'     => array(
-			'feeds'      => false,
-			'slug'       => 'reference/hook',
+		'label' => __( 'Hooks', 'wporg' ),
+		'public' => true,
+		'rewrite' => array(
+			'feeds' => false,
+			'slug' => 'reference/hook',
 			'with_front' => false,
 		),
-		'supports'    => $supports,
-	) );
-
-	// Methods
-	register_post_type( 'wp-parser-method', array(
-		'has_archive' => 'reference/methods',
-		'label'       => __( 'Methods', 'wporg' ),
-		'labels'      => array(
-			'name'               => __( 'Methods', 'wporg' ),
-			'singular_name'      => __( 'Method', 'wporg' ),
-			'all_items'          => __( 'Methods', 'wporg' ),
-			'new_item'           => __( 'New Method', 'wporg' ),
-			'add_new'            => __( 'Add New', 'wporg' ),
-			'add_new_item'       => __( 'Add New Method', 'wporg' ),
-			'edit_item'          => __( 'Edit Method', 'wporg' ),
-			'view_item'          => __( 'View Method', 'wporg' ),
-			'search_items'       => __( 'Search Methods', 'wporg' ),
-			'not_found'          => __( 'No Methods found', 'wporg' ),
-			'not_found_in_trash' => __( 'No Methods found in trash', 'wporg' ),
-			'parent_item_colon'  => __( 'Parent Method', 'wporg' ),
-			'menu_name'          => __( 'Methods', 'wporg' ),
-		),
-		'public'      => true,
-		'rewrite'     => array(
-			'feeds'      => false,
-			'slug'       => 'method',
-			'with_front' => false,
-		),
-		'supports'    => $supports,
+		'supports' => $supports,
 	) );
 }
 
@@ -216,25 +149,8 @@ function register_post_types() {
  */
 function register_taxonomies() {
 	// Files
-	register_taxonomy( 'wp-parser-source-file', array( 'wp-parser-class', 'wp-parser-function', 'wp-parser-hook', 'wp-parser-method' ), array(
+	register_taxonomy( 'wpapi-source-file', array( 'wpapi-class', 'wpapi-function', 'wpapi-hook' ), array(
 		'label'                 => __( 'Files', 'wporg' ),
-		'labels'                => array(
-			'name'                       => __( 'Files', 'wporg' ),
-			'singular_name'              => _x( 'File', 'taxonomy general name', 'wporg' ),
-			'search_items'               => __( 'Search Files', 'wporg' ),
-			'popular_items'              => null,
-			'all_items'                  => __( 'All Files', 'wporg' ),
-			'parent_item'                => __( 'Parent File', 'wporg' ),
-			'parent_item_colon'          => __( 'Parent File:', 'wporg' ),
-			'edit_item'                  => __( 'Edit File', 'wporg' ),
-			'update_item'                => __( 'Update File', 'wporg' ),
-			'add_new_item'               => __( 'New File', 'wporg' ),
-			'new_item_name'              => __( 'New File', 'wporg' ),
-			'separate_items_with_commas' => __( 'Files separated by comma', 'wporg' ),
-			'add_or_remove_items'        => __( 'Add or remove Files', 'wporg' ),
-			'choose_from_most_used'      => __( 'Choose from the most used Files', 'wporg' ),
-			'menu_name'                  => __( 'Files', 'wporg' ),
-		),
 		'public'                => true,
 		'rewrite'               => array( 'slug' => 'reference/files' ),
 		'sort'                  => false,
@@ -242,7 +158,7 @@ function register_taxonomies() {
 	) );
 
 	// Package
-	register_taxonomy( 'wp-parser-package', array( 'wp-parser-class', 'wp-parser-function', 'wp-parser-hook', 'wp-parser-method' ), array(
+	register_taxonomy( 'wpapi-package', array( 'wpapi-class', 'wpapi-function', 'wpapi-hook' ), array(
 		'hierarchical'          => true,
 		'label'                 => '@package',
 		'public'                => true,
@@ -252,7 +168,7 @@ function register_taxonomies() {
 	) );
 
 	// @since
-	register_taxonomy( 'wp-parser-since', array( 'wp-parser-class', 'wp-parser-function', 'wp-parser-hook', 'wp-parser-method' ), array(
+	register_taxonomy( 'wpapi-since', array( 'wpapi-class', 'wpapi-function', 'wpapi-hook' ), array(
 		'hierarchical'          => true,
 		'label'                 => __( '@since', 'wporg' ),
 		'public'                => true,
@@ -263,7 +179,7 @@ function register_taxonomies() {
 }
 
 function method_permalink( $link, $post ) {
-	if ( $post->post_type !== 'wp-parser-function' || $post->post_parent == 0 )
+	if ( $post->post_type !== 'wpapi-function' || $post->post_parent == 0 )
 		return $link;
 
 	list( $class, $method ) = explode( '-', $post->post_name );
@@ -282,3 +198,4 @@ function theme_scripts_styles() {
 		wp_enqueue_script( 'comment-reply' );
 	}
 }
+
