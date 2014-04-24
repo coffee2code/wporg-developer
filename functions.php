@@ -204,7 +204,7 @@ function register_post_types() {
 		'public'      => true,
 		'rewrite'     => array(
 			'feeds'      => false,
-			'slug'       => 'reference/method',
+			'slug'       => 'method',
 			'with_front' => false,
 		),
 		'supports'    => $supports,

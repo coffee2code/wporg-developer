@@ -14,7 +14,7 @@ get_header(); ?>
 
 			<div class="reference-landing">
 				<div class="search-guide section clear">
-					<h4 class="ref-intro"><?php _e( 'Want to know what&#39;s going on inside WordPress? Search the Code Reference for more information about WordPress&#39; functions, hooks, and filters.', 'wporg' ); ?></h4>
+					<h4 class="ref-intro"><?php _e( 'Want to know what&#39;s going on inside WordPress? Search the Code Reference for more information about WordPress&#39; functions, classes, methods, hooks, and filters.', 'wporg' ); ?></h4>
 					<h3 class="search-intro"><?php _e( 'Try it out:', 'wporg' ); ?></h3>
 					<?php get_search_form(); ?>
 				</div><!-- /search-guide -->
@@ -25,6 +25,7 @@ get_header(); ?>
 						<li><a href="<?php echo get_post_type_archive_link( 'wp-parser-function' ) ?>"><?php _e( 'Functions', 'wporg' ); ?></a></li>
 						<li><a href="<?php echo get_post_type_archive_link( 'wp-parser-hook' ) ?>"><?php _e( 'Hooks', 'wporg' ); ?></a></li>
 						<li><a href="<?php echo get_post_type_archive_link( 'wp-parser-class' ) ?>"><?php _e( 'Classes', 'wporg' ); ?></a></li>
+						<li><a href="<?php echo get_post_type_archive_link( 'wp-parser-method' ) ?>"><?php _e( 'Methods', 'wporg' ); ?></a></li>
 					</ul>
 				</div><!-- /topic-guide -->
 
