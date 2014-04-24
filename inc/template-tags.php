@@ -255,9 +255,15 @@ namespace DevHub {
 	 */
 	function get_current_version() {
 
+		$current_version = defined( 'WP_CORE_LATEST_RELEASE' ) ? WP_CORE_LATEST_RELEASE : '3.9';
+		if ( substr_count( $current_version, '.' ) ) {
+			$current_version .= '.0';
+		}
+
 		$version = get_terms( 'wp-parser-since', array(
 			'number' => '1',
 			'order'  => 'DESC',
+			'slug'   => $current_version,
 		) );
 
 		return $version[0];
