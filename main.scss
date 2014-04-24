@@ -104,9 +104,11 @@ textarea {
 *  =========== Devhub Custom ========== Devhub Custom ========== Devhub Custom =====
 */
 
+#page {
+	padding-bottom: 1.5em;
+}
 //Global Fonts
 .devhub-wrap {
-
 	/*
 	*  =========== Port _s defaults ========== Port _s defaults ========== Port _s defaults =====
 	*  =========== Port _s defaults ========== Port _s defaults ========== Port _s defaults =====
@@ -752,7 +754,11 @@ textarea {
 		}
 
 	}
-
+	.site-main {
+		.breadcrumb-trail {
+			margin-top: 1em;
+		}
+	}
 	h1.entry-title,
 	h1.page-title {
 		font-weight: 300;
@@ -945,7 +951,14 @@ textarea {
 		h4.widget-title {
 			margin-bottom: 0;
 		}
-
+	}
+	.reference-landing .section.search-guide {
+		padding-bottom: 0;
+	}
+	.reference-landing {
+		.section.topic-guide, .section.new-in-guide  {
+			padding-top: 0;
+		}
 	}
 	.reference-landing .box,
 	.sidebar .box {
@@ -1076,7 +1089,7 @@ textarea {
 		font-style: italic;
 		font-weight: 300;
 	}
-	.wpapi-class, .wpapi-function, .wpapi-hook {
+	.wp-parser-class, .wp-parser-function, .wp-parser-hook, .wp-parser-method {
 		border-bottom: 1px solid #dfdfdf;
 		h1 {
 			margin: 24px 0;
@@ -1108,6 +1121,9 @@ textarea {
 					.type, .required {
 						font-style: italic;
 					}
+				}
+				.default {
+					font-style: italic;
 				}
 			}
 		}
