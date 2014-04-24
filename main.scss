@@ -754,10 +754,8 @@ textarea {
 		}
 
 	}
-	.site-main {
-		.breadcrumb-trail {
-			margin-top: 1em;
-		}
+	.breadcrumb-trail {
+		margin-top: 1em;
 	}
 	h1.entry-title,
 	h1.page-title {
@@ -1106,6 +1104,9 @@ textarea {
 				.arg-default {
 					color: #000000;
 				}
+			}
+			a:hover {
+				border-bottom: 1px dotted #21759b;
 			}
 		}
 		h2 {

@@ -731,7 +731,7 @@ textarea {
 .devhub-wrap .site-branding .breadcrumb .active {
   font-weight: 600;
 }
-.devhub-wrap .site-main .breadcrumb-trail {
+.devhub-wrap .breadcrumb-trail {
 	margin-top: 1em;
 }
 .devhub-wrap .site-branding .site-title {
@@ -1037,6 +1037,9 @@ textarea {
   color: #24831d;
   font-family: monospace;
   font-size: 20px;
+}
+.devhub-wrap .wp-parser-class h1 a:hover, .devhub-wrap .wp-parser-function h1 a:hover, .devhub-wrap .wp-parser-hook h1 a:hover, .devhub-wrap .wp-parser-method h1 a:hover {
+  border-bottom: 1px dotted #21759b;
 }
 .devhub-wrap .wp-parser-class h1 a .arg-type, .devhub-wrap .wp-parser-function h1 a .arg-type, .devhub-wrap .wp-parser-hook h1 a .arg-type, .devhub-wrap .wp-parser-method h1 a .arg-type {
   color: #cd2f23;
