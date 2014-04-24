@@ -521,4 +521,33 @@ namespace DevHub {
 
 		return empty( $since_object ) ? '' : esc_html( $since_object[0] );
 	}
+
+	/**
+	 * Retrieve URL to source file archive
+	 *
+	 * @param string $name
+	 *
+	 * @return string
+	 */
+	function get_source_file_link( $name = null ) {
+
+		$source_file_object = get_term_by( 'name', empty( $name ) ? get_source_file() : $name, 'wp-parser-source-file' );
+
+		return empty( $source_file_object ) ? '' : esc_url( get_term_link( $source_file_object ) );
+	}
+
+	/**
+	 * Retrieve name of source file
+	 *
+	 * @param int $post_id
+	 *
+	 * @return string
+	 */
+	function get_source_file( $post_id = null ) {
+
+		$source_file_object = wp_get_post_terms( empty( $post_id ) ? get_the_ID() : $post_id, 'wp-parser-source-file', array( 'fields' => 'names' ) );
+
+		return empty( $source_file_object ) ? '' : esc_html( $source_file_object[0] );
+	}
+
 }

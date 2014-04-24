@@ -19,6 +19,14 @@
 		</section>
 	<?php endif; ?>
 
+	<?php
+	$source_file = get_source_file();
+	if ( ! empty( $source_file ) ) : ?>
+	<section class="source">
+		<p><strong><?php _e( 'Source:', 'wporg' ); ?></strong> <a href="<?php echo get_source_file_link( $source_file ); ?>"><?php echo esc_html( $source_file ); ?></a></p>
+	</section>
+	<?php endif; ?>
+
 	<?php if ( is_archive() ) : ?>
 		<section class="meta">Used by TODO | Uses TODO | TODO Examples</section>
 	<?php endif; ?>
