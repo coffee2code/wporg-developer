@@ -52,7 +52,7 @@ if ( ! empty( $since ) ) : ?>
 					<?php endif; ?>
 				</p>
 				<?php if ( ! empty( $param['default'] ) ) : ?>
-				<p class="default"><?php echo esc_html( $param['default'] ); ?></p>
+				<p class="default"><?php _e( 'Default value:', 'wporg-developer' );?> <?php echo esc_html( $param['default'] ); ?></p>
 				<?php endif; ?>
 			</dd>
 			<?php endforeach; ?>

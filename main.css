@@ -1044,6 +1044,9 @@ textarea {
 .devhub-wrap .wp-parser-class .parameters dd .desc .type, .devhub-wrap .wp-parser-class .parameters dd .desc .required, .devhub-wrap .wp-parser-function .parameters dd .desc .type, .devhub-wrap .wp-parser-function .parameters dd .desc .required, .devhub-wrap .wp-parser-hook .parameters dd .desc .type, .devhub-wrap .wp-parser-hook .parameters dd .desc .required {
   font-style: italic;
 }
+.devhub-wrap .wp-parser-class .parameters dd .default, .devhub-wrap .wp-parser-function .parameters dd .default, .devhub-wrap .wp-parser-hook .parameters dd .default {
+  font-style: italic;
+}
 .devhub-wrap .wp-parser-class .learn-more, .devhub-wrap .wp-parser-function .learn-more, .devhub-wrap .wp-parser-hook .learn-more {
   background-color: #f1f1f1;
   border: 1px solid #dfdfdf;
