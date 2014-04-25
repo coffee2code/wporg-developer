@@ -57,13 +57,13 @@ function init() {
 	add_filter( 'comments_open', '__return_false' );
 }
 
-
 /**
- * handbook post_type filter function
- */
+* handbook post_type filter function
+*/
 function filter_handbook_post_types( $types ) {
 	return array( 'theme', 'plugin' );
 }
+
 /**
  * widgets_init function.
  *
@@ -110,7 +110,7 @@ function register_post_types() {
 	);
 
 	// Functions
-	register_post_type( 'wpapi-function', array(
+	register_post_type( 'wp-parser-function', array(
 		'has_archive' => 'reference/functions',
 		'label'       => __( 'Functions', 'wporg' ),
 		'labels'      => array(
@@ -134,14 +134,14 @@ function register_post_types() {
 			'slug'       => 'reference/functions',
 			'with_front' => false,
 		),
-		'supports' => $supports,
+		'supports'    => $supports,
 	) );
 
 	// Methods
 	add_rewrite_rule( 'reference/classes/([^/]+)/([^/]+)/?$', 'index.php?post_type=wp-parser-method&name=$matches[1]-$matches[2]', 'top' );
 
 	// Classes
-	register_post_type( 'wpapi-class', array(
+	register_post_type( 'wp-parser-class', array(
 		'has_archive' => 'reference/classes',
 		'label'       => __( 'Classes', 'wporg' ),
 		'labels'      => array(
@@ -165,11 +165,11 @@ function register_post_types() {
 			'slug'       => 'reference/classes',
 			'with_front' => false,
 		),
-		'supports' => $supports,
+		'supports'    => $supports,
 	) );
 
 	// Hooks
-	register_post_type( 'wpapi-hook', array(
+	register_post_type( 'wp-parser-hook', array(
 		'has_archive' => 'reference/hooks',
 		'label'       => __( 'Hooks', 'wporg' ),
 		'labels'      => array(
@@ -221,7 +221,7 @@ function register_post_types() {
 			'slug'       => 'classes',
 			'with_front' => false,
 		),
-		'supports' => $supports,
+		'supports'    => $supports,
 	) );
 }
 
@@ -230,8 +230,25 @@ function register_post_types() {
  */
 function register_taxonomies() {
 	// Files
-	register_taxonomy( 'wpapi-source-file', array( 'wpapi-class', 'wpapi-function', 'wpapi-hook' ), array(
+	register_taxonomy( 'wp-parser-source-file', array( 'wp-parser-class', 'wp-parser-function', 'wp-parser-hook', 'wp-parser-method' ), array(
 		'label'                 => __( 'Files', 'wporg' ),
+		'labels'                => array(
+			'name'                       => __( 'Files', 'wporg' ),
+			'singular_name'              => _x( 'File', 'taxonomy general name', 'wporg' ),
+			'search_items'               => __( 'Search Files', 'wporg' ),
+			'popular_items'              => null,
+			'all_items'                  => __( 'All Files', 'wporg' ),
+			'parent_item'                => __( 'Parent File', 'wporg' ),
+			'parent_item_colon'          => __( 'Parent File:', 'wporg' ),
+			'edit_item'                  => __( 'Edit File', 'wporg' ),
+			'update_item'                => __( 'Update File', 'wporg' ),
+			'add_new_item'               => __( 'New File', 'wporg' ),
+			'new_item_name'              => __( 'New File', 'wporg' ),
+			'separate_items_with_commas' => __( 'Files separated by comma', 'wporg' ),
+			'add_or_remove_items'        => __( 'Add or remove Files', 'wporg' ),
+			'choose_from_most_used'      => __( 'Choose from the most used Files', 'wporg' ),
+			'menu_name'                  => __( 'Files', 'wporg' ),
+		),
 		'public'                => true,
 		// Hierarchical x 2 to enable (.+) rather than ([^/]+) for rewrites.
 		'hierarchical'          => true,
@@ -241,7 +258,7 @@ function register_taxonomies() {
 	) );
 
 	// Package
-	register_taxonomy( 'wpapi-package', array( 'wpapi-class', 'wpapi-function', 'wpapi-hook' ), array(
+	register_taxonomy( 'wp-parser-package', array( 'wp-parser-class', 'wp-parser-function', 'wp-parser-hook', 'wp-parser-method' ), array(
 		'hierarchical'          => true,
 		'label'                 => '@package',
 		'public'                => true,
@@ -251,7 +268,7 @@ function register_taxonomies() {
 	) );
 
 	// @since
-	register_taxonomy( 'wpapi-since', array( 'wpapi-class', 'wpapi-function', 'wpapi-hook' ), array(
+	register_taxonomy( 'wp-parser-since', array( 'wp-parser-class', 'wp-parser-function', 'wp-parser-hook', 'wp-parser-method' ), array(
 		'hierarchical'          => true,
 		'label'                 => __( '@since', 'wporg' ),
 		'public'                => true,
