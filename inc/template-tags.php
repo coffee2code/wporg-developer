@@ -369,8 +369,6 @@ namespace DevHub {
 		}
 
 		// Decorate and return function/class arguments.
-		$signature .= ' (';
-
 		if ( $args ) {
 			foreach ( $args as $arg ) {
 				$arg_string = ''; 	
@@ -395,7 +393,11 @@ namespace DevHub {
 			}
 		}
 
-		$signature .= implode( ', ', $args_strings ) . ' )';
+		$signature .= ' (';
+		if ( $args = implode( ', ', $args_strings ) ) {
+			$signature .= $args . ' ';
+		}
+		$signature .= ')';
 
 		return wp_kses_post( $signature );
 	}
