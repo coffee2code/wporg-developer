@@ -49,6 +49,7 @@ function init() {
 	add_action( 'pre_get_posts', __NAMESPACE__ . '\\pre_get_posts' );
 	add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\theme_scripts_styles' );
 	add_filter( 'post_type_link', __NAMESPACE__ . '\\method_permalink', 10, 2 );
+	add_filter( 'term_link', __NAMESPACE__ . '\\taxonomy_permalink', 10, 3 );
 	add_theme_support( 'automatic-feed-links' );
 	add_theme_support( 'post-thumbnails' );
 
@@ -89,6 +90,10 @@ function pre_get_posts( $query ) {
 		$query->set( 'orderby', 'title' );
 		$query->set( 'order', 'ASC' );
 	}
+
+	if ( $query->is_main_query() && $query->is_tax() && $query->get( 'wp-parser-source-file' ) ) {
+		$query->set( 'wp-parser-source-file', str_replace( array( '.php', '/' ), array( '-php', '_' ), $query->query['wp-parser-source-file'] ) );
+	}
 }
 
 /**
@@ -107,27 +112,57 @@ function register_post_types() {
 	// Functions
 	register_post_type( 'wpapi-function', array(
 		'has_archive' => 'reference/functions',
-		'label' => __( 'Functions', 'wporg' ),
-		'public' => true,
-		'rewrite' => array(
-			'feeds' => false,
-			'slug' => 'reference/function',
+		'label'       => __( 'Functions', 'wporg' ),
+		'labels'      => array(
+			'name'               => __( 'Functions', 'wporg' ),
+			'singular_name'      => __( 'Function', 'wporg' ),
+			'all_items'          => __( 'Functions', 'wporg' ),
+			'new_item'           => __( 'New Function', 'wporg' ),
+			'add_new'            => __( 'Add New', 'wporg' ),
+			'add_new_item'       => __( 'Add New Function', 'wporg' ),
+			'edit_item'          => __( 'Edit Function', 'wporg' ),
+			'view_item'          => __( 'View Function', 'wporg' ),
+			'search_items'       => __( 'Search Functions', 'wporg' ),
+			'not_found'          => __( 'No Functions found', 'wporg' ),
+			'not_found_in_trash' => __( 'No Functions found in trash', 'wporg' ),
+			'parent_item_colon'  => __( 'Parent Function', 'wporg' ),
+			'menu_name'          => __( 'Functions', 'wporg' ),
+		),
+		'public'      => true,
+		'rewrite'     => array(
+			'feeds'      => false,
+			'slug'       => 'reference/functions',
 			'with_front' => false,
 		),
 		'supports' => $supports,
 	) );
 
 	// Methods
-	add_rewrite_rule( 'method/([^/]+)/([^/]+)/?$', 'index.php?post_type=wpapi-function&name=$matches[1]-$matches[2]', 'top' );
+	add_rewrite_rule( 'reference/classes/([^/]+)/([^/]+)/?$', 'index.php?post_type=wp-parser-method&name=$matches[1]-$matches[2]', 'top' );
 
 	// Classes
 	register_post_type( 'wpapi-class', array(
 		'has_archive' => 'reference/classes',
-		'label' => __( 'Classes', 'wporg' ),
-		'public' => true,
-		'rewrite' => array(
-			'feeds' => false,
-			'slug' => 'reference/class',
+		'label'       => __( 'Classes', 'wporg' ),
+		'labels'      => array(
+			'name'               => __( 'Classes', 'wporg' ),
+			'singular_name'      => __( 'Class', 'wporg' ),
+			'all_items'          => __( 'Classes', 'wporg' ),
+			'new_item'           => __( 'New Class', 'wporg' ),
+			'add_new'            => __( 'Add New', 'wporg' ),
+			'add_new_item'       => __( 'Add New Class', 'wporg' ),
+			'edit_item'          => __( 'Edit Class', 'wporg' ),
+			'view_item'          => __( 'View Class', 'wporg' ),
+			'search_items'       => __( 'Search Classes', 'wporg' ),
+			'not_found'          => __( 'No Classes found', 'wporg' ),
+			'not_found_in_trash' => __( 'No Classes found in trash', 'wporg' ),
+			'parent_item_colon'  => __( 'Parent Class', 'wporg' ),
+			'menu_name'          => __( 'Classes', 'wporg' ),
+		),
+		'public'      => true,
+		'rewrite'     => array(
+			'feeds'      => false,
+			'slug'       => 'reference/classes',
 			'with_front' => false,
 		),
 		'supports' => $supports,
@@ -136,11 +171,54 @@ function register_post_types() {
 	// Hooks
 	register_post_type( 'wpapi-hook', array(
 		'has_archive' => 'reference/hooks',
-		'label' => __( 'Hooks', 'wporg' ),
-		'public' => true,
-		'rewrite' => array(
-			'feeds' => false,
-			'slug' => 'reference/hook',
+		'label'       => __( 'Hooks', 'wporg' ),
+		'labels'      => array(
+			'name'               => __( 'Hooks', 'wporg' ),
+			'singular_name'      => __( 'Hook', 'wporg' ),
+			'all_items'          => __( 'Hooks', 'wporg' ),
+			'new_item'           => __( 'New Hook', 'wporg' ),
+			'add_new'            => __( 'Add New', 'wporg' ),
+			'add_new_item'       => __( 'Add New Hook', 'wporg' ),
+			'edit_item'          => __( 'Edit Hook', 'wporg' ),
+			'view_item'          => __( 'View Hook', 'wporg' ),
+			'search_items'       => __( 'Search Hooks', 'wporg' ),
+			'not_found'          => __( 'No Hooks found', 'wporg' ),
+			'not_found_in_trash' => __( 'No Hooks found in trash', 'wporg' ),
+			'parent_item_colon'  => __( 'Parent Hook', 'wporg' ),
+			'menu_name'          => __( 'Hooks', 'wporg' ),
+		),
+		'public'      => true,
+		'rewrite'     => array(
+			'feeds'      => false,
+			'slug'       => 'reference/hooks',
+			'with_front' => false,
+		),
+		'supports'    => $supports,
+	) );
+
+	// Methods
+	register_post_type( 'wp-parser-method', array(
+		'has_archive' => 'reference/methods',
+		'label'       => __( 'Methods', 'wporg' ),
+		'labels'      => array(
+			'name'               => __( 'Methods', 'wporg' ),
+			'singular_name'      => __( 'Method', 'wporg' ),
+			'all_items'          => __( 'Methods', 'wporg' ),
+			'new_item'           => __( 'New Method', 'wporg' ),
+			'add_new'            => __( 'Add New', 'wporg' ),
+			'add_new_item'       => __( 'Add New Method', 'wporg' ),
+			'edit_item'          => __( 'Edit Method', 'wporg' ),
+			'view_item'          => __( 'View Method', 'wporg' ),
+			'search_items'       => __( 'Search Methods', 'wporg' ),
+			'not_found'          => __( 'No Methods found', 'wporg' ),
+			'not_found_in_trash' => __( 'No Methods found in trash', 'wporg' ),
+			'parent_item_colon'  => __( 'Parent Method', 'wporg' ),
+			'menu_name'          => __( 'Methods', 'wporg' ),
+		),
+		'public'      => true,
+		'rewrite'     => array(
+			'feeds'      => false,
+			'slug'       => 'classes',
 			'with_front' => false,
 		),
 		'supports' => $supports,
@@ -155,7 +233,9 @@ function register_taxonomies() {
 	register_taxonomy( 'wpapi-source-file', array( 'wpapi-class', 'wpapi-function', 'wpapi-hook' ), array(
 		'label'                 => __( 'Files', 'wporg' ),
 		'public'                => true,
-		'rewrite'               => array( 'slug' => 'reference/files' ),
+		// Hierarchical x 2 to enable (.+) rather than ([^/]+) for rewrites.
+		'hierarchical'          => true,
+		'rewrite'               => array( 'slug' => 'reference/files', 'hierarchical' => true ),
 		'sort'                  => false,
 		'update_count_callback' => '_update_post_term_count',
 	) );
@@ -182,11 +262,25 @@ function register_taxonomies() {
 }
 
 function method_permalink( $link, $post ) {
-	if ( $post->post_type !== 'wpapi-function' || $post->post_parent == 0 )
+	if ( $post->post_type !== 'wp-parser-method' )
 		return $link;
 
 	list( $class, $method ) = explode( '-', $post->post_name );
-	$link = home_url( user_trailingslashit( "method/$class/$method" ) );
+	$link = home_url( user_trailingslashit( "reference/classes/$class/$method" ) );
+	return $link;
+}
+
+function taxonomy_permalink( $link, $term, $taxonomy ) {
+	if ( $taxonomy === 'wp-parser-source-file' ) {
+		$slug = $term->slug;
+		if ( substr( $slug, -4 ) === '-php' ) {
+			$slug = substr( $slug, 0, -4 ) . '.php';
+			$slug = str_replace( '_', '/', $slug );
+		}
+		$link = home_url( user_trailingslashit( "reference/files/$slug" ) );
+	} elseif ( $taxonomy === 'wp-parser-since' ) {
+		$link = str_replace( $term->slug, str_replace( '-', '.', $term->slug ), $link );
+	}
 	return $link;
 }
 
@@ -201,4 +295,3 @@ function theme_scripts_styles() {
 		wp_enqueue_script( 'comment-reply' );
 	}
 }
-
