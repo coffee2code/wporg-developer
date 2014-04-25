@@ -287,27 +287,6 @@ namespace DevHub {
 				return 'Developer Resources';
 		}
 	}
-	/**
-	 * Get template part name
-	 *
-	 * @return string
-	 */
-	function get_template_part_name( $post_type = null ) {
-		if ( empty( $post_type ) ) {
-			$post_type = get_post_type();
-		}
-		$handbooks = array( 'theme-handbook', 'plugin-handbook' );
-		$reference = array( 'wp-parser-class', 'wp-parser-function', 'wp-parser-method' );
-		if ( in_array( $post_type, $reference ) ) {
-			$part = 'reference';
-		} elseif ( in_array( $post_type, $handbooks ) ) {
-			$part = 'handbook';
-		} else {
-			$part = $post_type;
-		}
-
-		return $part;
-	}
 
 	/**
 	 * Get post type name
