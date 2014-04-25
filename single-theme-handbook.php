@@ -7,7 +7,7 @@
 
 get_header(); ?>
 
-	<div id="primary" <?php body_class( "content-area" ); ?>>
+	<div id="primary" <?php body_class( array( "content-area", "has-sidebar" ) ); ?>>
 
 		<main id="main" class="site-main" role="main">
 		<?php breadcrumb_trail(); ?>
@@ -28,6 +28,6 @@ get_header(); ?>
 		<?php endwhile; // end of the loop. ?>
 
 		</main><!-- #main -->
-	</div><!-- #primary -->
 	<?php get_sidebar(); ?>
+	</div><!-- #primary -->
 <?php get_footer(); ?>
