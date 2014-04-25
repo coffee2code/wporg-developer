@@ -26,7 +26,7 @@ get_header(); ?>
 						 * If you want to override this in a child theme, then include a file
 						 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
 						 */
-						get_template_part( 'content', 'reference' );
+						get_template_part( 'content', 'handbook' );
 					?>
 
 				<?php endwhile; ?>
@@ -42,5 +42,6 @@ get_header(); ?>
 		</main>
 		<!-- /wrapper -->
 	</div><!-- /pagebody -->
+	<?php get_sidebar(); ?>
 
 <?php get_footer(); ?>

@@ -14,7 +14,7 @@ get_header(); ?>
 
 		<?php while ( have_posts() ) : the_post(); ?>
 
-			<?php get_template_part( 'content', 'reference'); ?>
+			<?php get_template_part( 'content', 'handbook'); ?>
 
 			<?php wporg_developer_post_nav(); ?>
 
@@ -29,4 +29,5 @@ get_header(); ?>
 
 		</main><!-- #main -->
 	</div><!-- #primary -->
+	<?php get_sidebar(); ?>
 <?php get_footer(); ?>
