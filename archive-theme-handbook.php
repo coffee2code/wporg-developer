@@ -10,7 +10,7 @@
 
 get_header(); ?>
 
-	<div id="primary" <?php body_class( array( "content-area", "has-sidebar" ) ); ?>>
+	<div id="primary" class="content-area has-sidebar">
 
 		<main id="main" class="site-main" role="main">
 			<?php breadcrumb_trail(); ?>
