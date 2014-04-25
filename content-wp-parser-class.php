@@ -38,7 +38,7 @@ if ( ! empty( $since ) ) : ?>
 		<h2><?php _e( 'Explanation', 'wporg' ); ?></h2>
 	</section>
 	-->
-	
+
 	<?php if ( $params = get_params() ) : ?>
 	<hr/>
 	<section class="parameters">
@@ -68,7 +68,7 @@ if ( ! empty( $since ) ) : ?>
 		</dl>
 	</section>
 	<?php endif; ?>
-	
+
 	<?php if ( $arguments = get_arguments() ) : //todo: output arg data ?>
 	<hr/>
 	<section class="arguments">

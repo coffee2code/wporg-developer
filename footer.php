@@ -7,7 +7,7 @@
  * @package wporg-developer
  */
 ?>
-
+	<?php get_sidebar(); ?>
 	</div><!-- #content -->
 
 </div><!-- #page -->

@@ -76,16 +76,4 @@
 
 	<div class="bottom-of-entry">&nbsp;</div>
 
-	<?php if ( wporg_is_ajax_request() ) : ?>
-		<ul id="comments-<?php the_ID(); ?>" class="commentlist inlinecomments"></ul>
-	<?php else :
-		comments_template();
-		$pc = 0;
-		if ( wporg_show_comment_form() && $pc == 0 && ! post_password_required() ) :
-			$pc++; ?>
-			<div class="respond-wrap">
-				<?php comment_form( $wporg_comment_args ); ?>
-			</div><?php
-		endif;
-	endif; ?>
 </li>
