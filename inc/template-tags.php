@@ -354,8 +354,6 @@ namespace DevHub {
 		}
 
 		// Decorate and return function/class arguments.
-		$signature .= ' (';
-
 		if ( $args ) {
 			foreach ( $args as $arg ) {
 				$arg_string = '';
@@ -380,7 +378,11 @@ namespace DevHub {
 			}
 		}
 
-		$signature .= implode( ', ', $args_strings ) . ' )';
+		$signature .= ' (';
+		if ( $args = implode( ', ', $args_strings ) ) {
+			$signature .= $args . ' ';
+		}
+		$signature .= ')';
 
 		return wp_kses_post( $signature );
 	}
@@ -539,6 +541,18 @@ namespace DevHub {
 		$source_file_object = wp_get_post_terms( empty( $post_id ) ? get_the_ID() : $post_id, 'wp-parser-source-file', array( 'fields' => 'names' ) );
 
 		return empty( $source_file_object ) ? '' : esc_html( $source_file_object[0] );
+	}
+
+	/**
+	 * Compare two objects by name for sorting.
+	 *
+	 * @param WP_Post $a Post A
+	 * @param WP_Post $b Post B
+	 *
+	 * @return int
+	 */
+	function compare_objects_by_name( $a, $b ) {
+		return strcmp( $a->post_name, $b->post_name );
 	}
 
 }
