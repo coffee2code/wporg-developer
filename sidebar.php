@@ -6,7 +6,7 @@
  */
 ?>
 <?php if ( is_active_sidebar( get_post_type() ) ) : ?>
-	<div id="secondary" class="widget-area sidebar section" role="complementary">
+	<div id="sidebar" class="widget-area sidebar section" role="complementary">
 		<?php do_action( 'before_sidebar' ); ?>
 		<?php if ( ! dynamic_sidebar( get_post_type() ) ) : ?>
 		<?php endif; // end sidebar widget area ?>

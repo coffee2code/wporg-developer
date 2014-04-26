@@ -107,10 +107,10 @@ textarea {
 *  =========== Devhub Custom ========== Devhub Custom ========== Devhub Custom =====
 *  =========== Devhub Custom ========== Devhub Custom ========== Devhub Custom =====
 */
-
 #page {
-	padding-bottom: 1.5em;
+  padding-bottom: 1.5em;
 }
+
 .devhub-wrap {
   /*
   *  =========== Port _s defaults ========== Port _s defaults ========== Port _s defaults =====
@@ -146,6 +146,10 @@ textarea {
    * section styles
    */
   /* Comments */
+  /*
+   * Content
+   *
+   */
 }
 .devhub-wrap h1, .devhub-wrap h2, .devhub-wrap h3, .devhub-wrap h4, .devhub-wrap h5, .devhub-wrap h6 {
   clear: both;
@@ -523,13 +527,13 @@ textarea {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-.devhub-wrap .site-main,
+.devhub-wrap #content-area,
 .devhub-wrap .inner-wrap {
   margin: 0 auto;
   max-width: 60em;
 }
 .devhub-wrap .page-header {
-	margin-top: 1em;
+  margin-top: 1em;
 }
 .devhub-wrap a {
   color: #21759b;
@@ -734,9 +738,6 @@ textarea {
 .devhub-wrap .site-branding .breadcrumb .active {
   font-weight: 600;
 }
-.devhub-wrap .breadcrumb-trail {
-	margin-top: 1em;
-}
 .devhub-wrap .site-branding .site-title {
   color: #555555;
   float: left;
@@ -746,6 +747,9 @@ textarea {
   padding-top: 18px;
   text-shadow: 0 1px 0 #FFFFFF;
   font-weight: 300;
+}
+.devhub-wrap .breadcrumb-trail {
+  margin-top: 1em;
 }
 .devhub-wrap h1.entry-title,
 .devhub-wrap h1.page-title {
@@ -784,12 +788,6 @@ textarea {
   background: #0F3D57;
   padding: 30px 0;
   padding: 3rem 0;
-}
-.devhub-wrap .reference-landing .section.search-guide {
-  padding-bottom: 0;
-}
-.devhub-wrap .reference-landing .section.topic-guide, .devhub-wrap .reference-landing .section.new-in-guide {
-  padding-top: 0;
 }
 .devhub-wrap .section.blue .box {
   text-align: center;
@@ -876,11 +874,6 @@ textarea {
   margin-left: 65px;
   margin-left: 6.5rem;
 }
-.devhub-wrap .section .home-primary-content {
-  max-width: 600px;
-  max-width: 60rem;
-  margin: 0 auto;
-}
 .devhub-wrap .section.light-gray {
   background: #f2f2f2;
   color: #606060;
@@ -896,16 +889,25 @@ textarea {
   color: #606060;
   text-decoration: none;
 }
+.devhub-wrap .section .home-primary-content {
+  max-width: 600px;
+  max-width: 60rem;
+  margin: 0 auto;
+}
 .devhub-wrap .box {
   padding: 30px;
   padding: 3rem;
   float: left;
   clear: none;
 }
+.devhub-wrap .reference-landing {
+  padding: 1em 0;
+}
 .devhub-wrap .reference-landing .section {
   max-width: 700px;
   max-width: 70rem;
   margin: 0 auto;
+  padding: 1.5em 0;
 }
 .devhub-wrap .reference-landing .section h2,
 .devhub-wrap .reference-landing .section h3,
@@ -918,19 +920,54 @@ textarea {
 .devhub-wrap .reference-landing .section h4.widget-title {
   margin-bottom: 0;
 }
+.devhub-wrap .reference-landing .section.search-guide {
+  padding-bottom: 0;
+}
+.devhub-wrap .reference-landing .section .section.topic-guide, .devhub-wrap .reference-landing .section .section.new-in-guide {
+  padding-top: 0;
+}
+.devhub-wrap .reference-landing .searchform {
+  overflow: hidden;
+  height: auto;
+}
+.devhub-wrap .reference-landing .searchform input {
+  height: 50px;
+  height: 5rem;
+  margin-bottom: 1em;
+  width: 100%;
+}
+.devhub-wrap .reference-landing .searchform input[type="submit"] {
+  width: 85px;
+  width: 8.5rem;
+  float: left;
+}
+.devhub-wrap .reference-landing .searchform label {
+  width: 560px;
+  width: 56rem;
+  max-width: 100%;
+  margin-right: 15px;
+  display: inline-block;
+  float: left;
+}
+.devhub-wrap .reference-landing .searchform label .search-field input[type="text"] {
+  width: 100%;
+}
 .devhub-wrap .reference-landing .box,
-.devhub-wrap .sidebar .box {
+.devhub-wrap .sidebar .box,
+.devhub-wrap .sidebar .widget_wporg_handbook_pages {
   padding: 0;
 }
 .devhub-wrap .reference-landing .box .widget-title,
-.devhub-wrap .sidebar .box .widget-title {
+.devhub-wrap .sidebar .box .widget-title,
+.devhub-wrap .sidebar .widget_wporg_handbook_pages .widget-title {
   padding: 10px 30px;
   padding: 1rem 30px;
   font-size: 16px;
   font-size: 1.6rem;
 }
 .devhub-wrap .reference-landing .box .widget-content,
-.devhub-wrap .sidebar .box .widget-content {
+.devhub-wrap .sidebar .box .widget-content,
+.devhub-wrap .sidebar .widget_wporg_handbook_pages .widget-content {
   padding: 16px 30px;
   padding: 1.6rem 3rem;
 }
@@ -941,12 +978,6 @@ textarea {
 .devhub-wrap .two-columns .box {
   width: 48%;
   margin: 1%;
-}
-.devhub-wrap .reference-landing {
-  padding: 1em 0;
-}
-.devhub-wrap .reference-landing .section {
-  padding: 1.5em 0;
 }
 .devhub-wrap .no-bullets,
 .devhub-wrap .sidebar .widget ul {
@@ -971,33 +1002,6 @@ textarea {
 .devhub-wrap .horizontal-list li:first-child a {
   padding-left: 0;
   border-left: none;
-}
-.devhub-wrap .reference-landing .searchform,
-.devhub-wrap .reference-landing .searchform input {
-  height: 50px;
-  height: 5rem;
-  margin-bottom: 1em;
-  width: 100%;
-}
-.devhub-wrap .reference-landing .searchform label {
-  width: 560px;
-  width: 56rem;
-  max-width: 100%;
-  margin-right: 15px;
-  display: inline-block;
-  float: left;
-}
-.devhub-wrap .reference-landing .searchform label .search-field input[type="text"] {
-  width: 100%;
-}
-.devhub-wrap .reference-landing .searchform {
-  overflow: hidden;
-  height: auto;
-}
-.devhub-wrap .reference-landing .searchform input[type="submit"] {
-  width: 85px;
-  width: 8.5rem;
-  float: left;
 }
 .devhub-wrap .box.transparent {
   background: none;
@@ -1041,9 +1045,6 @@ textarea {
   font-family: monospace;
   font-size: 20px;
 }
-.devhub-wrap .wp-parser-class h1 a:hover, .devhub-wrap .wp-parser-function h1 a:hover, .devhub-wrap .wp-parser-hook h1 a:hover, .devhub-wrap .wp-parser-method h1 a:hover {
-  border-bottom: 1px dotted #21759b;
-}
 .devhub-wrap .wp-parser-class h1 a .arg-type, .devhub-wrap .wp-parser-function h1 a .arg-type, .devhub-wrap .wp-parser-hook h1 a .arg-type, .devhub-wrap .wp-parser-method h1 a .arg-type {
   color: #cd2f23;
 }
@@ -1053,6 +1054,9 @@ textarea {
 .devhub-wrap .wp-parser-class h1 a .arg-default, .devhub-wrap .wp-parser-function h1 a .arg-default, .devhub-wrap .wp-parser-hook h1 a .arg-default, .devhub-wrap .wp-parser-method h1 a .arg-default {
   color: #000000;
 }
+.devhub-wrap .wp-parser-class h1 a:hover, .devhub-wrap .wp-parser-function h1 a:hover, .devhub-wrap .wp-parser-hook h1 a:hover, .devhub-wrap .wp-parser-method h1 a:hover {
+  border-bottom: 1px dotted #21759b;
+}
 .devhub-wrap .wp-parser-class h2, .devhub-wrap .wp-parser-function h2, .devhub-wrap .wp-parser-hook h2, .devhub-wrap .wp-parser-method h2 {
   font-family: Georgia, ​Times, ​serif;
   margin-bottom: .5em;
@@ -1060,10 +1064,7 @@ textarea {
 .devhub-wrap .wp-parser-class .parameters p, .devhub-wrap .wp-parser-function .parameters p, .devhub-wrap .wp-parser-hook .parameters p, .devhub-wrap .wp-parser-method .parameters p {
   margin-bottom: 0;
 }
-.devhub-wrap .wp-parser-class .parameters dd .desc .type, .devhub-wrap .wp-parser-class .parameters dd .desc .required,
-.devhub-wrap .wp-parser-function .parameters dd .desc .type, .devhub-wrap .wp-parser-function .parameters dd .desc .required,
-.devhub-wrap .wp-parser-hook .parameters dd .desc .type, .devhub-wrap .wp-parser-hook .parameters dd .desc .required,
-.devhub-wrap .wp-parser-method .parameters dd .desc .type, .devhub-wrap .wp-parser-method .parameters dd .desc .required {
+.devhub-wrap .wp-parser-class .parameters dd .desc .type, .devhub-wrap .wp-parser-class .parameters dd .desc .required, .devhub-wrap .wp-parser-function .parameters dd .desc .type, .devhub-wrap .wp-parser-function .parameters dd .desc .required, .devhub-wrap .wp-parser-hook .parameters dd .desc .type, .devhub-wrap .wp-parser-hook .parameters dd .desc .required, .devhub-wrap .wp-parser-method .parameters dd .desc .type, .devhub-wrap .wp-parser-method .parameters dd .desc .required {
   font-style: italic;
 }
 .devhub-wrap .wp-parser-class .parameters dd .default, .devhub-wrap .wp-parser-function .parameters dd .default, .devhub-wrap .wp-parser-hook .parameters dd .default, .devhub-wrap .wp-parser-method .parameters dd .default {
@@ -1079,45 +1080,6 @@ textarea {
   text-align: center;
   font-size: 18px;
   margin-bottom: 20px;
-}
-@media (max-width: 43em) {
-  .devhub-wrap .section .box,
-  .devhub-wrap .home-primary-content,
-  .devhub-wrap .reference-landing .section {
-    float: none;
-    width: 100%;
-    padding: 1.5em 10%;
-    clear: both;
-    text-align: center;
-    display: block;
-  }
-  .devhub-wrap .reference-landing .section .box,
-  .devhub-wrap .sidebar .box {
-    padding: 0;
-    margin-bottom: 1.5em;
-  }
-  .devhub-wrap .home-primary-content .entry-content,
-  .devhub-wrap .reference-landing .section {
-    text-align: left;
-  }
-  .devhub-wrap .horizontal-list li {
-    display: block;
-  }
-  .devhub-wrap .horizontal-list li a {
-    border-left: none;
-  }
-  .devhub-wrap .horizontal-list li:first-child a {
-    padding: 0 40px;
-    padding: 0 4rem;
-  }
-  .devhub-wrap .reference-landing .searchform input[type="text"],
-  .devhub-wrap .reference-landing .searchform input[type="submit"] {
-    width: 100%;
-    margin-right: 0;
-    margin-bottom: 1em;
-    float: none;
-    clear: both;
-  }
 }
 .devhub-wrap .comment-list,
 .devhub-wrap .comment-list ol {
@@ -1185,29 +1147,12 @@ textarea {
   float: left;
   margin: 0 0 1.5em;
 }
-
-@media (max-width: 60em) {
-  .devhub-wrap {
-    max-width: 100%;
-    width: 100%;
-  }
-  .devhub-wrap .site-main,
-  .devhub-wrap .inner-wrap {
-    max-width: 100%;
-    padding: 0 1%;
-  }
-}
-/*
- * Content
- *
- */
-.has-sidebar.content-area {
+.devhub-wrap #content-area.has-sidebar {
   float: none;
   margin: 0 auto;
   width: 60em;
 }
-
-.has-sidebar .site-main {
+.devhub-wrap .has-sidebar main {
   float: right;
   width: 67%;
   margin: 0;
@@ -1215,7 +1160,7 @@ textarea {
   padding: 0 12px;
   padding: 0 1.2rem;
 }
-.has-sidebar .widget-area {
+.devhub-wrap .has-sidebar .widget-area {
   float: left;
   overflow: hidden;
   width: 30%;
@@ -1223,17 +1168,27 @@ textarea {
   margin: 0;
   clear: none;
 }
-.has-sidebar .widget-area .widget {
+.devhub-wrap .has-sidebar .widget-area .widget {
   width: 100%;
 }
 
 @media (max-width: 60em) {
-  .has-sidebar.content-area {
+  .devhub-wrap {
+    max-width: 100%;
+    width: 100%;
+  }
+  .devhub-wrap #content-area,
+  .devhub-wrap .inner-wrap {
+    max-width: 100%;
+    padding: 0 1%;
+  }
+  .devhub-wrap #content-area .has-sidebar,
+  .devhub-wrap .inner-wrap .has-sidebar {
     width: 100%;
   }
 }
 @media (max-width: 43em) {
-  .has-sidebar .site-main {
+  #content-area.has-sidebar main {
     float: right;
     width: 96%;
     margin: 0 auto;
@@ -1241,14 +1196,57 @@ textarea {
     padding: 0 12px;
     padding: 0 1.2rem;
   }
-  .has-sidebar .widget-area {
+  #content-area.has-sidebar .widget-area {
     float: none;
     overflow: hidden;
     width: 80%;
     margin: 0 auto;
     clear: both;
   }
-  .has-sidebar .widget-area .widget {
+  #content-area.has-sidebar .widget-area .widget {
     width: 100%;
+  }
+
+  .section .box,
+  .home-primary-content,
+  .reference-landing .section {
+    float: none;
+    width: 100%;
+    padding: 1.5em 10%;
+    clear: both;
+    text-align: center;
+    display: block;
+  }
+
+  .reference-landing .section .box,
+  .sidebar .box {
+    padding: 0;
+    margin-bottom: 1.5em;
+  }
+
+  .home-primary-content .entry-content,
+  .reference-landing .section {
+    text-align: left;
+  }
+
+  .horizontal-list li {
+    display: block;
+  }
+  .horizontal-list li a {
+    border-left: none;
+  }
+
+  .horizontal-list li:first-child a {
+    padding: 0 40px;
+    padding: 0 4rem;
+  }
+
+  .reference-landing .searchform input[type="text"],
+  .reference-landing .searchform input[type="submit"] {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 1em;
+    float: none;
+    clear: both;
   }
 }

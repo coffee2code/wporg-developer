@@ -10,10 +10,11 @@
 
 get_header(); ?>
 
-	<div id="primary" class="content-area has-sidebar">
+	<div id="content-area" class="has-sidebar">
+
+		<?php breadcrumb_trail(); ?>
 
 		<main id="main" class="site-main" role="main">
-			<?php breadcrumb_trail(); ?>
 
 			<?php if ( have_posts() ) : ?>
 

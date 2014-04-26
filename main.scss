@@ -529,7 +529,7 @@ textarea {
 	  box-sizing: border-box;
 	}
 
-	.site-main,
+	#content-area,
 	.inner-wrap {
 		margin: 0 auto;
 		max-width: 60em;
@@ -904,12 +904,6 @@ textarea {
 
 	}
 
-	.section .home-primary-content {
-		max-width: 600px;
-		max-width: 60rem;
-		margin: 0 auto;
-	}
-
 	.section.light-gray {
 		background: #f2f2f2;
 		color: #606060;
@@ -927,6 +921,11 @@ textarea {
 		}
 	}
 
+	.section .home-primary-content {
+		max-width: 600px;
+		max-width: 60rem;
+		margin: 0 auto;
+	}
 
 	.box {
 		padding: 30px;
@@ -935,34 +934,65 @@ textarea {
 		clear: none;
 	}
 
-	.reference-landing .section {
-		max-width: 700px;
-		max-width: 70rem;
-		margin: 0 auto;
-
-		h2,
-		h3,
-		h4 {
-			margin-bottom: 1em;
-			color: #404040;
-		}
-
-		h2.widget-title,
-		h3.widget-title,
-		h4.widget-title {
-			margin-bottom: 0;
-		}
-	}
-	.reference-landing .section.search-guide {
-		padding-bottom: 0;
-	}
 	.reference-landing {
-		.section.topic-guide, .section.new-in-guide  {
-			padding-top: 0;
+		padding: 1em 0;
+		.section {
+			max-width: 700px;
+			max-width: 70rem;
+			margin: 0 auto;
+			padding: 1.5em 0;
+
+			h2,
+			h3,
+			h4 {
+				margin-bottom: 1em;
+				color: #404040;
+			}
+
+			h2.widget-title,
+			h3.widget-title,
+			h4.widget-title {
+				margin-bottom: 0;
+			}
+			&.search-guide {
+				padding-bottom: 0;
+			}
+			.section.topic-guide, .section.new-in-guide  {
+				padding-top: 0;
+			}
+		}
+		.searchform {
+			overflow: hidden;
+			height: auto;
+			input {
+				height: 50px;
+				height: 5rem;
+				margin-bottom: 1em;
+				width: 100%;
+			}
+			input[type="submit"] {
+				width: 85px;
+				width: 8.5rem;
+				float: left;
+			}
+			label {
+				width: 560px;
+				width: 56rem;
+				max-width: 100%;
+				margin-right: 15px;
+				display: inline-block;
+				float: left;
+				.search-field input[type="text"] {
+					width: 100%;
+				}
+
+			}
 		}
 	}
+
 	.reference-landing .box,
-	.sidebar .box {
+	.sidebar .box,
+	.sidebar .widget_wporg_handbook_pages {
 		padding: 0;
 
 
@@ -989,13 +1019,6 @@ textarea {
 		margin: 1%;
 	}
 
-	.reference-landing {
-		padding: 1em 0;
-	}
-
-	.reference-landing .section {
-		padding: 1.5em 0;
-	}
 
 	.no-bullets,
 	.sidebar .widget ul {
@@ -1020,37 +1043,6 @@ textarea {
 	.horizontal-list li:first-child a {
 		padding-left: 0;
 		border-left: none;
-	}
-
-	.reference-landing .searchform,
-	.reference-landing .searchform input {
-		height: 50px;
-		height: 5rem;
-		margin-bottom: 1em;
-		width: 100%;
-	}
-
-	.reference-landing .searchform label {
-		width: 560px;
-		width: 56rem;
-		max-width: 100%;
-		margin-right: 15px;
-		display: inline-block;
-		float: left;
-		.search-field input[type="text"] {
-			width: 100%;
-		}
-	}
-
-	.reference-landing .searchform {
-		overflow: hidden;
-		height: auto;
-	}
-
-	.reference-landing .searchform input[type="submit"] {
-		width: 85px;
-		width: 8.5rem;
-		float: left;
 	}
 
 
@@ -1143,53 +1135,6 @@ textarea {
 		font-size: 18px;
 		margin-bottom: 20px;
 	}
-
-	@media ( max-width: 43em ) {
-
-		.section .box,
-		.home-primary-content,
-		.reference-landing .section {
-			float: none;
-			width: 100%;
-			padding: 1.5em 10%;
-			clear: both;
-			text-align: center;
-			display: block;
-		}
-		.reference-landing .section .box,
-		.sidebar .box {
-			padding: 0;
-			margin-bottom: 1.5em;
-		}
-		.home-primary-content .entry-content,
-		.reference-landing .section {
-			text-align: left;
-		}
-
-		.horizontal-list li {
-			display: block;
-			a {
-				border-left: none;
-			}
-		}
-
-		.horizontal-list li:first-child a {
-			padding: 0 40px;
-			padding: 0 4rem;
-		}
-
-
-		.reference-landing .searchform input[type="text"],
-		.reference-landing .searchform input[type="submit"] {
-			width: 100%;
-			margin-right: 0;
-			margin-bottom: 1em;
-			float: none;
-			clear: both;
-		}
-
-	}
-
 
 	/* Comments */
 	.comment-list,
@@ -1296,7 +1241,40 @@ textarea {
 		margin:0 0 1.5em;
 	}
 
+	/*
+	 * Content
+	 *
+	 */
+	#content-area.has-sidebar {
+		float: none;
+		margin: 0 auto;
+		width: 60em;
+	}
 
+	.has-sidebar {
+
+		main {
+			float: right;
+			width: 67%;
+			margin: 0;
+			clear: none;
+			padding: 0 12px;
+			padding: 0 1.2rem;
+		}
+		.widget-area {
+			float: left;
+			overflow: hidden;
+			width: 30%;
+			margin-left: -55px;
+			margin: 0;
+			clear: none;
+
+			.widget {
+				width: 100%;
+			}
+		}
+
+	}
 }
 
 @media ( max-width: 59.999999em ) {
@@ -1305,63 +1283,22 @@ textarea {
 		max-width: 100%;
 		width: 100%;
 
-		.content-area,
+		#content-area,
 		.inner-wrap {
 			max-width: 100%;
 			padding: 0 1%;
+			.has-sidebar {
+				width: 100%;
+			}
 		}
-
-	}
-}
-
-
-
-/*
- * Content
- *
- */
-.has-sidebar.content-area {
-	float: none;
-	margin: 0 auto;
-	width: 60em;
-}
-
-.has-sidebar {
-
-	.content-area {
-		float: right;
-		width: 67%;
-		margin: 0;
-		clear: none;
-		padding: 0 12px;
-		padding: 0 1.2rem;
-	}
-	.widget-area {
-		float: left;
-		overflow: hidden;
-		width: 30%;
-		margin-left: -55px;
-		margin: 0;
-		clear: none;
-
-		.widget {
-			width: 100%;
-		}
-	}
-
-}
-
-@media ( max-width: 60em ) {
-	.has-sidebar.content-area {
-		width: 100%;
 	}
 }
 
 @media ( max-width: 43em ) {
 
-	.has-sidebar {
+	#content-area.has-sidebar {
 
-		.content-area {
+		main {
 			float: right;
 			width: 96%;
 			margin: 0 auto;
@@ -1382,4 +1319,45 @@ textarea {
 		}
 	}
 
+	.section .box,
+	.home-primary-content,
+	.reference-landing .section {
+		float: none;
+		width: 100%;
+		padding: 1.5em 10%;
+		clear: both;
+		text-align: center;
+		display: block;
+	}
+	.reference-landing .section .box,
+	.sidebar .box {
+		padding: 0;
+		margin-bottom: 1.5em;
+	}
+	.home-primary-content .entry-content,
+	.reference-landing .section {
+		text-align: left;
+	}
+
+	.horizontal-list li {
+		display: block;
+		a {
+			border-left: none;
+		}
+	}
+
+	.horizontal-list li:first-child a {
+		padding: 0 40px;
+		padding: 0 4rem;
+	}
+
+
+	.reference-landing .searchform input[type="text"],
+	.reference-landing .searchform input[type="submit"] {
+		width: 100%;
+		margin-right: 0;
+		margin-bottom: 1em;
+		float: none;
+		clear: both;
+	}
 }

@@ -7,10 +7,11 @@
 
 get_header(); ?>
 
-	<div id="primary" <?php body_class( "content-area" ); ?>>
+	<div id="content-area" <?php body_class(); ?>>
+
+		<?php breadcrumb_trail(); ?>
 
 		<main id="main" class="site-main" role="main">
-		<?php breadcrumb_trail(); ?>
 
 		<?php while ( have_posts() ) : the_post(); ?>
 
