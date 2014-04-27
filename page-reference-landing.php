@@ -37,7 +37,7 @@ get_header(); ?>
 								<?php
 
 								$list = new WP_Query( array(
-									'posts_per_page' => 14,
+									'posts_per_page' => 13,
 									'post_type'      => array( 'wp-parser-function', 'wp-parser-hook', 'wp-parser-class', 'wp-parser-method' ),
 									'orderby'        => 'title',
 									'order'          => 'ASC',
@@ -48,14 +48,13 @@ get_header(); ?>
 									) ),
 								) );
 
-								shuffle( $list->posts );
-
 								while ( $list->have_posts() ) : $list->the_post();
 
 									echo '<li><a href="' . get_permalink() . '">' . get_the_title() . '</a></li>';
 
 								endwhile;
 								?>
+								<li class="view-all-new-in"><a href="<?php echo esc_attr( get_term_link( $version, 'wp-parser-since' ) ); ?>"><?php _e( 'View all&hellip;', 'wporg' ); ?></a></li>
 							</ul>
 						</div>
 					</div>
