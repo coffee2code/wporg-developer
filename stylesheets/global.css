@@ -164,14 +164,6 @@ input {
   /* Addresses FF3/4 setting line-height using !important in the UA stylesheet */
 }
 
-*,
-*:before,
-*:after {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
 /* Alignment */
 .alignleft {
   display: inline;

@@ -3,7 +3,13 @@
 
 .devhub-wrap {
 	padding-bottom: 1.5em;
-
+	*,
+	*:before,
+	*:after {
+	  -moz-box-sizing: border-box;
+	  -webkit-box-sizing: border-box;
+	  box-sizing: border-box;
+	}
 	#content-area,
 	.inner-wrap {
 		margin: 0 auto;
@@ -594,13 +600,14 @@
 			&.search-guide {
 				padding-bottom: 0;
 			}
-			.section.topic-guide, .section.new-in-guide  {
+			&.section.topic-guide, &.section.new-in-guide  {
 				padding-top: 0;
 			}
 		}
 		.searchform {
 			overflow: hidden;
 			height: auto;
+			margin-bottom: 1em;
 			input {
 				height: 50px;
 				height: 5rem;
@@ -703,7 +710,7 @@
 		background: #fff;
 		border: 1px solid #d8d8d8;
 		.widget-title {
-			color: #9B9B9B;
+			color: #666666;
 			background: #d8d8d8;
 			text-transform: uppercase;
 		}

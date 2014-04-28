@@ -245,14 +245,6 @@ input {
   /* Addresses FF3/4 setting line-height using !important in the UA stylesheet */
 }
 
-*,
-*:before,
-*:after {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
 /* Alignment */
 .alignleft {
   display: inline;
@@ -302,6 +294,13 @@ input {
    * Content
    *
    */
+}
+.devhub-wrap *,
+.devhub-wrap *:before,
+.devhub-wrap *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .devhub-wrap #content-area,
 .devhub-wrap .inner-wrap {
@@ -839,12 +838,13 @@ input {
 .devhub-wrap .reference-landing .section.search-guide {
   padding-bottom: 0;
 }
-.devhub-wrap .reference-landing .section .section.topic-guide, .devhub-wrap .reference-landing .section .section.new-in-guide {
+.devhub-wrap .reference-landing .section.section.topic-guide, .devhub-wrap .reference-landing .section.section.new-in-guide {
   padding-top: 0;
 }
 .devhub-wrap .reference-landing .searchform {
   overflow: hidden;
   height: auto;
+  margin-bottom: 1em;
 }
 .devhub-wrap .reference-landing .searchform input {
   height: 50px;
@@ -940,7 +940,7 @@ input {
   border: 1px solid #d8d8d8;
 }
 .devhub-wrap .box.gray .widget-title {
-  color: #9B9B9B;
+  color: #666666;
   background: #d8d8d8;
   text-transform: uppercase;
 }
