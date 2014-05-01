@@ -10,6 +10,9 @@
 	  -webkit-box-sizing: border-box;
 	  box-sizing: border-box;
 	}
+	#content-area {
+		padding: 0 10px;
+	}
 	#content-area,
 	.inner-wrap {
 		margin: 0 auto;
@@ -378,16 +381,6 @@
 			text-decoration: none;
 			color: #606060;
 		}
-		.breadcrumb {
-			.active {
-				font-weight: 600;
-			}
-
-			font-size: 14px;
-			font-size: 1.4rem;
-
-		}
-
 		.site-title {
 		    color: #555555;
 		    float: left;
@@ -399,6 +392,13 @@
 		    font-weight: 300;
 		}
 
+	}
+	.breadcrumb {
+		.active {
+			font-weight: 600;
+		}
+		font-size: 13px;
+		font-size: 1.3rem;
 	}
 	.breadcrumb-trail {
 		margin-top: 1em;
@@ -706,6 +706,10 @@
 		}
 	}
 
+	.view-all-new-in {
+		font-style: italic;
+	}
+
 	.box.gray {
 		background: #fff;
 		border: 1px solid #d8d8d8;
@@ -735,10 +739,15 @@
 		border-bottom: 1px solid #dfdfdf;
 		h1 {
 			margin: 24px 0;
+			padding-left: 100px;
 			a {
+				margin-left: -100px;
 				color: #24831d;
 				font-family: $code-font;
 				font-size: 20px;
+				.hook-func {
+					color: #888888;
+				}
 				.arg-type {
 					color: #cd2f23;
 				}

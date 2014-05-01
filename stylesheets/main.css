@@ -302,6 +302,9 @@ input {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+.devhub-wrap #content-area {
+  padding: 0 10px;
+}
 .devhub-wrap #content-area,
 .devhub-wrap .inner-wrap {
   margin: 0 auto;
@@ -646,13 +649,6 @@ input {
   text-decoration: none;
   color: #606060;
 }
-.devhub-wrap .site-branding .breadcrumb {
-  font-size: 14px;
-  font-size: 1.4rem;
-}
-.devhub-wrap .site-branding .breadcrumb .active {
-  font-weight: 600;
-}
 .devhub-wrap .site-branding .site-title {
   color: #555555;
   float: left;
@@ -662,6 +658,13 @@ input {
   padding-top: 18px;
   text-shadow: 0 1px 0 #FFFFFF;
   font-weight: 300;
+}
+.devhub-wrap .breadcrumbs {
+  font-size: 13px;
+  font-size: 1.3rem;
+}
+.devhub-wrap .breadcrumbs .active {
+  font-weight: 600;
 }
 .devhub-wrap .breadcrumb-trail {
   margin-top: 1em;
@@ -926,6 +929,9 @@ input {
   padding-left: 0;
   border-left: none;
 }
+.devhub-wrap .view-all-new-in {
+  font-style: italic;
+}
 .devhub-wrap .box.transparent {
   background: none;
   color: #fff;
@@ -962,11 +968,16 @@ input {
 }
 .devhub-wrap .wp-parser-class h1, .devhub-wrap .wp-parser-function h1, .devhub-wrap .wp-parser-hook h1, .devhub-wrap .wp-parser-method h1 {
   margin: 24px 0;
+  padding-left: 100px;
 }
 .devhub-wrap .wp-parser-class h1 a, .devhub-wrap .wp-parser-function h1 a, .devhub-wrap .wp-parser-hook h1 a, .devhub-wrap .wp-parser-method h1 a {
+  margin-left: -100px;
   color: #24831d;
   font-family: monospace;
   font-size: 20px;
+}
+.devhub-wrap .wp-parser-class h1 a .hook-func, .devhub-wrap .wp-parser-function h1 a .hook-func, .devhub-wrap .wp-parser-hook h1 a .hook-func, .devhub-wrap .wp-parser-method h1 a .hook-func {
+  color: #888888;
 }
 .devhub-wrap .wp-parser-class h1 a .arg-type, .devhub-wrap .wp-parser-function h1 a .arg-type, .devhub-wrap .wp-parser-hook h1 a .arg-type, .devhub-wrap .wp-parser-method h1 a .arg-type {
   color: #cd2f23;
