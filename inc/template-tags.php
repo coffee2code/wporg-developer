@@ -249,16 +249,19 @@ namespace DevHub {
 	}
 
 	/**
-	 * Get current (latest) since version
+	 * Get current (latest) since major version (X.Y.0) term object.
 	 *
 	 * @return object
 	 */
 	function get_current_version() {
-
 		$current_version = defined( 'WP_CORE_LATEST_RELEASE' ) ? WP_CORE_LATEST_RELEASE : '3.9';
-		if ( substr_count( $current_version, '.' ) ) {
-			$current_version .= '.0';
+		$version_parts = explode( '.', $current_version, 3 );
+		if ( count( $version_parts ) == 2 ) {
+			$version_parts[] = '0';
+		} else {
+			$version_parts[2] = '0';
 		}
+		$current_version = implode( '.', $version_parts );
 
 		$version = get_terms( 'wp-parser-since', array(
 			'number' => '1',
@@ -339,17 +342,26 @@ namespace DevHub {
 
 		// Decorate and return hook arguments.
 		if ( 'wp-parser-hook' === get_post_type( $post_id ) ) {
-			$arg_string = '';
-			if ( ! empty( $types ) ) {
-				foreach ( $types as $arg => $type ) {
-					$arg_string .= ' <span class="arg-type">' . esc_html( $type ) . '</span>';
-					$arg_string .= ' <span class="arg-name">' . esc_html( $arg ) . '</span>';
-					$arg_string .= $arg === end( array_keys( $types ) ) ? ' ' : ',';
-				}
-				if ( ! empty( $arg_string ) ) {
-					$signature .= " ($arg_string)";
-				}
+			$hook_args = array();
+			foreach ( $types as $arg => $type ) {
+				$hook_args[] = ' <nobr><span class="arg-type">' . esc_html( $type ) . '</span> <span class="arg-name">' . esc_html( $arg ) . '</span></nobr>';
 			}
+
+			$hook_type = get_post_meta( $post_id, '_wp-parser_hook_type', true );
+			if ( false !== strpos( $hook_type, 'action' ) ) {
+				$hook_type = ( 'action_reference' === $hook_type ) ? 'do_action_ref_array' : 'do_action';
+			} else {
+				$hook_type = ( 'filter_reference' === $hook_type ) ? 'apply_filters_ref_array' : 'apply_filters';
+			}
+
+			$delimiter = false !== strpos( $signature, '$' ) ? '"' : "'";
+			$signature = $delimiter . $signature . $delimiter;
+			$signature = '<span class="hook-func">' . $hook_type . '</span> ( ' . $signature;
+			if ( $hook_args ) {
+				$signature .= ', ';
+				$signature .= implode( ', ', $hook_args );
+			}
+			$signature .= ' )';
 			return $signature;
 		}
 

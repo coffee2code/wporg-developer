@@ -14,7 +14,7 @@ get_header(); ?>
 
 			<div class="reference-landing">
 				<div class="search-guide section clear">
-					<h4 class="ref-intro"><?php _e( 'Want to know what&#39;s going on inside WordPress? Search the Code Reference for more information about WordPress&#39; functions, classes, methods, hooks, and filters.', 'wporg' ); ?></h4>
+					<h4 class="ref-intro"><?php _e( 'Want to know what&#39;s going on inside WordPress? Search the Code Reference for more information about WordPress&#39; functions, classes, methods, and hooks.', 'wporg' ); ?></h4>
 					<h3 class="search-intro"><?php _e( 'Try it out:', 'wporg' ); ?></h3>
 					<?php get_search_form(); ?>
 				</div><!-- /search-guide -->
@@ -37,7 +37,7 @@ get_header(); ?>
 								<?php
 
 								$list = new WP_Query( array(
-									'posts_per_page' => 14,
+									'posts_per_page' => 13,
 									'post_type'      => array( 'wp-parser-function', 'wp-parser-hook', 'wp-parser-class', 'wp-parser-method' ),
 									'orderby'        => 'title',
 									'order'          => 'ASC',
@@ -48,14 +48,13 @@ get_header(); ?>
 									) ),
 								) );
 
-								shuffle( $list->posts );
-
 								while ( $list->have_posts() ) : $list->the_post();
 
 									echo '<li><a href="' . get_permalink() . '">' . get_the_title() . '</a></li>';
 
 								endwhile;
 								?>
+								<li class="view-all-new-in"><a href="<?php echo esc_attr( get_term_link( $version, 'wp-parser-since' ) ); ?>"><?php _e( 'View all&hellip;', 'wporg' ); ?></a></li>
 							</ul>
 						</div>
 					</div>
@@ -72,7 +71,7 @@ get_header(); ?>
 								<li><a href="https://codex.wordpress.org/Plugin_API">Plugins</a></li>
 								<li><a href="https://codex.wordpress.org/Quicktags_API">Quicktags</a></li>
 								<li><a href="https://codex.wordpress.org/Rewrite_API">Rewrite</a></li>
-								<li><a href="https://codex.wordpress.org/Rewrite_API">Settings</a></li>
+								<li><a href="https://codex.wordpress.org/Settings_API">Settings</a></li>
 								<li><a href="https://codex.wordpress.org/Shortcode_API">Shortcode</a></li>
 								<li><a href="https://codex.wordpress.org/Theme_Modification_API">Theme Modification</a></li>
 								<li><a href="https://codex.wordpress.org/Transients_API">Transients</a></li>
