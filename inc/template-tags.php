@@ -654,18 +654,30 @@ namespace DevHub {
 		// Get the total file sourcecode.
 		$source_file = get_source_file( $post_id );
 
-		// Put the total source code in an array.
-		$total_source_code = file_get_contents( ABSPATH . $source_file );
-		$total_source_code = explode( "\n", $total_source_code );
-
 		// Get the start and end lines.
-		$start_line = get_post_meta( $post_id, '_wp-parser_line_num', true ) - 1;
-		$end_line =   get_post_meta( $post_id, '_wp-parser_end_line_num', true );
+		$start_line = intval( get_post_meta( $post_id, '_wp-parser_line_num', true ) ) - 1;
+		$end_line =   intval( get_post_meta( $post_id, '_wp-parser_end_line_num', true ) );
 
-		// Get the correct source code.
-		$source_code = array_slice( $total_source_code, $start_line, $end_line - $start_line );
+		// Find just the relevant source code
+		$source_code = '';
+		$handle = @fopen( ABSPATH . $source_file, 'r' );
+		if ( $handle ) {
+			$line = -1;
+			while ( ! feof( $handle ) ) {
+				$line++;
+				$source_line = fgets( $handle );
+				if ( $line > $end_line ) {
+					break;
+				}
+				if ( $line < $start_line ) {
+					continue;
+				}
+				$source_code .= $source_line;
+			}
+			fclose( $handle );
+		}
 
-		return implode( "\n", $source_code );
+		return $source_code;
 	}
 
 }
