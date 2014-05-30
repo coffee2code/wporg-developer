@@ -116,7 +116,7 @@ if ( ! empty( $since ) ) : ?>
 		<?php endif;
 	endif; ?>
 
-	<?php if ( 'wp-parser-function' === get_post_type() || 'wp-parser-method' === get_post_type() ) : ?>
+	<?php if ( post_type_has_source_code() ) : ?>
 		<hr />
 		<section class="source-content">
 			<h2><?php _e( 'Source', 'wporg' ); ?></h2>

@@ -639,6 +639,20 @@ namespace DevHub {
 	}
 
 	/**
+	 * Does the post type have source code?
+	 *
+	 * @param  string  Optional. The post type name. If blank, assumes current post type.
+	 *
+	 * @return boolean
+	 */
+	function post_type_has_source_code( $post_type = null ) {
+		$post_type                   = $post_type ? $post_type : get_post_type();
+		$post_types_with_source_code = array( 'wp-parser-method', 'wp-parser-function' );
+
+		return in_array( $post_type, $post_types_with_source_code );
+	}
+
+	/**
 	 * Retrieve the root directory of the parsed WP code.
 	 *
 	 * If the option 'wp_parser_root_import_dir' (as set by the parser) is not
