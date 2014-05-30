@@ -639,6 +639,20 @@ namespace DevHub {
 	}
 
 	/**
+	 * Retrieve the root directory of the parsed WP code.
+	 *
+	 * If the option 'wp_parser_root_import_dir' (as set by the parser) is not
+	 * set, then assume ABSPATH.
+	 *
+	 * @return string
+	 */
+	function get_source_code_root_dir() {
+		$root_dir = get_option( 'wp_parser_root_import_dir' );
+
+		return $root_dir ? trailingslashit( $root_dir ) : ABSPATH;
+	}
+
+	/**
 	 * Retrieve source code for a function
 	 *
 	 * @param int $post_id
@@ -660,7 +674,7 @@ namespace DevHub {
 
 		// Find just the relevant source code
 		$source_code = '';
-		$handle = @fopen( ABSPATH . $source_file, 'r' );
+		$handle = @fopen( get_source_code_root_dir() . $source_file, 'r' );
 		if ( $handle ) {
 			$line = -1;
 			while ( ! feof( $handle ) ) {
