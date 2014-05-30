@@ -123,7 +123,7 @@ if ( ! empty( $since ) ) : ?>
 			<div class="source-code-container">
 				<pre class="brush: php; toolbar: false;"><?php echo esc_html( get_source_code() ); ?></pre>
 			</div>
-			<p><a href="#" class="show-complete-source"><?php _e( 'View full source code&hellip;', 'wporg-developer' ); ?></a></p>
+			<p><a href="#" class="show-complete-source"><?php _e( 'View full source code&hellip;', 'wporg' ); ?></a></p>
 		</section>
 	<?php endif; ?>
 
