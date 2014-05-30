@@ -1068,7 +1068,8 @@ input {
   padding: 20px;
 }
 .devhub-wrap .source-code-container {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 .devhub-wrap .show-complete-source {
   display: none;

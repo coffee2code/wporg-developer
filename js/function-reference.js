@@ -9,7 +9,7 @@
 	function showCompleteSource( e ) {
 		e.preventDefault();
 
-		var heightGoal = $sourceCodeTable.height() + 17;
+		var heightGoal = $sourceCodeTable.height() + 47; // takes into consideration potential x-scrollbar
 
 		$sourceCodeContainer.animate( { height: heightGoal + 'px' } );
 
