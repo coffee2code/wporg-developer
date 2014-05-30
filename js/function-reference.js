@@ -27,7 +27,7 @@
 
 		$sourceCodeTable = $sourceContent.find( 'table' );
 
-		if ( 186 < $sourceCodeTable.height() ) {
+		if ( 188 < $sourceCodeTable.height() ) {
 
 			// Do this with javascript so javascript-less can enjoy the total sourcecode
 			// 1em (margin) + 10 * 17px. Lines are 1.1em which rounds to 17px: calc( 1em + 17px * 10 ).
