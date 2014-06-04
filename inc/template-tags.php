@@ -694,6 +694,11 @@ namespace DevHub {
 		$start_line = intval( get_post_meta( $post_id, '_wp-parser_line_num', true ) ) - 1;
 		$end_line   = intval( get_post_meta( $post_id, '_wp-parser_end_line_num', true ) );
 
+		// Sanity check to ensure proper conditions exist for parsing
+		if ( ! $source_file || ! $start_line || ! $end_line || ( $start_line > $end_line ) ) {
+			return '';
+		}
+
 		// Find just the relevant source code
 		$source_code = '';
 		$handle = @fopen( get_source_code_root_dir() . $source_file, 'r' );
