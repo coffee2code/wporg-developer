@@ -667,13 +667,14 @@ namespace DevHub {
 	}
 
 	/**
-	 * Retrieve source code for a function
+	 * Retrieve source code for a function or method.
 	 *
-	 * @param int $post_id
+	 * @param int  $post_id     Optional. The post ID.
+	 * @param bool $force_parse Optional. Ignore potential value in post meta and reparse source file for source code?
 	 *
-	 * @return string The sourc
+	 * @return string The source code.
 	 */
-	function get_source_code( $post_id = null ) {
+	function get_source_code( $post_id = null, $force_parse = false ) {
 
 		if ( empty( $post_id ) ) {
 			$post_id = get_the_ID();
@@ -681,7 +682,7 @@ namespace DevHub {
 
 		// Get the source code stored in post meta.
 		$meta_key = '_wp-parser_source_code';
-		if ( $source_code = get_post_meta( $post_id, $meta_key, true ) ) {
+		if ( ! $force_parse && $source_code = get_post_meta( $post_id, $meta_key, true ) ) {
 			return $source_code;
 		}
 
