@@ -28,8 +28,15 @@ if ( ! empty( $since ) ) : ?>
 	if ( ! empty( $source_file ) ) :
 		?>
 		<section class="source">
-			<p><strong><?php _e( 'Source file:', 'wporg' ); ?> </strong><a href="<?php echo get_source_file_archive_link( $source_file ); ?>"><?php echo esc_html( $source_file ); ?></a></p>
-			<p><a href="<?php echo get_source_file_link(); ?>"><?php _e( 'View source&hellip;', 'wporg' ); ?></a></p>
+			<p>
+				<strong><?php _e( 'Source file:', 'wporg' ); ?></strong>
+				<a href="<?php echo get_source_file_archive_link( $source_file ); ?>"><?php echo esc_html( $source_file ); ?></a><br />
+				<strong><?php _e( 'View source code:', 'wporg' ); ?></strong>
+				<?php if ( post_type_has_source_code() ) { ?>
+				<a href="#source-code"><?php _e( 'below', 'wporg' ); ?></a> or
+				<?php } ?>
+				<a href="<?php echo get_source_file_link(); ?>"><?php _e( 'on the WP Trac code browser&hellip;', 'wporg' ); ?></a>
+			</p>
 		</section>
 	<?php endif; ?>
 
@@ -118,6 +125,7 @@ if ( ! empty( $since ) ) : ?>
 
 	<?php if ( post_type_has_source_code() ) : ?>
 		<hr />
+		<a id="source-code"></a>
 		<section class="source-content">
 			<h2><?php _e( 'Source', 'wporg' ); ?></h2>
 			<div class="source-code-container">
