@@ -679,12 +679,20 @@ namespace DevHub {
 			$post_id = get_the_ID();
 		}
 
-		// Get the total file sourcecode.
+		// Get the source code stored in post meta.
+		$meta_key = '_wp-parser_source_code';
+		if ( $source_code = get_post_meta( $post_id, $meta_key, true ) ) {
+			return $source_code;
+		}
+
+		/* Source code hasn't been stored in post meta, so parse source file to get it. */
+
+		// Get the name of the source file.
 		$source_file = get_source_file( $post_id );
 
 		// Get the start and end lines.
 		$start_line = intval( get_post_meta( $post_id, '_wp-parser_line_num', true ) ) - 1;
-		$end_line =   intval( get_post_meta( $post_id, '_wp-parser_end_line_num', true ) );
+		$end_line   = intval( get_post_meta( $post_id, '_wp-parser_end_line_num', true ) );
 
 		// Find just the relevant source code
 		$source_code = '';
@@ -704,6 +712,8 @@ namespace DevHub {
 			}
 			fclose( $handle );
 		}
+
+		update_post_meta( $post_id, $meta_key, $source_code );
 
 		return $source_code;
 	}
