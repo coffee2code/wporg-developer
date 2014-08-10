@@ -41,7 +41,6 @@ class WPORG_Admin_Extras {
 	 * @access public
 	 */
 	public function add_meta_boxes() {
-
 		if ( in_array( $screen = get_current_screen()->id, $this->post_types ) && current_user_can( 'manage_options' ) ) {
 			add_meta_box( 'wporg_parsed_content', __( 'Manage Parsed Content', 'wporg' ), array( $this, 'parsed_meta_box_cb' ), $screen, 'normal' );
 		}
@@ -64,6 +63,7 @@ class WPORG_Admin_Extras {
 			/* translators: 1: Meta Trac link. */
 			$ticket_info = '<em>' . sprintf( __( 'A valid, open ticket number from %s is required to edit parsed content.', 'wporg' ), $link ) . '</em>';
 		}
+		wp_nonce_field( 'wporg-parsed-content', 'wporg-parsed-content-nonce' );
 		?>
 		<table class="form-table">
 			<tbody>
@@ -86,13 +86,12 @@ class WPORG_Admin_Extras {
 				</th>
 				<td>
 					<?php
-					wp_nonce_field( 'wporg-parsed-content', 'wporg-parsed-content-nonce' );
 					wp_editor( $content, 'wporg_parsed_content_editor', array(
-						'media_buttons'  => false,
-						'tinymce'        => false,
-						'textarea_name'  => 'wporg-parsed-container',
-						'textarea_rows'  => 10,
-						'teeny'          => true,
+						'media_buttons' => false,
+						'tinymce'       => false,
+						'quicktags'     => true,
+						'textarea_rows' => 10,
+						'textarea_name' => 'wporg_parsed_content'
 					) );
 					?>
 				</td>
@@ -110,17 +109,20 @@ class WPORG_Admin_Extras {
 	 * @param int $post_id Post ID.
 	 */
 	public function save_post( $post_id ) {
-		// Ticket number.
-		if ( isset( $_POST['wporg_parsed_ticket'] ) && wp_verify_nonce( 'wporg-get-ticket-nonce', 'wporg-get-ticket' ) ) {
-			if ( current_user_can( 'manage_options' ) ) {
-
+		// Only admins can edit parsed content.
+		if ( current_user_can( 'manage_options' ) && wp_verify_nonce( $_POST['wporg-parsed-content-nonce'], 'wporg-parsed-content' ) ) {
+			// Ticket number.
+			if ( empty( $_POST['wporg_parsed_ticket'] ) ) {
+				delete_post_meta( $post_id, 'wporg_parsed_ticket' );
+			} else {
+				update_post_meta( $post_id, 'wporg_parsed_ticket', sanitize_text_field( $_POST['wporg_parsed_ticket'] ) );
 			}
-		}
 
-		// Parsed content.
-		if ( isset( $_POST['wporg_parsed_content'] ) && wp_verify_nonce( 'wporg-parsed-content-nonce', 'wporg-parsed-content' ) ) {
-			if ( current_user_can( 'manage_options' ) ) {
-
+			// Parsed content.
+			if ( empty( $_POST['wporg_parsed_content'] ) ) {
+				delete_post_meta( $post_id, 'wporg_parsed_content' );
+			} else {
+				update_post_meta( $post_id, 'wporg_parsed_content', wp_kses_post( $_POST['wporg_parsed_content'] ) );
 			}
 		}
 	}
@@ -131,11 +133,15 @@ class WPORG_Admin_Extras {
 	 * @access public
 	 */
 	public function admin_enqueue_scripts() {
-		wp_register_script( 'wporg-admin-extras', get_template_directory_uri() . '/js/admin-extras.js', array( 'jquery' ), '1.0' );
+		wp_register_script( 'admin-extras', get_template_directory_uri() . '/js/admin-extras.js', array( 'jquery' ), '1.0' );
 
 		// Only enqueue 'wporg-admin-extras' on Code Reference post type screens.
 		if ( in_array( get_current_screen()->id, $this->post_types ) ) {
-			wp_enqueue_script( 'wporg-admin-extras' );
+			wp_localize_script( 'admin-extras', 'wporg', array(
+				'ajaxURL'      => admin_url( 'admin-ajax.php' ),
+				'fetchRetry'   => __( 'Try Again', 'wporg' ),
+			) );
+			wp_enqueue_script( 'admin-extras' );
 		}
 	}
 
