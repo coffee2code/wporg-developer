@@ -152,16 +152,64 @@ class WPORG_Admin_Extras {
 	 * @access public
 	 */
 	public function admin_enqueue_scripts() {
-		wp_register_script( 'admin-extras', get_template_directory_uri() . '/js/admin-extras.js', array( 'jquery' ), '1.0' );
+		wp_enqueue_script( 'wporg-admin-extras', get_template_directory_uri() . '/js/admin-extras.js', array( 'jquery', 'utils' ), '1.0', true );
 
 		// Only enqueue 'wporg-admin-extras' on Code Reference post type screens.
-		if ( in_array( get_current_screen()->id, $this->post_types ) ) {
-			wp_localize_script( 'admin-extras', 'wporg', array(
-				'ajaxURL'      => admin_url( 'admin-ajax.php' ),
-				'fetchRetry'   => __( 'Try Again', 'wporg' ),
+//		if ( in_array( get_current_screen()->id, $this->post_types ) ) {
+			wp_localize_script( 'wporg-admin-extras', 'wporg', array(
+				'ajaxURL'    => admin_url( 'admin-ajax.php' ),
+				'retryText'  => __( 'Try Again', 'wporg' ),
+				'detachText' => __( 'Detach Ticket', 'wporg' ),
 			) );
-			wp_enqueue_script( 'admin-extras' );
+//			wp_enqueue_script( 'admin-extras' );
+//		}
+	}
+
+	/**
+	 * AJAX handler for fetching a Meta Trac ticket.
+	 *
+	 * @access public
+	 */
+	public function fetch_ticket() {
+		check_ajax_referer( 'wporg-get-ticket', 'nonce' );
+
+		$ticket = empty( $_REQUEST['ticket'] ) ? 0 : absint( $_REQUEST['ticket'] );
+
+		// Fetch the ticket.
+		$resp        = wp_remote_get( "https://core.trac.wordpress.org/ticket/{$ticket}" );
+		$status_code = wp_remote_retrieve_response_code( $resp );
+		$body        = wp_remote_retrieve_body( $resp );
+
+		// Anything other than 200 is invalid.
+		if ( 200 === $status_code && null !== $body ) {
+
+			if ( class_exists( 'DOMDocument' ) ) {
+				$doc = new DOMDocument();
+				$doc->loadHTML( $body );
+
+				$nodes = $doc->getElementsByTagName( 'title' );
+				$title = $nodes->item(0)->nodeValue;
+
+				// Strip off the site name.
+				$title = str_ireplace( ' – WordPress Trac', '', $title );
+				$title = __( 'Attached:', 'wporg' ) . $title;
+			}
+
+			$message = array(
+				'type'      => 'success',
+				'message'   => $title,
+			);
+		} else {
+			$message = array(
+				'type'    => 'invalid',
+				'message' => __( 'Invalid ticket number.', 'wporg' ),
+			);
 		}
+
+		// Slap on a new nonce for repeat offenders.
+		$message['new_nonce'] = wp_create_nonce( 'wporg-get-ticket-nonce' );
+
+		die( json_encode( $message ) );
 	}
 
 } // WPORG_Admin_Extras
