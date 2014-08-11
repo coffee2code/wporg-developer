@@ -166,7 +166,7 @@ class WPORG_Admin_Extras {
 	}
 
 	/**
-	 * AJAX handler for fetching a Meta Trac ticket.
+	 * AJAX handler for fetching a Core Trac ticket.
 	 *
 	 * @access public
 	 */
