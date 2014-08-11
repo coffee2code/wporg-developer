@@ -29,10 +29,16 @@ class WPORG_Admin_Extras {
 	public function __construct() {
 		$this->post_types = array( 'wp-parser-function', 'wp-parser-class', 'wp-parser-hook', 'wp-parser-method' );
 
-		add_action( 'add_meta_boxes',                   array( $this, 'add_meta_boxes' ) );
-		add_action( 'save_post',                        array( $this, 'save_post'      ) );
-		add_action( 'admin_print_scripts-post-new.php', array( $this, 'admin_enqueue_scripts' ) );
-		add_action( 'admin_print_scripts-post.php',     array( $this, 'admin_enqueue_scripts' ) );
+		// Data.
+		add_action( 'add_meta_boxes',                   array( $this, 'add_meta_boxes'        ) );
+		add_action( 'save_post',                        array( $this, 'save_post'             ) );
+
+		// Script.
+//		add_action( 'admin_print_scripts-post-new.php', array( $this, 'admin_enqueue_scripts' ) );
+//		add_action( 'admin_print_scripts-post.php',     array( $this, 'admin_enqueue_scripts' ) );
+		add_action( 'admin_enqueue_scripts',            array( $this, 'admin_enqueue_scripts' ) );
+		// AJAX
+		add_action( 'wp_ajax_wporg_fetch_ticket',       array( $this, 'fetch_ticket'          ) );
 	}
 
 	/**
@@ -59,28 +65,41 @@ class WPORG_Admin_Extras {
 		$content     = get_post_meta( $post->ID, 'wporg_parsed_content', true );
 
 		if ( ! $ticket_info ) {
-			$link = sprintf( '<a href="https://meta.trac.wordpress.org/newticket">%s</a>', __( 'Meta Trac', 'wporg' ) );
+			$link = sprintf( '<a href="https://core.trac.wordpress.org/newticket">%s</a>', __( 'Core Trac', 'wporg' ) );
 			/* translators: 1: Meta Trac link. */
-			$ticket_info = '<em>' . sprintf( __( 'A valid, open ticket number from %s is required to edit parsed content.', 'wporg' ), $link ) . '</em>';
+			$ticket_info = '<em>' . sprintf( __( 'A valid, open ticket from %s is required to edit parsed content.', 'wporg' ), $link ) . '</em>';
 		}
 		wp_nonce_field( 'wporg-parsed-content', 'wporg-parsed-content-nonce' );
 		?>
+		<style type="text/css">
+			#wporg_editor_outer {
+				display: none;
+			}
+			#wporg_parsed_ticket {
+				width: 100px;
+			}
+			#ticket_info_icon {
+				font-size: 14px;
+			}
+		</style>
+
 		<table class="form-table">
 			<tbody>
 			<tr valign="top">
 				<th scope="row">
-					<label for="wporg_parsed_ticket"><?php _e( 'Meta Ticket Number:' ); ?></label>
+					<label for="wporg_parsed_ticket"><?php _e( 'Trac Ticket Number:' ); ?></label>
 				</th>
 				<td>
-					<?php wp_nonce_field( 'wporg-get-ticket','wporg-get-ticket-nonce' ); ?>
 					<span>
 						<input type="text" name="wporg_parsed_ticket" id="wporg_parsed_ticket" value="<?php echo esc_attr( $ticket ); ?>" />
-						<input type="button" class="button secondary" value="<?php esc_attr_e( 'Attach Ticket', 'wporg' ); ?>" />
+						<a href="#fetch-ticket" class="button secondary" id="wporg_ticket_fetch" name="wporg_ticket_fetch" data-nonce="<?php echo wp_create_nonce( 'wporg-get-ticket' ); ?>">
+							<?php esc_attr_e( 'Attach Ticket', 'wporg' ); ?>
+						</a>
 					</span><br />
-					<div id="wporg_parsed_ticket_info"><?php echo $ticket_info; ?></div>
+					<span id="ticket_info_icon" style="color:#a00;"></span><span id="wporg_parsed_ticket_info"><?php echo $ticket_info; ?></span>
 				</td>
 			</tr>
-			<tr valign="top">
+			<tr valign="top" id="wporg_editor_outer">
 				<th scope="row">
 					<label for="wporg_parsed_content"><?php _e( 'Parsed Content:' ); ?></label>
 				</th>

@@ -18,14 +18,14 @@ require __DIR__ . '/inc/extras.php';
 require __DIR__ . '/inc/customizer.php';
 
 /**
- * Admin extras for the Function, Class, Hook, and Method screens.
- */
-require __DIR__ . '/inc/admin-extras.php';
-
-/**
  * Load Jetpack compatibility file.
  */
 require __DIR__ . '/inc/jetpack.php';
+
+/**
+ * Admin extras for the Function, Class, Hook, and Method screens.
+ */
+require_once( __DIR__ . '/inc/admin-extras.php' );
 
 if ( ! function_exists( 'loop_pagination' ) ) {
 	require __DIR__ . '/inc/loop-pagination.php';
