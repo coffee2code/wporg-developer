@@ -1,9 +1,8 @@
 /**
  * Admin extras backend JS.
  */
-//window.wp = window.wp || {};
 
-( function( window, $, undefined ) {
+( function( $ ) {
 	var editorOuter   = $( '#wporg_editor_outer' ),
 		ticketNumber  = $( '#wporg_parsed_ticket' ),
 		attachButton  = $( '#wporg_ticket_attach' ),
@@ -35,20 +34,20 @@
 			$this.data( 'nonce', resp.new_nonce );
 
 			spinner.hide();
+
+			// Update the ticket info text
 			ticketInfo.text( resp.message ).show();
 
 			// Handle the response.
 			if ( resp.type && 'success' == resp.type ) {
-				spinner.hide();
+				// Hide or show the editor.
+				attachAction ? editorOuter.slideDown() : editorOuter.slideUp();
 
 				var otherButton = attachAction ? detachButton : attachButton;
 
 				// Toggle the buttons.
 				$this.hide();
 				otherButton.css( 'display', 'inline-block' );
-
-				// Hide or show the editor.
-				attachAction ? editorOuter.slideDown() : editorOuter.slideUp().delay( 400 );
 
 				// Clear the ticket number when detaching.
 				if ( ! attachAction ) {
@@ -63,10 +62,11 @@
 			} else {
 				ticketInfo.text( wporg.retryText );
 			}
+
 		}, 'json' );
 	};
 
 	attachButton.on( 'click', { action: 'attach' }, handleTicket );
 	detachButton.on( 'click', { action: 'detach' }, handleTicket );
 
-} )( this, jQuery );
+} )( jQuery );

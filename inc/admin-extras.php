@@ -34,12 +34,15 @@ class WPORG_Admin_Extras {
 		add_action( 'save_post',                        array( $this, 'save_post'             ) );
 
 		// Script.
-//		add_action( 'admin_print_scripts-post-new.php', array( $this, 'admin_enqueue_scripts' ) );
-//		add_action( 'admin_print_scripts-post.php',     array( $this, 'admin_enqueue_scripts' ) );
 		add_action( 'admin_enqueue_scripts',            array( $this, 'admin_enqueue_scripts' ) );
+
 		// AJAX
 		add_action( 'wp_ajax_wporg_attach_ticket',      array( $this, 'attach_ticket'          ) );
 		add_action( 'wp_ajax_wporg_detach_ticket',      array( $this, 'detach_ticket'          ) );
+
+		// Register meta fields.
+		register_meta( 'post', 'wporg_ticket_number', 'absint',               '__return_false' );
+		register_meta( 'post', 'wporg_ticket_title',  'sanitize_text_field',  '__return_false' );
 	}
 
 	/**
@@ -61,14 +64,15 @@ class WPORG_Admin_Extras {
 	 * @param WP_Post $post Current post object.
 	 */
 	public function parsed_meta_box_cb( $post ) {
-		$ticket      = get_post_meta( $post->ID, 'wporg_parsed_ticket', true );
-		$ticket_info = get_post_meta( $post->ID, 'wporg_parsed_ticket_info', true );
-		$content     = get_post_meta( $post->ID, 'wporg_parsed_content', true );
+		$ticket       = get_post_meta( $post->ID, 'wporg_ticket_number', true );
+		$ticket_label = get_post_meta( $post->ID, 'wporg_ticket_title', true );
+		$ticket_info  = get_post_meta( $post->ID, 'wporg_parsed_ticket_info', true );
+		$content      = get_post_meta( $post->ID, 'wporg_parsed_content', true );
 
-		if ( ! $ticket_info ) {
+		if ( ! $ticket_label ) {
 			$link = sprintf( '<a href="https://core.trac.wordpress.org/newticket">%s</a>', __( 'Core Trac', 'wporg' ) );
 			/* translators: 1: Meta Trac link. */
-			$ticket_info = '<em>' . sprintf( __( 'A valid, open ticket from %s is required to edit parsed content.', 'wporg' ), $link ) . '</em>';
+			$ticket_message = '<em>' . sprintf( __( 'A valid, open ticket from %s is required to edit parsed content.', 'wporg' ), $link ) . '</em>';
 		}
 		wp_nonce_field( 'wporg-parsed-content', 'wporg-parsed-content-nonce' );
 		?>
@@ -117,7 +121,7 @@ class WPORG_Admin_Extras {
 					</span>
 					<div id="ticket_status">
 						<span class="spinner"></span><span class="ticket_info_icon"></span>
-						<span id="wporg_parsed_ticket_info"><?php echo $ticket_info; ?></span>
+						<span id="wporg_parsed_ticket_info"><?php echo $ticket_message; ?></span>
 					</div>
 				</td>
 			</tr>
@@ -150,20 +154,15 @@ class WPORG_Admin_Extras {
 	 * @param int $post_id Post ID.
 	 */
 	public function save_post( $post_id ) {
-		// Only admins can edit parsed content.
-		if ( current_user_can( 'manage_options' ) && wp_verify_nonce( $_POST['wporg-parsed-content-nonce'], 'wporg-parsed-content' ) ) {
-			// Ticket number.
-			if ( empty( $_POST['wporg_parsed_ticket'] ) ) {
-				delete_post_meta( $post_id, 'wporg_parsed_ticket' );
-			} else {
-				update_post_meta( $post_id, 'wporg_parsed_ticket', sanitize_text_field( $_POST['wporg_parsed_ticket'] ) );
-			}
-
-			// Parsed content.
-			if ( empty( $_POST['wporg_parsed_content'] ) ) {
-				delete_post_meta( $post_id, 'wporg_parsed_content' );
-			} else {
-				update_post_meta( $post_id, 'wporg_parsed_content', wp_kses_post( $_POST['wporg_parsed_content'] ) );
+		if ( ! empty( $_POST['wporg-parsed-content-nonce'] ) && wp_verify_nonce( $_POST['wporg-parsed-content-nonce'], 'wporg-parsed-content' ) ) {
+			// No cheaters!
+			if ( current_user_can( 'manage_options' ) ) {
+				// Parsed content.
+				if ( empty( $_POST['wporg_parsed_content'] ) ) {
+					delete_post_meta( $post_id, 'wporg_parsed_content' );
+				} else {
+					update_post_meta( $post_id, 'wporg_parsed_content', wp_kses_post( $_POST['wporg_parsed_content'] ) );
+				}
 			}
 		}
 	}
@@ -174,16 +173,15 @@ class WPORG_Admin_Extras {
 	 * @access public
 	 */
 	public function admin_enqueue_scripts() {
-		wp_enqueue_script( 'wporg-admin-extras', get_template_directory_uri() . '/js/admin-extras.js', array( 'jquery', 'utils' ), '1.0', true );
-
 		// Only enqueue 'wporg-admin-extras' on Code Reference post type screens.
-//		if ( in_array( get_current_screen()->id, $this->post_types ) ) {
+		if ( in_array( get_current_screen()->id, $this->post_types ) ) {
+			wp_enqueue_script( 'wporg-admin-extras', get_template_directory_uri() . '/js/admin-extras.js', array( 'jquery', 'utils' ), '1.0', true );
+
 			wp_localize_script( 'wporg-admin-extras', 'wporg', array(
-				'ajaxURL' => admin_url( 'admin-ajax.php' ),
+				'ajaxURL'    => admin_url( 'admin-ajax.php' ),
 				'searchText' => __( 'Searching ...', 'wporg' ),
 			) );
-//			wp_enqueue_script( 'admin-extras' );
-//		}
+		}
 	}
 
 	/**
@@ -194,8 +192,8 @@ class WPORG_Admin_Extras {
 	public function attach_ticket() {
 		check_ajax_referer( 'wporg-attach-ticket', 'nonce' );
 
-		$ticket = empty( $_REQUEST['ticket'] ) ? 0 : absint( $_REQUEST['ticket'] );
-		$ticket = "https://core.trac.wordpress.org/ticket/{$ticket}";
+		$ticket_no = empty( $_REQUEST['ticket'] ) ? 0 : absint( $_REQUEST['ticket'] );
+		$ticket    = "https://core.trac.wordpress.org/ticket/{$ticket_no}";
 
 		// Fetch the ticket.
 		$resp        = wp_remote_get( $ticket );
@@ -206,9 +204,10 @@ class WPORG_Admin_Extras {
 		if ( 200 === $status_code && null !== $body ) {
 			$title = '';
 
+			// Snag the page title from the ticket HTML.
 			if ( class_exists( 'DOMDocument' ) ) {
 				$doc = new DOMDocument();
-				$doc->loadHTML( $body );
+				@$doc->loadHTML( $body );
 
 				$nodes = $doc->getElementsByTagName( 'title' );
 				$title = $nodes->item(0)->nodeValue;
@@ -226,7 +225,7 @@ class WPORG_Admin_Extras {
 
 			$post_id = empty( $_REQUEST['post_id'] ) ? 0 : absint( $_REQUEST['post_id'] );
 
-			update_post_meta( $post_id, 'wporg_ticket_url', $ticket );
+			update_post_meta( $post_id, 'wporg_ticket_number', $ticket_no );
 			update_post_meta( $post_id, 'wporg_ticket_title', $title );
 
 		} else {
@@ -252,14 +251,16 @@ class WPORG_Admin_Extras {
 
 		$post_id = empty( $_REQUEST['post_id'] ) ? 0 : absint( $_REQUEST['post_id'] );
 
-		if ( delete_post_meta( $post_id, 'wporg_ticket_url' ) ) {
+		if ( delete_post_meta( $post_id, 'wporg_ticket_number' )
+			&& delete_post_meta( $post_id, 'wporg_ticket_title' )
+		) {
 			$message = array(
-				'type' => 'success',
+				'type'    => 'success',
 				'message' => __( 'Ticket detached.', 'wporg' )
 			);
 		} else {
 			$message = array(
-				'type' => 'failure',
+				'type'    => 'failure',
 				'message' => __( 'Ticket still attached.', 'wporg' )
 			);
 		}
