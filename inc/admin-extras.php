@@ -71,8 +71,8 @@ class WPORG_Admin_Extras {
 		$content      = get_post_meta( $post->ID, 'wporg_parsed_content', true );
 
 		if ( $ticket ) {
-			$src  = "http://core.trac.wordpress.org/{$ticket}";
-			$ticket_message = sprintf( '<a href="%1$s">%2$s</a>', esc_url( $src ), $ticket_label );
+			$src  = "http://core.trac.wordpress.org/ticket/{$ticket}";
+			$ticket_message = sprintf( '<a href="%1$s">%2$s</a>', esc_url( $src ), apply_filters( 'the_title', $ticket_label ) );
 		} else {
 			$link = sprintf( '<a href="https://core.trac.wordpress.org/newticket">%s</a>', __( 'Core Trac', 'wporg' ) );
 			/* translators: 1: Meta Trac link. */
@@ -129,15 +129,13 @@ class WPORG_Admin_Extras {
 					<label for="wporg_parsed_content"><?php _e( 'Parsed Content:', 'wporg' ); ?></label>
 				</th>
 				<td>
-					<?php
-					wp_editor( $content, 'wporg_parsed_content_editor', array(
+					<?php wp_editor( $content, 'wporg_parsed_content_editor', array(
 						'media_buttons' => false,
 						'tinymce'       => false,
 						'quicktags'     => true,
 						'textarea_rows' => 10,
 						'textarea_name' => 'wporg_parsed_content'
-					) );
-					?>
+					) ); ?>
 				</td>
 			</tr>
 			</tbody>
@@ -187,11 +185,11 @@ class WPORG_Admin_Extras {
 	public function attach_ticket() {
 		check_ajax_referer( 'wporg-attach-ticket', 'nonce' );
 
-		$ticket_no = empty( $_REQUEST['ticket'] ) ? 0 : absint( $_REQUEST['ticket'] );
-		$ticket    = "https://core.trac.wordpress.org/ticket/{$ticket_no}";
+		$ticket_no  = empty( $_REQUEST['ticket'] ) ? 0 : absint( $_REQUEST['ticket'] );
+		$ticket_url = "https://core.trac.wordpress.org/ticket/{$ticket_no}";
 
 		// Fetch the ticket.
-		$resp        = wp_remote_get( $ticket );
+		$resp        = wp_remote_get( esc_url( $ticket_url ) );
 		$status_code = wp_remote_retrieve_response_code( $resp );
 		$body        = wp_remote_retrieve_body( $resp );
 
@@ -213,15 +211,17 @@ class WPORG_Admin_Extras {
 				die( -1 );
 			}
 
-			$message = array(
-				'type'    => 'success',
-				'message' => $title,
-			);
-
 			$post_id = empty( $_REQUEST['post_id'] ) ? 0 : absint( $_REQUEST['post_id'] );
 
 			update_post_meta( $post_id, 'wporg_ticket_number', $ticket_no );
 			update_post_meta( $post_id, 'wporg_ticket_title', $title );
+
+			$link = sprintf( '<a href="%1$s">%2$s</a>', esc_url( $ticket_url ),  apply_filters( 'the_title', $title ) );
+
+			$message = array(
+				'type'    => 'success',
+				'message' => $link,
+			);
 
 		} else {
 			$message = array(

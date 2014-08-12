@@ -36,7 +36,7 @@
 			spinner.hide();
 
 			// Update the ticket info text
-			ticketInfo.text( resp.message ).show();
+			ticketInfo.html( resp.message ).show();
 
 			// Handle the response.
 			if ( resp.type && 'success' == resp.type ) {
