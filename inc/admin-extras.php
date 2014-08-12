@@ -38,7 +38,8 @@ class WPORG_Admin_Extras {
 //		add_action( 'admin_print_scripts-post.php',     array( $this, 'admin_enqueue_scripts' ) );
 		add_action( 'admin_enqueue_scripts',            array( $this, 'admin_enqueue_scripts' ) );
 		// AJAX
-		add_action( 'wp_ajax_wporg_fetch_ticket',       array( $this, 'fetch_ticket'          ) );
+		add_action( 'wp_ajax_wporg_attach_ticket',      array( $this, 'attach_ticket'          ) );
+		add_action( 'wp_ajax_wporg_detach_ticket',      array( $this, 'detach_ticket'          ) );
 	}
 
 	/**
@@ -81,25 +82,46 @@ class WPORG_Admin_Extras {
 			#ticket_info_icon {
 				font-size: 14px;
 			}
+			#ticket_status .spinner {
+				position: relative;
+				bottom: 4px;
+				float: none;
+			}
+			#ticket_info_icon {
+				color: #a00;
+			}
+			.attachment_controls {
+				margin-bottom: 10px;
+				display: block;
+			}
+			#wporg_ticket_detach {
+				display: none;
+			}
 		</style>
 
 		<table class="form-table">
 			<tbody>
-			<tr valign="top">
+			<tr valign="top" id="ticket_controls">
 				<th scope="row">
 					<label for="wporg_parsed_ticket"><?php _e( 'Trac Ticket Number:' ); ?></label>
 				</th>
 				<td>
-					<span>
+					<span class="attachment_controls">
 						<input type="text" name="wporg_parsed_ticket" id="wporg_parsed_ticket" value="<?php echo esc_attr( $ticket ); ?>" />
-						<a href="#fetch-ticket" class="button secondary" id="wporg_ticket_fetch" name="wporg_ticket_fetch" data-nonce="<?php echo wp_create_nonce( 'wporg-get-ticket' ); ?>">
+						<a href="#attach-ticket" class="button secondary" id="wporg_ticket_attach" name="wporg_ticket_attach" aria-label="<?php esc_attr_e( 'Attach a Core Trac ticket' ); ?>" data-nonce="<?php echo wp_create_nonce( 'wporg-attach-ticket' ); ?>">
 							<?php esc_attr_e( 'Attach Ticket', 'wporg' ); ?>
 						</a>
-					</span><br />
-					<span id="ticket_info_icon" style="color:#a00;"></span><span id="wporg_parsed_ticket_info"><?php echo $ticket_info; ?></span>
+						<a href="#detach-ticket" class="button secondary" id="wporg_ticket_detach" name="wporg_ticket_detach" aria-label="<?php esc_attr_e( 'Detach the Trac ticket' ); ?>" data-nonce="<?php echo wp_create_nonce( 'wporg-detach-ticket' ); ?>">
+							<?php esc_attr_e( 'Detach Ticket', 'wporg' ); ?>
+						</a>
+					</span>
+					<div id="ticket_status">
+						<span class="spinner"></span><span class="ticket_info_icon"></span>
+						<span id="wporg_parsed_ticket_info"><?php echo $ticket_info; ?></span>
+					</div>
 				</td>
 			</tr>
-			<tr valign="top" id="wporg_editor_outer">
+			<tr valign="top" id="wporg_editor_outer" data-id="<?php the_id(); ?>">
 				<th scope="row">
 					<label for="wporg_parsed_content"><?php _e( 'Parsed Content:' ); ?></label>
 				</th>
@@ -157,9 +179,8 @@ class WPORG_Admin_Extras {
 		// Only enqueue 'wporg-admin-extras' on Code Reference post type screens.
 //		if ( in_array( get_current_screen()->id, $this->post_types ) ) {
 			wp_localize_script( 'wporg-admin-extras', 'wporg', array(
-				'ajaxURL'    => admin_url( 'admin-ajax.php' ),
-				'retryText'  => __( 'Try Again', 'wporg' ),
-				'detachText' => __( 'Detach Ticket', 'wporg' ),
+				'ajaxURL' => admin_url( 'admin-ajax.php' ),
+				'searchText' => __( 'Searching ...', 'wporg' ),
 			) );
 //			wp_enqueue_script( 'admin-extras' );
 //		}
@@ -170,18 +191,20 @@ class WPORG_Admin_Extras {
 	 *
 	 * @access public
 	 */
-	public function fetch_ticket() {
-		check_ajax_referer( 'wporg-get-ticket', 'nonce' );
+	public function attach_ticket() {
+		check_ajax_referer( 'wporg-attach-ticket', 'nonce' );
 
 		$ticket = empty( $_REQUEST['ticket'] ) ? 0 : absint( $_REQUEST['ticket'] );
+		$ticket = "https://core.trac.wordpress.org/ticket/{$ticket}";
 
 		// Fetch the ticket.
-		$resp        = wp_remote_get( "https://core.trac.wordpress.org/ticket/{$ticket}" );
+		$resp        = wp_remote_get( $ticket );
 		$status_code = wp_remote_retrieve_response_code( $resp );
 		$body        = wp_remote_retrieve_body( $resp );
 
 		// Anything other than 200 is invalid.
 		if ( 200 === $status_code && null !== $body ) {
+			$title = '';
 
 			if ( class_exists( 'DOMDocument' ) ) {
 				$doc = new DOMDocument();
@@ -192,13 +215,20 @@ class WPORG_Admin_Extras {
 
 				// Strip off the site name.
 				$title = str_ireplace( ' – WordPress Trac', '', $title );
-				$title = __( 'Attached:', 'wporg' ) . $title;
+			} else {
+				die( -1 );
 			}
 
 			$message = array(
-				'type'      => 'success',
-				'message'   => $title,
+				'type'    => 'success',
+				'message' => $title,
 			);
+
+			$post_id = empty( $_REQUEST['post_id'] ) ? 0 : absint( $_REQUEST['post_id'] );
+
+			update_post_meta( $post_id, 'wporg_ticket_url', $ticket );
+			update_post_meta( $post_id, 'wporg_ticket_title', $title );
+
 		} else {
 			$message = array(
 				'type'    => 'invalid',
@@ -207,7 +237,35 @@ class WPORG_Admin_Extras {
 		}
 
 		// Slap on a new nonce for repeat offenders.
-		$message['new_nonce'] = wp_create_nonce( 'wporg-get-ticket-nonce' );
+		$message['new_nonce'] = wp_create_nonce( 'wporg-attach-ticket' );
+
+		die( json_encode( $message ) );
+	}
+
+	/**
+	 * Detach a Trac ticket.
+	 *
+	 * @access public
+	 */
+	public function detach_ticket() {
+		check_ajax_referer( 'wporg-detach-ticket', 'nonce' );
+
+		$post_id = empty( $_REQUEST['post_id'] ) ? 0 : absint( $_REQUEST['post_id'] );
+
+		if ( delete_post_meta( $post_id, 'wporg_ticket_url' ) ) {
+			$message = array(
+				'type' => 'success',
+				'message' => __( 'Ticket detached.', 'wporg' )
+			);
+		} else {
+			$message = array(
+				'type' => 'failure',
+				'message' => __( 'Ticket still attached.', 'wporg' )
+			);
+		}
+
+		// Slap on a new nonce for repeat offenders.
+		$message['new_nonce'] = wp_create_nonce( 'wporg-detach-ticket' );
 
 		die( json_encode( $message ) );
 	}

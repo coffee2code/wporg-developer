@@ -4,51 +4,74 @@
 //window.wp = window.wp || {};
 
 ( function( window, $, undefined ) {
-	var editorOuter  = $( '#wporg_editor_outer' ),
-		ticketNumber = $( '#wporg_parsed_ticket' ),
-		fetchButton  = $( '#wporg_ticket_fetch' ),
-		ticketInfo   = $( '#wporg_parsed_ticket_info' ),
-		nonce        = $( '#wporg-get-ticket-nonce' );
+	var editorOuter   = $( '#wporg_editor_outer' ),
+		ticketNumber  = $( '#wporg_parsed_ticket' ),
+		attachButton  = $( '#wporg_ticket_attach' ),
+		detachButton  = $( '#wporg_ticket_detach' ),
+		ticketInfo    = $( '#wporg_parsed_ticket_info' ),
+		spinner       = $( '#ticket_status .spinner' );
 
-	var fetchTicket = function( event ) {
+	// Nonces!!
+
+	var handleTicket = function( event ) {
 		event.preventDefault();
 
+		var $this        = $(this),
+			attachAction = 'attach' == event.data.action;
+
+		spinner.css( 'display', 'inline-block' );
+
+		if ( attachAction ) {
+			ticketInfo.text( wporg.searchText );
+		}
+
+		var $action = attachAction ? 'wporg_attach_ticket' : 'wporg_detach_ticket';
+
 		var data = {
-			action: 'wporg_fetch_ticket',
-			ticket: ticketNumber.val(),
-			nonce:  $(this).data( 'nonce' )
+			action:  $action,
+			ticket:  ticketNumber.val(),
+			nonce:   $this.data( 'nonce' ),
+			post_id: editorOuter.data( 'id' )
 		};
 
-		// Preserve this.
-		var $this = $(this);
-
 		$.post( wporg.ajaxURL, data, function( resp ) {
-			console.log( resp );
-			// Message or ticket title.
-			ticketInfo.text( resp.message );
-
-			// Update the nonce.
+			// Refresh the nonce.
 			$this.data( 'nonce', resp.new_nonce );
+
+			spinner.hide();
+			ticketInfo.text( resp.message ).show();
 
 			// Handle the response.
 			if ( resp.type && 'success' == resp.type ) {
-				// Show the parsed content editor.
-				editorOuter.show();
+				spinner.hide();
 
-				// Set the ticket link icon
-				$( '#ticket_info_icon' ).addClass( 'dashicons dashicons-external' );
+				var otherButton = attachAction ? detachButton : attachButton;
 
-				// Set the ticket number as readonly while a ticket is attached.
-//				ticketNumber.prop( 'readonly', 'readonly' );
+				$this.hide();
+				otherButton.css( 'display', 'inline-block' );
 
-				// Update the button to detach.
-//				fetchButton.text( wporg.detachText );
+				// Toggle the buttons.
+				$this.hide();
+				otherButton.show();
+
+				// Hide or show the editor.
+				attachAction ? editorOuter.slideDown() : editorOuter.slideUp().delay( 400 );
+
+				if ( ! attachAction ) {
+					ticketNumber.val( '' );
+				}
+
+				// Set or unset the ticket link icon.
+				$( '.ticket_info_icon' ).toggleClass( 'dashicons dashicons-external', attachAction );
+
+				attachAction ? ticketNumber.prop( 'readonly', 'readonly' ) : ticketNumber.removeAttr( 'readonly' );
 			} else {
-				fetchButton.text( wporg.retryText );
+				ticketInfo.text( wporg.retryText );
 			}
 		}, 'json' );
 	};
 
-	fetchButton.on( 'click', fetchTicket );
+	attachButton.on( 'click', { action: 'attach' }, handleTicket );
+	detachButton.on( 'click', { action: 'detach' }, handleTicket );
 
 } )( this, jQuery );
