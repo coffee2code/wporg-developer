@@ -11,8 +11,6 @@
 		ticketInfo    = $( '#wporg_parsed_ticket_info' ),
 		spinner       = $( '#ticket_status .spinner' );
 
-	// Nonces!!
-
 	var handleTicket = function( event ) {
 		event.preventDefault();
 
@@ -25,10 +23,8 @@
 			ticketInfo.text( wporg.searchText );
 		}
 
-		var $action = attachAction ? 'wporg_attach_ticket' : 'wporg_detach_ticket';
-
 		var data = {
-			action:  $action,
+			action:  attachAction ? 'wporg_attach_ticket' : 'wporg_detach_ticket',
 			ticket:  ticketNumber.val(),
 			nonce:   $this.data( 'nonce' ),
 			post_id: editorOuter.data( 'id' )
@@ -47,16 +43,14 @@
 
 				var otherButton = attachAction ? detachButton : attachButton;
 
-				$this.hide();
-				otherButton.css( 'display', 'inline-block' );
-
 				// Toggle the buttons.
 				$this.hide();
-				otherButton.show();
+				otherButton.css( 'display', 'inline-block' );
 
 				// Hide or show the editor.
 				attachAction ? editorOuter.slideDown() : editorOuter.slideUp().delay( 400 );
 
+				// Clear the ticket number when detaching.
 				if ( ! attachAction ) {
 					ticketNumber.val( '' );
 				}
@@ -64,6 +58,7 @@
 				// Set or unset the ticket link icon.
 				$( '.ticket_info_icon' ).toggleClass( 'dashicons dashicons-external', attachAction );
 
+				// Set the ticket number to readonly when a ticket is attached.
 				attachAction ? ticketNumber.prop( 'readonly', 'readonly' ) : ticketNumber.removeAttr( 'readonly' );
 			} else {
 				ticketInfo.text( wporg.retryText );
