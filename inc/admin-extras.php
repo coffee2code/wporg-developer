@@ -105,15 +105,15 @@ class WPORG_Admin_Extras {
 			<tbody>
 			<tr valign="top" id="ticket_controls">
 				<th scope="row">
-					<label for="wporg_parsed_ticket"><?php _e( 'Trac Ticket Number:' ); ?></label>
+					<label for="wporg_parsed_ticket"><?php _e( 'Trac Ticket Number:', 'wporg' ); ?></label>
 				</th>
 				<td>
 					<span class="attachment_controls">
 						<input type="text" name="wporg_parsed_ticket" id="wporg_parsed_ticket" value="<?php echo esc_attr( $ticket ); ?>" />
-						<a href="#attach-ticket" class="button secondary <?php echo $ticket ? 'hidden' : ''; ?>" id="wporg_ticket_attach" name="wporg_ticket_attach" aria-label="<?php esc_attr_e( 'Attach a Core Trac ticket' ); ?>" data-nonce="<?php echo wp_create_nonce( 'wporg-attach-ticket' ); ?>">
+						<a href="#attach-ticket" class="button secondary <?php echo $ticket ? 'hidden' : ''; ?>" id="wporg_ticket_attach" name="wporg_ticket_attach" aria-label="<?php esc_attr_e( 'Attach a Core Trac ticket', 'wporg' ); ?>" data-nonce="<?php echo wp_create_nonce( 'wporg-attach-ticket' ); ?>">
 							<?php esc_attr_e( 'Attach Ticket', 'wporg' ); ?>
 						</a>
-						<a href="#detach-ticket" class="button secondary <?php echo $ticket ? '' : 'hidden'; ?>" id="wporg_ticket_detach" name="wporg_ticket_detach" aria-label="<?php esc_attr_e( 'Detach the Trac ticket' ); ?>" data-nonce="<?php echo wp_create_nonce( 'wporg-detach-ticket' ); ?>">
+						<a href="#detach-ticket" class="button secondary <?php echo $ticket ? '' : 'hidden'; ?>" id="wporg_ticket_detach" name="wporg_ticket_detach" aria-label="<?php esc_attr_e( 'Detach the Trac ticket', 'wporg' ); ?>" data-nonce="<?php echo wp_create_nonce( 'wporg-detach-ticket' ); ?>">
 							<?php esc_attr_e( 'Detach Ticket', 'wporg' ); ?>
 						</a>
 					</span>
@@ -126,7 +126,7 @@ class WPORG_Admin_Extras {
 			</tr>
 			<tr valign="top" id="wporg_editor_outer" class="<?php echo $ticket ? '' : 'hidden'; ?>" data-id="<?php the_id(); ?>">
 				<th scope="row">
-					<label for="wporg_parsed_content"><?php _e( 'Parsed Content:' ); ?></label>
+					<label for="wporg_parsed_content"><?php _e( 'Parsed Content:', 'wporg' ); ?></label>
 				</th>
 				<td>
 					<?php
