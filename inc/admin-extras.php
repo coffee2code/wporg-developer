@@ -41,8 +41,9 @@ class WPORG_Admin_Extras {
 		add_action( 'wp_ajax_wporg_detach_ticket',      array( $this, 'detach_ticket'          ) );
 
 		// Register meta fields.
-		register_meta( 'post', 'wporg_ticket_number', 'absint',               '__return_false' );
-		register_meta( 'post', 'wporg_ticket_title',  'sanitize_text_field',  '__return_false' );
+		register_meta( 'post', 'wporg_ticket_number',  'absint',               '__return_false' );
+		register_meta( 'post', 'wporg_ticket_title',   'sanitize_text_field',  '__return_false' );
+		register_meta( 'post', 'wporg_parsed_content', 'wp_kses_post',         '__return_false' );
 	}
 
 	/**
@@ -69,17 +70,17 @@ class WPORG_Admin_Extras {
 		$ticket_info  = get_post_meta( $post->ID, 'wporg_parsed_ticket_info', true );
 		$content      = get_post_meta( $post->ID, 'wporg_parsed_content', true );
 
-		if ( ! $ticket_label ) {
+		if ( $ticket ) {
+			$src  = "http://core.trac.wordpress.org/{$ticket}";
+			$ticket_message = sprintf( '<a href="%1$s">%2$s</a>', esc_url( $src ), $ticket_label );
+		} else {
 			$link = sprintf( '<a href="https://core.trac.wordpress.org/newticket">%s</a>', __( 'Core Trac', 'wporg' ) );
 			/* translators: 1: Meta Trac link. */
-			$ticket_message = '<em>' . sprintf( __( 'A valid, open ticket from %s is required to edit parsed content.', 'wporg' ), $link ) . '</em>';
+			$ticket_message = sprintf( __( 'A valid, open ticket from %s is required to edit parsed content.', 'wporg' ), $link );
 		}
 		wp_nonce_field( 'wporg-parsed-content', 'wporg-parsed-content-nonce' );
 		?>
 		<style type="text/css">
-			#wporg_editor_outer {
-				display: none;
-			}
 			#wporg_parsed_ticket {
 				width: 100px;
 			}
@@ -98,9 +99,6 @@ class WPORG_Admin_Extras {
 				margin-bottom: 10px;
 				display: block;
 			}
-			#wporg_ticket_detach {
-				display: none;
-			}
 		</style>
 
 		<table class="form-table">
@@ -112,20 +110,21 @@ class WPORG_Admin_Extras {
 				<td>
 					<span class="attachment_controls">
 						<input type="text" name="wporg_parsed_ticket" id="wporg_parsed_ticket" value="<?php echo esc_attr( $ticket ); ?>" />
-						<a href="#attach-ticket" class="button secondary" id="wporg_ticket_attach" name="wporg_ticket_attach" aria-label="<?php esc_attr_e( 'Attach a Core Trac ticket' ); ?>" data-nonce="<?php echo wp_create_nonce( 'wporg-attach-ticket' ); ?>">
+						<a href="#attach-ticket" class="button secondary <?php echo $ticket ? 'hidden' : ''; ?>" id="wporg_ticket_attach" name="wporg_ticket_attach" aria-label="<?php esc_attr_e( 'Attach a Core Trac ticket' ); ?>" data-nonce="<?php echo wp_create_nonce( 'wporg-attach-ticket' ); ?>">
 							<?php esc_attr_e( 'Attach Ticket', 'wporg' ); ?>
 						</a>
-						<a href="#detach-ticket" class="button secondary" id="wporg_ticket_detach" name="wporg_ticket_detach" aria-label="<?php esc_attr_e( 'Detach the Trac ticket' ); ?>" data-nonce="<?php echo wp_create_nonce( 'wporg-detach-ticket' ); ?>">
+						<a href="#detach-ticket" class="button secondary <?php echo $ticket ? '' : 'hidden'; ?>" id="wporg_ticket_detach" name="wporg_ticket_detach" aria-label="<?php esc_attr_e( 'Detach the Trac ticket' ); ?>" data-nonce="<?php echo wp_create_nonce( 'wporg-detach-ticket' ); ?>">
 							<?php esc_attr_e( 'Detach Ticket', 'wporg' ); ?>
 						</a>
 					</span>
 					<div id="ticket_status">
-						<span class="spinner"></span><span class="ticket_info_icon"></span>
-						<span id="wporg_parsed_ticket_info"><?php echo $ticket_message; ?></span>
+						<span class="spinner"></span>
+						<span class="ticket_info_icon <?php echo $ticket ? 'dashicons dashicons-external' : ''; ?>"></span>
+						<span id="wporg_ticket_info"><em><?php echo $ticket_message; ?></em></span>
 					</div>
 				</td>
 			</tr>
-			<tr valign="top" id="wporg_editor_outer" data-id="<?php the_id(); ?>">
+			<tr valign="top" id="wporg_editor_outer" class="<?php echo $ticket ? '' : 'hidden'; ?>" data-id="<?php the_id(); ?>">
 				<th scope="row">
 					<label for="wporg_parsed_content"><?php _e( 'Parsed Content:' ); ?></label>
 				</th>
@@ -158,11 +157,7 @@ class WPORG_Admin_Extras {
 			// No cheaters!
 			if ( current_user_can( 'manage_options' ) ) {
 				// Parsed content.
-				if ( empty( $_POST['wporg_parsed_content'] ) ) {
-					delete_post_meta( $post_id, 'wporg_parsed_content' );
-				} else {
-					update_post_meta( $post_id, 'wporg_parsed_content', wp_kses_post( $_POST['wporg_parsed_content'] ) );
-				}
+				empty( $_POST['wporg_parsed_content'] ) ? delete_post_meta( $post_id, 'wporg_parsed_content' ) : update_post_meta( $post_id, 'wporg_parsed_content', $_POST['wporg_parsed_content'] );
 			}
 		}
 	}
@@ -185,7 +180,7 @@ class WPORG_Admin_Extras {
 	}
 
 	/**
-	 * AJAX handler for fetching a Core Trac ticket.
+	 * AJAX handler for fetching the title of a Core Trac ticket and 'attaching' it to the post.
 	 *
 	 * @access public
 	 */
@@ -242,7 +237,7 @@ class WPORG_Admin_Extras {
 	}
 
 	/**
-	 * Detach a Trac ticket.
+	 * AJAX handler for 'detaching' a ticket from the post.
 	 *
 	 * @access public
 	 */

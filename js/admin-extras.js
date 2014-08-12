@@ -7,7 +7,7 @@
 		ticketNumber  = $( '#wporg_parsed_ticket' ),
 		attachButton  = $( '#wporg_ticket_attach' ),
 		detachButton  = $( '#wporg_ticket_detach' ),
-		ticketInfo    = $( '#wporg_parsed_ticket_info' ),
+		ticketInfo    = $( '#wporg_ticket_info' ),
 		spinner       = $( '#ticket_status .spinner' );
 
 	var handleTicket = function( event ) {
