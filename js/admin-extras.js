@@ -3,7 +3,7 @@
  */
 
 ( function( $ ) {
-	var editorOuter   = $( '#wporg_editor_outer' ),
+	var parsedContent = $( '.wporg_parsed_content' ),
 		ticketNumber  = $( '#wporg_parsed_ticket' ),
 		attachButton  = $( '#wporg_ticket_attach' ),
 		detachButton  = $( '#wporg_ticket_detach' ),
@@ -26,7 +26,7 @@
 			action:  attachAction ? 'wporg_attach_ticket' : 'wporg_detach_ticket',
 			ticket:  ticketNumber.val(),
 			nonce:   $this.data( 'nonce' ),
-			post_id: editorOuter.data( 'id' )
+			post_id: $this.data( 'id' )
 		};
 
 		$.post( wporg.ajaxURL, data, function( resp ) {
@@ -40,8 +40,10 @@
 
 			// Handle the response.
 			if ( resp.type && 'success' == resp.type ) {
-				// Hide or show the editor.
-				attachAction ? editorOuter.slideDown() : editorOuter.slideUp();
+				// Hide or show the parsed content boxes.
+				parsedContent.each( function() {
+					attachAction ? $(this).slideDown() : $(this).slideUp();
+				});
 
 				var otherButton = attachAction ? detachButton : attachButton;
 

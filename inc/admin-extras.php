@@ -53,6 +53,7 @@ class WPORG_Admin_Extras {
 	 */
 	public function add_meta_boxes() {
 		if ( in_array( $screen = get_current_screen()->id, $this->post_types ) && current_user_can( 'manage_options' ) ) {
+			remove_meta_box( 'postexcerpt', $screen, 'normal' );
 			add_meta_box( 'wporg_parsed_content', __( 'Manage Parsed Content', 'wporg' ), array( $this, 'parsed_meta_box_cb' ), $screen, 'normal' );
 		}
 	}
@@ -110,10 +111,10 @@ class WPORG_Admin_Extras {
 				<td>
 					<span class="attachment_controls">
 						<input type="text" name="wporg_parsed_ticket" id="wporg_parsed_ticket" value="<?php echo esc_attr( $ticket ); ?>" />
-						<a href="#attach-ticket" class="button secondary <?php echo $ticket ? 'hidden' : ''; ?>" id="wporg_ticket_attach" name="wporg_ticket_attach" aria-label="<?php esc_attr_e( 'Attach a Core Trac ticket', 'wporg' ); ?>" data-nonce="<?php echo wp_create_nonce( 'wporg-attach-ticket' ); ?>">
+						<a href="#attach-ticket" class="button secondary <?php echo $ticket ? 'hidden' : ''; ?>" id="wporg_ticket_attach" name="wporg_ticket_attach" aria-label="<?php esc_attr_e( 'Attach a Core Trac ticket', 'wporg' ); ?>" data-nonce="<?php echo wp_create_nonce( 'wporg-attach-ticket' ); ?>" data-id="<?php the_ID(); ?>">
 							<?php esc_attr_e( 'Attach Ticket', 'wporg' ); ?>
 						</a>
-						<a href="#detach-ticket" class="button secondary <?php echo $ticket ? '' : 'hidden'; ?>" id="wporg_ticket_detach" name="wporg_ticket_detach" aria-label="<?php esc_attr_e( 'Detach the Trac ticket', 'wporg' ); ?>" data-nonce="<?php echo wp_create_nonce( 'wporg-detach-ticket' ); ?>">
+						<a href="#detach-ticket" class="button secondary <?php echo $ticket ? '' : 'hidden'; ?>" id="wporg_ticket_detach" name="wporg_ticket_detach" aria-label="<?php esc_attr_e( 'Detach the Trac ticket', 'wporg' ); ?>" data-nonce="<?php echo wp_create_nonce( 'wporg-detach-ticket' ); ?>" data-id="<?php the_ID(); ?>">
 							<?php esc_attr_e( 'Detach Ticket', 'wporg' ); ?>
 						</a>
 					</span>
@@ -124,9 +125,17 @@ class WPORG_Admin_Extras {
 					</div>
 				</td>
 			</tr>
-			<tr valign="top" id="wporg_editor_outer" class="<?php echo $ticket ? '' : 'hidden'; ?>" data-id="<?php the_id(); ?>">
+			<tr valign="top" class="wporg_parsed_content <?php echo $ticket ? '' : 'hidden'; ?>">
 				<th scope="row">
-					<label for="wporg_parsed_content"><?php _e( 'Parsed Content:', 'wporg' ); ?></label>
+					<label for="excerpt"><?php _e( 'Parsed Description:', 'wporg' ); ?></label>
+				</th>
+				<td>
+					<textarea rows="1" cols="40" name="excerpt" id="excerpt"><?php echo $post->post_excerpt; ?></textarea>
+				</td>
+			</tr>
+			<tr valign="top" class="wporg_parsed_content <?php echo $ticket ? '' : 'hidden'; ?>" data-id="<?php the_id(); ?>">
+				<th scope="row">
+					<label for="wporg_parsed_content"><?php _e( 'Parsed Summary:', 'wporg' ); ?></label>
 				</th>
 				<td>
 					<?php wp_editor( $content, 'wporg_parsed_content_editor', array(
