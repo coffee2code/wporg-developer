@@ -22,6 +22,11 @@ require __DIR__ . '/inc/customizer.php';
  */
 require __DIR__ . '/inc/jetpack.php';
 
+/**
+ * Admin extras for the Function, Class, Hook, and Method screens.
+ */
+require_once( __DIR__ . '/inc/admin-extras.php' );
+
 if ( ! function_exists( 'loop_pagination' ) ) {
 	require __DIR__ . '/inc/loop-pagination.php';
 }
