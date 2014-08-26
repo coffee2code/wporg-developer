@@ -24,7 +24,7 @@ class DevHub_User_Submitted_Content {
 	 *
 	 * In order to submit code examples, users must be able to post with less restrictions.
 	 */
-	public static do_init() {
+	public static function do_init() {
 
 		// Restricts commenting to logged in users.
 		add_filter( 'comments_open',                    array( __CLASS__, 'prevent_invalid_comment_submissions' ), 10, 2 );
