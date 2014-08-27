@@ -30,15 +30,15 @@ class WPORG_Edit_Parsed_Content {
 		$this->post_types = array( 'wp-parser-function', 'wp-parser-class', 'wp-parser-hook', 'wp-parser-method' );
 
 		// Data.
-		add_action( 'add_meta_boxes',                   array( $this, 'add_meta_boxes'        ) );
-		add_action( 'save_post',                        array( $this, 'save_post'             ) );
+		add_action( 'add_meta_boxes',              array( $this, 'add_meta_boxes'        ) );
+		add_action( 'save_post',                   array( $this, 'save_post'             ) );
 
-		// Script.
-		add_action( 'admin_enqueue_scripts',            array( $this, 'admin_enqueue_scripts' ) );
+		// Script and styles.
+		add_action( 'admin_enqueue_scripts',       array( $this, 'admin_enqueue_scripts' ) );
 
 		// AJAX.
-		add_action( 'wp_ajax_wporg_attach_ticket',      array( $this, 'attach_ticket'          ) );
-		add_action( 'wp_ajax_wporg_detach_ticket',      array( $this, 'detach_ticket'          ) );
+		add_action( 'wp_ajax_wporg_attach_ticket', array( $this, 'attach_ticket'         ) );
+		add_action( 'wp_ajax_wporg_detach_ticket', array( $this, 'detach_ticket'         ) );
 
 		// Register meta fields.
 		register_meta( 'post', 'wporg_ticket_number',  'absint',               '__return_false' );
@@ -102,7 +102,7 @@ class WPORG_Edit_Parsed_Content {
 						<span id="wporg_ticket_info"><em><?php echo $ticket_message; ?></em></span>
 					</div>
 				</td>
-			</tr>
+			</tr><!-- #ticket_controls -->
 			<tr valign="top" class="wporg_parsed_content <?php echo $ticket ? '' : 'hidden'; ?>">
 				<th scope="row">
 					<label for="excerpt"><?php _e( 'Parsed Description:', 'wporg' ); ?></label>
@@ -110,7 +110,7 @@ class WPORG_Edit_Parsed_Content {
 				<td>
 					<textarea rows="1" cols="40" name="excerpt" id="excerpt"><?php echo $post->post_excerpt; ?></textarea>
 				</td>
-			</tr>
+			</tr><!-- .wporg_parsed_content -->
 			<tr valign="top" class="wporg_parsed_content <?php echo $ticket ? '' : 'hidden'; ?>" data-id="<?php the_id(); ?>">
 				<th scope="row">
 					<label for="wporg_parsed_content"><?php _e( 'Parsed Summary:', 'wporg' ); ?></label>
@@ -124,14 +124,16 @@ class WPORG_Edit_Parsed_Content {
 						'textarea_name' => 'wporg_parsed_content'
 					) ); ?>
 				</td>
-			</tr>
+			</tr><!-- .wporg_parsed_content -->
 			</tbody>
 		</table>
 		<?php
 	}
 
 	/**
-	 * Handle saving post content extras.
+	 * Handle saving parsed content.
+	 *
+	 * Excerpt (short description) saving is handled by core.
 	 *
 	 * @access public
 	 *
@@ -206,12 +208,14 @@ class WPORG_Edit_Parsed_Content {
 
 			$link = sprintf( '<a href="%1$s">%2$s</a>', esc_url( $ticket_url ),  apply_filters( 'the_title', $title ) );
 
+			// Can haz success.
 			$message = array(
 				'type'    => 'success',
 				'message' => $link,
 			);
 
 		} else {
+			// Ticket number is invalid.
 			$message = array(
 				'type'    => 'invalid',
 				'message' => __( 'Invalid ticket number.', 'wporg' ),
@@ -234,6 +238,7 @@ class WPORG_Edit_Parsed_Content {
 
 		$post_id = empty( $_REQUEST['post_id'] ) ? 0 : absint( $_REQUEST['post_id'] );
 
+		// Attempt to detach the ticket.
 		if ( delete_post_meta( $post_id, 'wporg_ticket_number' )
 			&& delete_post_meta( $post_id, 'wporg_ticket_title' )
 		) {
@@ -242,6 +247,7 @@ class WPORG_Edit_Parsed_Content {
 				'message' => __( 'Ticket detached.', 'wporg' )
 			);
 		} else {
+			// Still attached.
 			$message = array(
 				'type'    => 'failure',
 				'message' => __( 'Ticket still attached.', 'wporg' )
