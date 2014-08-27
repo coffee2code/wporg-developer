@@ -23,7 +23,7 @@ require __DIR__ . '/inc/customizer.php';
 require __DIR__ . '/inc/jetpack.php';
 
 /**
- * Admin extras for the Function, Class, Hook, and Method screens.
+ * Class for editing parsed content on the Function, Class, Hook, and Method screens.
  */
 require_once( __DIR__ . '/inc/parsed-content.php' );
 
