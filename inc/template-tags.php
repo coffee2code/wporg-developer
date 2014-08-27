@@ -92,8 +92,8 @@ namespace {
 
 				<li id="comment-<?php comment_ID(); ?>" <?php comment_class( empty( $args['has_children'] ) ? '' : 'parent' ); ?>>
 				<article id="div-comment-<?php comment_ID(); ?>" class="comment-body">
-					<div class="comment-content code-example-container">
-						<pre class="brush: php; toolbar: false;"><?php comment_text(); /* Fully escaped via filter */ ?></pre>
+					<div class="comment-content">
+						<?php comment_text(); ?>
 					</div>
 					<!-- .comment-content -->
 
@@ -354,6 +354,8 @@ namespace DevHub {
 	function get_site_section_title() {
 		$parts = explode( '/', $_SERVER['REQUEST_URI'] );
 		switch ( $parts[1] ) {
+			case 'resources':
+				return sprintf( __( 'Developer Resources: %s', 'wporg' ), get_the_title() );
 			case 'reference':
 				return __( 'Code Reference', 'wporg' );
 			case 'plugin':
