@@ -153,7 +153,7 @@ class WPORG_Edit_Parsed_Content {
 	 * @access public
 	 */
 	public function admin_enqueue_scripts() {
-		// Only enqueue 'wporg-admin-extras' on Code Reference post type screens.
+		// Only enqueue 'wporg-parsed-content' script and styles on Code Reference post type screens.
 		if ( in_array( get_current_screen()->id, $this->post_types ) ) {
 			wp_enqueue_style( 'wporg-parsed-content', get_template_directory_uri() . '/stylesheets/admin.css', array(), '20140826' );
 			wp_enqueue_script( 'wporg-parsed-content', get_template_directory_uri() . '/js/parsed-content.js', array( 'jquery', 'utils' ), '20140826', true );
