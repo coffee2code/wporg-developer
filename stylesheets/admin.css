@@ -1,0 +1,24 @@
+/* =Admin CSS
+----------------------------------------------- */
+#wporg_parsed_ticket {
+  width: 100px;
+}
+
+#ticket_info_icon {
+  font-size: 14px;
+}
+
+#ticket_status .spinner {
+  position: relative;
+  bottom: 4px;
+  float: none;
+}
+
+#ticket_info_icon {
+  color: #a00;
+}
+
+.attachment_controls {
+  margin-bottom: 10px;
+  display: block;
+}

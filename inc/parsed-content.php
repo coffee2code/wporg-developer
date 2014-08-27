@@ -80,27 +80,6 @@ class WPORG_Edit_Parsed_Content {
 		}
 		wp_nonce_field( 'wporg-parsed-content', 'wporg-parsed-content-nonce' );
 		?>
-		<style type="text/css">
-			#wporg_parsed_ticket {
-				width: 100px;
-			}
-			#ticket_info_icon {
-				font-size: 14px;
-			}
-			#ticket_status .spinner {
-				position: relative;
-				bottom: 4px;
-				float: none;
-			}
-			#ticket_info_icon {
-				color: #a00;
-			}
-			.attachment_controls {
-				margin-bottom: 10px;
-				display: block;
-			}
-		</style>
-
 		<table class="form-table">
 			<tbody>
 			<tr valign="top" id="ticket_controls">
@@ -169,16 +148,17 @@ class WPORG_Edit_Parsed_Content {
 	}
 
 	/**
-	 * Enqueue JS on the post-edit and post-new screens.
+	 * Enqueue JS and CSS on the edit screens for all four post types.
 	 *
 	 * @access public
 	 */
 	public function admin_enqueue_scripts() {
 		// Only enqueue 'wporg-admin-extras' on Code Reference post type screens.
 		if ( in_array( get_current_screen()->id, $this->post_types ) ) {
-			wp_enqueue_script( 'wporg-admin-extras', get_template_directory_uri() . '/js/admin-extras.js', array( 'jquery', 'utils' ), '1.0', true );
+			wp_enqueue_style( 'wporg-parsed-content', get_template_directory_uri() . '/stylesheets/admin.css', array(), '20140826' );
+			wp_enqueue_script( 'wporg-parsed-content', get_template_directory_uri() . '/js/parsed-content.js', array( 'jquery', 'utils' ), '20140826', true );
 
-			wp_localize_script( 'wporg-admin-extras', 'wporg', array(
+			wp_localize_script( 'wporg-parsed-content', 'wporg', array(
 				'ajaxURL'    => admin_url( 'admin-ajax.php' ),
 				'searchText' => __( 'Searching ...', 'wporg' ),
 			) );
