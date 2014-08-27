@@ -1,15 +1,15 @@
 <?php
 /**
- * Code Reference admin extras
+ * Class to handle editing parsed content.
  *
  * @package wporg-developer
  */
 
 /**
- * Class to handle admin extras for the Function-, Class-, Hook-,
+ * Class to handle editing parsed content for the Function-, Class-, Hook-,
  * and Method-editing screens.
  */
-class WPORG_Admin_Extras {
+class WPORG_Edit_Parsed_Content {
 
 	/**
 	 * Post types array.
@@ -36,7 +36,7 @@ class WPORG_Admin_Extras {
 		// Script.
 		add_action( 'admin_enqueue_scripts',            array( $this, 'admin_enqueue_scripts' ) );
 
-		// AJAX
+		// AJAX.
 		add_action( 'wp_ajax_wporg_attach_ticket',      array( $this, 'attach_ticket'          ) );
 		add_action( 'wp_ajax_wporg_detach_ticket',      array( $this, 'detach_ticket'          ) );
 
@@ -72,11 +72,10 @@ class WPORG_Admin_Extras {
 		$content      = get_post_meta( $post->ID, 'wporg_parsed_content', true );
 
 		if ( $ticket ) {
-			$src  = "http://core.trac.wordpress.org/ticket/{$ticket}";
+			$src  = "https://core.trac.wordpress.org/ticket/{$ticket}";
 			$ticket_message = sprintf( '<a href="%1$s">%2$s</a>', esc_url( $src ), apply_filters( 'the_title', $ticket_label ) );
 		} else {
 			$link = sprintf( '<a href="https://core.trac.wordpress.org/newticket">%s</a>', __( 'Core Trac', 'wporg' ) );
-			/* translators: 1: Meta Trac link. */
 			$ticket_message = sprintf( __( 'A valid, open ticket from %s is required to edit parsed content.', 'wporg' ), $link );
 		}
 		wp_nonce_field( 'wporg-parsed-content', 'wporg-parsed-content-nonce' );
@@ -275,6 +274,6 @@ class WPORG_Admin_Extras {
 		die( json_encode( $message ) );
 	}
 
-} // WPORG_Admin_Extras
+} // WPORG_Edit_Parsed_Content
 
-$extras = new WPORG_Admin_Extras();
+$extras = new WPORG_Edit_Parsed_Content();
