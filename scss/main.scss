@@ -1157,6 +1157,10 @@
 		ul,
 		ol {
 			margin: 10px 20px;
+			ul,
+			ol {
+				margin-right: 0;
+			}
 		}
 	}
 

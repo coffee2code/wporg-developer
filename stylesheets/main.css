@@ -1289,6 +1289,12 @@ input {
 .devhub-wrap .table-of-contents ol {
   margin: 10px 20px;
 }
+.devhub-wrap .table-of-contents ul ul,
+.devhub-wrap .table-of-contents ul ol,
+.devhub-wrap .table-of-contents ol ul,
+.devhub-wrap .table-of-contents ol ol {
+  margin-right: 0;
+}
 .devhub-wrap ul.items {
   margin-bottom: 8px !important;
   list-style-type: none !important;
