@@ -21,8 +21,21 @@
 	}
 	#content, #content-area {
 		padding: 0 10px;
+
 		.toc-heading {
-			clear:left;
+			clear: left;
+		}
+
+		table {
+			border: 1px solid #f0f0f0;
+			th {
+				padding: 1em;
+				border-bottom: 1px solid #f0f0f0;
+				background: #f0f0f0;
+			}
+			td {
+				padding: 0.8em 1em;
+			}
 		}
 	}
 	#content-area,
@@ -420,7 +433,7 @@
 		font-size: 1.3rem;
 	}
 	.breadcrumb-trail {
-		margin-bottom: 1em;
+		margin-bottom: 1.25em;
 	}
 	h1.entry-title,
 	h1.page-title {
